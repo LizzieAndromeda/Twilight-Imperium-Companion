@@ -74,6 +74,33 @@ export interface Faction extends ExpansionScoped {
   difficulty: "Low" | "Medium" | "High";
 }
 
+/* ----------------------------------------------------------- action cards */
+
+/** The phase an action card can be played in. */
+export type ActionCardPhase =
+  | "Strategy"
+  | "Action"
+  | "Status"
+  | "Agenda"
+  | "Any";
+
+export interface ActionCard extends ExpansionScoped {
+  id: string;
+  name: string;
+  phase: ActionCardPhase;
+  /** The printed timing line, e.g. "After an agenda is revealed". */
+  window: string;
+  text: string;
+  flavor?: string;
+  /**
+   * A community rules clarification for an interaction that has needed
+   * settling at the table. Most cards do not have one.
+   */
+  note?: string;
+  /** How many copies of this card are in the deck. */
+  copies: number;
+}
+
 /* -------------------------------------------------------- strategy cards */
 
 export interface StrategyCard {

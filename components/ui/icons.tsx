@@ -142,3 +142,12 @@ export const RotateIcon = (p: IconProps) => (
     <path d="M3 3v5h5" />
   </Icon>
 );
+
+/** Action card deck. */
+export const LayersIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m12 2 9 5-9 5-9-5 9-5Z" />
+    <path d="m3 12 9 5 9-5" />
+    <path d="m3 17 9 5 9-5" />
+  </Icon>
+);

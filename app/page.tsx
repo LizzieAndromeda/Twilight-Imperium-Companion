@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { RULES } from "@/data/rules";
 import { FACTIONS } from "@/data/factions";
 import { PUBLIC_OBJECTIVES } from "@/data/objectives";
+import { ACTION_CARDS } from "@/data/actionCards";
 import { EXPANSIONS } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { useGame, PHASE_LABEL } from "@/state/GameProvider";
@@ -12,6 +13,7 @@ import { Badge, Button, Card, SectionHeading } from "@/components/ui";
 import {
   BookIcon,
   ChevronRightIcon,
+  LayersIcon,
   SwordsIcon,
   TargetIcon,
   UsersIcon,
@@ -47,6 +49,7 @@ export default function OverviewPage() {
       rules: scope(RULES).length,
       factions: scope(FACTIONS).length,
       objectives: scope(PUBLIC_OBJECTIVES).length,
+      actionCards: scope(ACTION_CARDS).length,
     }),
     [scope],
   );
@@ -120,6 +123,13 @@ export default function OverviewPage() {
           count={hydrated ? counts.rules : null}
           name="Rules reference"
           body="Searchable entries for the rules that actually stop play — combat steps, movement restrictions, scoring windows."
+        />
+        <NavTile
+          href="/action-cards"
+          icon={<LayersIcon size={18} />}
+          count={hydrated ? counts.actionCards : null}
+          name="Action cards"
+          body="The whole deck with timing windows, deck copy counts and the community clarifications for the interactions that come up."
         />
         <NavTile
           href="/factions"

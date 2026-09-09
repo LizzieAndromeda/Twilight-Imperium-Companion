@@ -9,6 +9,10 @@ this app is not affiliated with or endorsed by them.
 
 ## What it does
 
+- **Action cards** — the complete deck (93 unique cards, 122 physical copies across
+  the base game, Prophecy of Kings and Codex I), searchable by name, timing window
+  and text, filterable by phase, with deck copy counts and community rules
+  clarifications.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong.
@@ -47,12 +51,13 @@ Requires Node 20+.
 ### Layout
 
 ```
-app/                    routes: overview, rules, factions, reference, tracker
+app/                    routes: overview, rules, action cards, factions, reference, tracker
 components/
   ui/                   design system primitives (Button, Card, Field, Modal, …)
   layout/               app shell, top nav, expansion settings dialog
   tracker/              game setup, board, player cards, objectives panel
-data/                   rules, factions, strategy cards, objectives
+data/                   rules, factions, action cards, strategy cards, objectives
+scripts/                data generators
 lib/                    types, expansion registry, storage
 state/                  SettingsProvider (expansions), GameProvider (the game)
 styles/tokens.css       every colour, space, radius and font in the app
@@ -75,12 +80,33 @@ the app, correctly filtered, with no other changes.
 To add a new expansion, add it to `EXPANSIONS` in `lib/expansions.ts` and it gains a
 checkbox automatically.
 
+### Regenerating the action card data
+
+`data/actionCards.ts` is generated, not hand-written:
+
+```bash
+npm run gen:action-cards
+```
+
+It pulls from the [AsyncTI4 map generator bot](https://github.com/AsyncTI4/TI4_map_generator_bot),
+whose game data is released into the public domain (that licence explicitly
+excludes art assets, which this project does not use). The upstream dump lists
+one entry per physical card, so the script collapses duplicates into a `copies`
+count. It also drops the `asteroid` variant deck, whose entries all repeat cards
+that already exist under the base game, Prophecy of Kings or Codex I.
+
 ## About the game content
 
 The rules, faction and objective text in `data/` is a **curated, paraphrased digest**
 written for quick lookup at the table — not a reproduction of the rulebook, and not
 complete. The objective lists in particular are a working subset (the tracker always
 lets you type in a card it does not carry).
+
+The **action cards are the exception**: that text is generated from the upstream
+dataset above rather than written by hand, so it is verbatim and complete for the
+products it covers. Their `note` field carries that project's rules clarifications
+for interactions the community has had to settle — 17 of the 93 cards have one, and
+nothing has been invented to fill the gap for the rest.
 
 The official Living Rules Reference is authoritative. Where this app disagrees with
 it, this app is wrong — corrections to `data/` are the most useful contribution.
