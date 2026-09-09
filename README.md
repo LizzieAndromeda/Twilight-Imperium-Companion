@@ -17,8 +17,11 @@ this app is not affiliated with or endorsed by them.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong.
-- **Factions** — every faction your enabled expansions bring in, with abilities,
-  a complexity rating and a read on how each one wants to be played.
+- **Factions** — all 30, including the five from Thunder's Edge. Faction
+  abilities, leaders (agent, commander, hero, with their Omega revisions), the
+  flagship and mech, the Thunder's Edge breakthrough, home planets, starting
+  units and tech, and the FAQ rulings for that faction — all taken from the
+  faction sheets, plus a hand-written read on how each one wants to be played.
 - **Reference tables** — all eight strategy cards with both abilities, and the public
   objective decks split by stage.
 - **Game tracker** — rounds and phases, initiative order, victory points, revealed
@@ -58,6 +61,8 @@ components/
   layout/               app shell, top nav, expansion settings dialog
   tracker/              game setup, board, player cards, objectives panel
 data/                   rules, factions, action cards, strategy cards, objectives
+  *.generated.ts        scraped — never hand-edit, regenerate instead
+  factionNotes.ts       hand-written editorial, safe from regeneration
 scripts/                data generators
 lib/                    types, expansion registry, storage
 state/                  SettingsProvider (expansions), GameProvider (the game)
@@ -81,13 +86,26 @@ the app, correctly filtered, with no other changes.
 To add a new expansion, add it to `EXPANSIONS` in `lib/expansions.ts` and it gains a
 checkbox automatically.
 
-### Regenerating the action card data
+### Regenerating the scraped data
 
-`data/actionCards.ts` is generated, not hand-written:
+Two datasets are generated rather than hand-written:
 
 ```bash
-npm run gen:action-cards
+npm run gen:action-cards   # data/actionCards.ts
+npm run gen:factions       # data/factions.generated.ts
 ```
+
+Both are deterministic — running them twice gives byte-identical output — and
+both print a warning list rather than failing silently when a source changes
+shape. Neither touches `data/factionNotes.ts`, which holds the hand-written
+tagline and playstyle for each faction.
+
+**Faction data** is scraped from the individual faction pages on the wiki:
+abilities, leaders and their Omega revisions, flagship, mech, Thunder's Edge
+breakthrough, setup details and FAQ. Faction ids are pinned in the script
+because saved games store `factionId` — an id must never change once shipped.
+
+**Action card data**:
 
 It merges two public sources:
 
@@ -113,20 +131,27 @@ disagreement rather than silently preferring one. Two known handling decisions:
 
 ## About the game content
 
-The rules, faction and objective text in `data/` is a **curated, paraphrased digest**
-written for quick lookup at the table — not a reproduction of the rulebook, and not
-complete. The objective lists in particular are a working subset (the tracker always
-lets you type in a card it does not carry).
+Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
-The **action cards are the exception**: that text is generated from the upstream
-sources above rather than written by hand, so it is verbatim and complete for the
-products it covers. 17 cards carry a community clarification note and 21 carry an
-official FAQ ruling; the rest have neither, and nothing has been invented to fill
-the gap.
+**Scraped, verbatim** — action cards and faction sheets. Generated from the
+sources above, complete for the products they cover, and regenerable. Trust
+these at the table.
 
-**Thunder's Edge coverage is action cards only.** The 2025 expansion also adds
-factions, worlds, Galactic Events and leaders, none of which are catalogued in
-`data/` yet — enabling it changes the action card list and nothing else.
+**Hand-written, paraphrased** — the rules reference, public objectives, strategy
+cards, and the faction taglines and playstyles. A curated digest for quick
+lookup, not a reproduction of the rulebook and not complete. The objective lists
+in particular are a working subset (the tracker always lets you type in a card it
+does not carry).
+
+The move from the second tier to the first is the point of the generators. When
+faction data was hand-written, MITOSIS was recorded as "place 1 infantry each
+status phase" with no mention that Arborec space docks *cannot produce infantry
+at all* — an ability quoted without its drawback reads as a straight buff. That
+class of error is why the sheets are scraped now.
+
+**Thunder's Edge coverage is action cards and factions.** The 2025 expansion also
+adds worlds, Galactic Events and other components that are not catalogued in
+`data/` yet, and the rules reference has no Thunder's Edge entries.
 
 The official Living Rules Reference is authoritative. Where this app disagrees with
 it, this app is wrong — corrections to `data/` are the most useful contribution.

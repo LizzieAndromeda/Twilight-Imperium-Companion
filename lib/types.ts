@@ -63,17 +63,64 @@ export interface Rule extends ExpansionScoped {
 
 /* --------------------------------------------------------------- factions */
 
-export interface Faction extends ExpansionScoped {
+export interface FactionLeader {
+  role: "Agent" | "Commander" | "Hero";
+  name: string;
+  /** What has to be true before the leader unlocks. */
+  unlock: string;
+  ability: string;
+}
+
+export interface FactionFlagship {
+  name: string;
+  cost: string;
+  combat: string;
+  move: string;
+  capacity: string;
+  text: string;
+}
+
+export interface FactionUnitCard {
+  name: string;
+  text: string;
+}
+
+/**
+ * The mechanical half of a faction, scraped from the wiki into
+ * `data/factions.generated.ts`. Never hand-edited.
+ */
+export interface GeneratedFaction extends ExpansionScoped {
   id: string;
   name: string;
   /** Short form used on the tracker where space is tight. */
   shortName: string;
-  /** Flavour line from the faction sheet. */
-  tagline: string;
-  abilities: { name: string; text: string }[];
-  /** Notes on how the faction wants to be played. */
-  playstyle: string;
   difficulty: "Low" | "Medium" | "High";
+  /** Plastic colour(s) the faction ships with. */
+  color?: string;
+  commodities?: number;
+  homePlanets?: string[];
+  startingUnits?: string[];
+  startingTech?: string[];
+  abilities: { name: string; text: string }[];
+  leaders?: FactionLeader[];
+  flagship?: FactionFlagship;
+  mech?: FactionUnitCard;
+  /** Thunder's Edge breakthrough technology. */
+  breakthrough?: FactionUnitCard;
+  /** Official FAQ rulings from the faction's wiki page. */
+  faq?: string[];
+}
+
+/** Hand-written editorial colour, kept out of the generated file. */
+export interface FactionNote {
+  tagline: string;
+  playstyle: string;
+}
+
+/** A generated faction with its editorial notes merged in. */
+export interface Faction extends GeneratedFaction {
+  tagline?: string;
+  playstyle?: string;
 }
 
 /* ----------------------------------------------------------- action cards */

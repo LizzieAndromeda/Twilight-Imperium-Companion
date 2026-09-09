@@ -40,9 +40,12 @@ export default function FactionsPage() {
       if (!q) return true;
       return [
         faction.name,
-        faction.tagline,
-        faction.playstyle,
+        faction.tagline ?? "",
+        faction.playstyle ?? "",
         ...faction.abilities.flatMap((a) => [a.name, a.text]),
+        ...(faction.leaders ?? []).flatMap((l) => [l.name, l.ability]),
+        faction.flagship?.name ?? "",
+        faction.mech?.name ?? "",
       ]
         .join(" ")
         .toLowerCase()
@@ -54,8 +57,8 @@ export default function FactionsPage() {
     <>
       <PageHeader
         eyebrow="Factions"
-        title="Twenty-five ways to lose friends"
-        lede="Every faction your enabled expansions bring to the table, with abilities, a difficulty read and a note on what each one is actually trying to do."
+        title="Thirty ways to lose friends"
+        lede="Every faction your enabled expansions bring to the table — abilities, leaders, unique units and setup, straight off the faction sheet, with a note on what each one is actually trying to do."
       />
 
       <div className={styles.controls}>
@@ -83,8 +86,9 @@ export default function FactionsPage() {
 
       {results.length === 0 && hydrated ? (
         <EmptyState icon={<UsersIcon size={26} />} title="No factions match">
-          Nothing here fits that search. Prophecy of Kings and Codex III add
-          another eight factions — enable them from the top bar.
+          Nothing here fits that search. Prophecy of Kings, Codex III and
+          Thunder&apos;s Edge add another 13 factions between them — enable them
+          from the top bar.
         </EmptyState>
       ) : (
         <div className={styles.grid}>
@@ -106,7 +110,9 @@ export default function FactionsPage() {
               <div className={styles.cardTop}>
                 <h3 className={styles.name}>{faction.name}</h3>
               </div>
-              <p className={styles.tagline}>{faction.tagline}</p>
+              <p className={styles.tagline}>
+                {faction.tagline ?? faction.abilities[0]?.text ?? ""}
+              </p>
               <div className={styles.cardFoot}>
                 <Badge tone={DIFFICULTY_TONE[faction.difficulty]}>
                   {faction.difficulty}
@@ -128,6 +134,7 @@ export default function FactionsPage() {
       <Modal
         open={selected !== null}
         onOpenChange={(open) => !open && setSelected(null)}
+        wide
         title={selected?.name ?? ""}
         description={selected ? EXPANSION_BY_ID[selected.expansion].name : undefined}
       >
@@ -137,10 +144,18 @@ export default function FactionsPage() {
   );
 }
 
+const LEADER_CLASS = {
+  Agent: styles.leaderAgent,
+  Commander: styles.leaderCommander,
+  Hero: styles.leaderHero,
+} as const;
+
 function FactionDetail({ faction }: { faction: Faction }) {
   return (
     <div>
-      <p className={styles.detailTagline}>{faction.tagline}</p>
+      {faction.tagline ? (
+        <p className={styles.detailTagline}>{faction.tagline}</p>
+      ) : null}
 
       <div className={styles.detailMeta}>
         <Badge tone={DIFFICULTY_TONE[faction.difficulty]}>
@@ -149,26 +164,134 @@ function FactionDetail({ faction }: { faction: Faction }) {
         <Badge tone={faction.expansion === "base" ? "neutral" : "plasma"}>
           {EXPANSION_BY_ID[faction.expansion].shortName}
         </Badge>
+        {faction.color ? <Badge>{faction.color}</Badge> : null}
       </div>
 
       <h4 className={styles.subhead}>Faction abilities</h4>
-      {faction.abilities.length ? (
-        <div className={styles.abilities}>
-          {faction.abilities.map((ability) => (
-            <div key={ability.name} className={styles.ability}>
-              <p className={styles.abilityName}>{ability.name}</p>
-              <p className={styles.abilityText}>{ability.text}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className={styles.missing}>
-          Not catalogued yet — check the printed faction sheet.
-        </p>
-      )}
+      <div className={styles.abilities}>
+        {faction.abilities.map((ability) => (
+          <div key={ability.name} className={styles.ability}>
+            <p className={styles.abilityName}>{ability.name}</p>
+            <p className={styles.abilityText}>{ability.text}</p>
+          </div>
+        ))}
+      </div>
 
-      <h4 className={styles.subhead}>How it plays</h4>
-      <p className={styles.playstyle}>{faction.playstyle}</p>
+      <h4 className={styles.subhead}>Setup</h4>
+      <div className={styles.statGrid}>
+        {faction.homePlanets?.length ? (
+          <Stat label="Home planets" items={faction.homePlanets} />
+        ) : null}
+        {faction.startingUnits?.length ? (
+          <Stat label="Starting units" items={faction.startingUnits} />
+        ) : null}
+        {faction.startingTech?.length ? (
+          <Stat label="Starting tech" items={faction.startingTech} />
+        ) : null}
+        {faction.commodities !== undefined ? (
+          <Stat label="Commodities" items={[String(faction.commodities)]} />
+        ) : null}
+      </div>
+
+      {faction.leaders?.length ? (
+        <>
+          <h4 className={styles.subhead}>Leaders</h4>
+          <div className={styles.stack}>
+            {faction.leaders.map((leader, i) => (
+              <div
+                key={`${leader.role}-${leader.name}-${i}`}
+                className={[styles.leader, LEADER_CLASS[leader.role]].join(" ")}
+              >
+                <div className={styles.leaderTop}>
+                  <Badge>{leader.role}</Badge>
+                  <span className={styles.leaderName}>{leader.name}</span>
+                  {leader.unlock ? (
+                    <span className={styles.leaderUnlock}>{leader.unlock}</span>
+                  ) : null}
+                </div>
+                <p className={styles.abilityText}>{leader.ability}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {faction.flagship || faction.mech || faction.breakthrough ? (
+        <>
+          <h4 className={styles.subhead}>Unique units</h4>
+          <div className={styles.stack}>
+            {faction.flagship ? (
+              <div className={styles.ability}>
+                <p className={styles.abilityName}>
+                  {faction.flagship.name} — Flagship
+                </p>
+                <p className={styles.unitStats}>
+                  <span>
+                    Cost <b>{faction.flagship.cost}</b>
+                  </span>
+                  <span>
+                    Combat <b>{faction.flagship.combat}</b>
+                  </span>
+                  <span>
+                    Move <b>{faction.flagship.move}</b>
+                  </span>
+                  <span>
+                    Capacity <b>{faction.flagship.capacity}</b>
+                  </span>
+                </p>
+                <p className={styles.abilityText}>{faction.flagship.text}</p>
+              </div>
+            ) : null}
+            {faction.mech ? (
+              <div className={styles.ability}>
+                <p className={styles.abilityName}>{faction.mech.name} — Mech</p>
+                <p className={styles.abilityText}>{faction.mech.text}</p>
+              </div>
+            ) : null}
+            {faction.breakthrough ? (
+              <div className={styles.ability}>
+                <p className={styles.abilityName}>
+                  {faction.breakthrough.name} — Breakthrough
+                </p>
+                <p className={styles.abilityText}>{faction.breakthrough.text}</p>
+              </div>
+            ) : null}
+          </div>
+        </>
+      ) : null}
+
+      {faction.playstyle ? (
+        <>
+          <h4 className={styles.subhead}>How it plays</h4>
+          <p className={styles.playstyle}>{faction.playstyle}</p>
+        </>
+      ) : null}
+
+      {faction.faq?.length ? (
+        <>
+          <h4 className={styles.subhead}>FAQ</h4>
+          <div className={styles.stack}>
+            {faction.faq.map((entry, i) => (
+              <p key={i} className={styles.faq}>
+                {entry}
+              </p>
+            ))}
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function Stat({ label, items }: { label: string; items: string[] }) {
+  return (
+    <div className={styles.stat}>
+      <p className={styles.statLabel}>{label}</p>
+      <ul className={styles.statList}>
+        {items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }

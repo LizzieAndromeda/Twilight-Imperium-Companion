@@ -59,7 +59,7 @@ export const EXPANSIONS: Expansion[] = [
     shortName: "Thunder's Edge",
     year: "2025",
     description:
-      "The second big-box expansion. Adds 14 action cards plus Omega replacements for eight Codex I cards. Only the action cards are catalogued here so far.",
+      "The second big-box expansion. Adds 5 factions and 14 action cards, plus Omega replacements for eight Codex I cards. Its worlds and Galactic Events are not catalogued here yet.",
   },
   {
     id: "twilightsfall",
