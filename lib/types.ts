@@ -63,7 +63,7 @@ export interface Rule extends ExpansionScoped {
 
 /* --------------------------------------------------------------- factions */
 
-export interface FactionLeader {
+export interface FactionLeader extends ExpansionScoped {
   role: "Agent" | "Commander" | "Hero";
   name: string;
   /** What has to be true before the leader unlocks. */
@@ -80,7 +80,7 @@ export interface FactionFlagship {
   text: string;
 }
 
-export interface FactionUnitCard {
+export interface FactionUnitCard extends ExpansionScoped {
   name: string;
   text: string;
   /**
@@ -91,7 +91,7 @@ export interface FactionUnitCard {
 }
 
 /** A faction technology or promissory note — both are a named card. */
-export interface FactionCard {
+export interface FactionCard extends ExpansionScoped {
   name: string;
   text: string;
   /** Technology colour, for faction technologies. */
@@ -215,6 +215,8 @@ export type TechnologyKind = "basic" | "faction" | "unit-upgrade";
 export interface TechRevision {
   label: string;
   text: string;
+  /** The codex that published this rewrite, so it can be hidden if disabled. */
+  expansion?: ExpansionId;
 }
 
 /** The unit a unit-upgrade technology replaces, with its new stats. */
@@ -292,8 +294,10 @@ export interface PublicObjective extends ExpansionScoped {
   name: string;
   stage: ObjectiveStage;
   requirement: string;
-  /** The Codex III revision of this card's requirement, where one exists. */
+  /** The Codex revision of this card's requirement, where one exists. */
   omega?: string;
+  /** Which codex published that revision, so it can be hidden if disabled. */
+  omegaExpansion?: ExpansionId;
 }
 
 /** The phase a secret objective's timing window falls in. */
@@ -304,8 +308,10 @@ export interface SecretObjective extends ExpansionScoped {
   name: string;
   phase: SecretObjectivePhase;
   requirement: string;
-  /** The Codex III revision of this card's requirement, where one exists. */
+  /** The Codex revision of this card's requirement, where one exists. */
   omega?: string;
+  /** Which codex published that revision, so it can be hidden if disabled. */
+  omegaExpansion?: ExpansionId;
 }
 
 /* --------------------------------------------------------------- tracker */

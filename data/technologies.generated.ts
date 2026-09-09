@@ -146,8 +146,8 @@ export const TECHNOLOGIES: Technology[] = [
     text: "* You may exhaust this card at the start of a round of ground combat on a planet that contains 1 or more of your units that have Planetary Shield; your opponent cannot make combat rolls this combat round.",
     startingFor: ["arborec"],
     revisions: [
-      { label: "Magen Defense Grid Ω", text: "* At the start of ground combat on a planet that contains 1 or more of your structures, you may produce 1 hit and assign it to 1 of your opponent's ground forces." },
-      { label: "Magen Defense Grid ΩΩ", text: "* When any player activates a system that contains 1 or more of your structures, place 1 infantry from your reinforcements with each of those structures.\n* At the start of ground combat on a planet that contains 1 or more of your structures, produce 1 hit and assign it to 1 of your opponent's ground forces." },
+      { label: "Magen Defense Grid Ω", text: "* At the start of ground combat on a planet that contains 1 or more of your structures, you may produce 1 hit and assign it to 1 of your opponent's ground forces.", expansion: "codex1" },
+      { label: "Magen Defense Grid ΩΩ", text: "* When any player activates a system that contains 1 or more of your structures, place 1 infantry from your reinforcements with each of those structures.\n* At the start of ground combat on a planet that contains 1 or more of your structures, produce 1 hit and assign it to 1 of your opponent's ground forces.", expansion: "codex4" },
     ],
   },
   {
@@ -248,8 +248,8 @@ export const TECHNOLOGIES: Technology[] = [
     prerequisites: ["biotic","biotic","biotic"],
     text: "* ACTION: Exhaust this card and choose 1 planet in a system that contains 1 or more of your ships that have BOMBARDMENT; destroy all infantry on that planet",
     revisions: [
-      { label: "X-89 Bacterial Weapon Ω", text: "* After 1 or more of your units use BOMBARDMENT against a planet, if at least 1 of your opponent's infantry was destroyed, you may destroy all of your opponent's infantry on that planet." },
-      { label: "X-89 Bacterial Weapon ΩΩ", text: "* Double the hits produced by your units' BOMBARDMENT and ground combat rolls.\n* Exhaust each planet you use BOMBARDMENT against." },
+      { label: "X-89 Bacterial Weapon Ω", text: "* After 1 or more of your units use BOMBARDMENT against a planet, if at least 1 of your opponent's infantry was destroyed, you may destroy all of your opponent's infantry on that planet.", expansion: "codex1" },
+      { label: "X-89 Bacterial Weapon ΩΩ", text: "* Double the hits produced by your units' BOMBARDMENT and ground combat rolls.\n* Exhaust each planet you use BOMBARDMENT against.", expansion: "codex4" },
     ],
   },
   {
@@ -432,7 +432,7 @@ export const TECHNOLOGIES: Technology[] = [
     text: "* Your ships can move into supernovas.\n* After 1 or more of your units use Production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good.",
     faction: "muaat",
     revisions: [
-      { label: "Magmus Reactor Ω", text: "* Your ships can move into supernovas.\n* Each supernova that contains 1 or more of your units gains the PRODUCTION 5 ability as if it were 1 of your units." },
+      { label: "Magmus Reactor Ω", text: "* Your ships can move into supernovas.\n* Each supernova that contains 1 or more of your units gains the PRODUCTION 5 ability as if it were 1 of your units.", expansion: "codex1" },
     ],
   },
   {
@@ -465,7 +465,7 @@ export const TECHNOLOGIES: Technology[] = [
     text: "* At the start of the status phase you may place 1 infantry from your reinforcements on a planet you control in your home system.\n* Flip this card if The Obsidian faction is in play.",
     faction: "firmament",
     revisions: [
-      { label: "Neural Parasite (Obsidian)", text: "* At the start of your turn destroy one of another player's infantry in or adjacent to a system that contains your infantry.\n* This technology cannot be researched." },
+      { label: "Neural Parasite (Obsidian)", text: "* At the start of your turn destroy one of another player's infantry in or adjacent to a system that contains your infantry.\n* This technology cannot be researched.", expansion: "thundersedge" },
     ],
   },
   {
@@ -508,7 +508,7 @@ export const TECHNOLOGIES: Technology[] = [
     text: "* When you gain this card put The Fracture into play.\n* Flip this card if The Obsidian faction is in play.",
     faction: "firmament",
     revisions: [
-      { label: "Planet Splitter (Obsidian)", text: "* At the start of your strategic action, you may move an ingress token into a system that contains or is adjacent to your units.\n* This technology cannot be researched." },
+      { label: "Planet Splitter (Obsidian)", text: "* At the start of your strategic action, you may move an ingress token into a system that contains or is adjacent to your units.\n* This technology cannot be researched.", expansion: "thundersedge" },
     ],
   },
   {
@@ -661,7 +661,7 @@ export const TECHNOLOGIES: Technology[] = [
     text: "* At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships.",
     faction: "creuss",
     revisions: [
-      { label: "Wormhole Generator Ω", text: "* ACTION: Exhaust this card to place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships" },
+      { label: "Wormhole Generator Ω", text: "* ACTION: Exhaust this card to place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships", expansion: "codex1" },
     ],
   },
   {
@@ -674,7 +674,7 @@ export const TECHNOLOGIES: Technology[] = [
     text: "* After 1 or more of your units use Production, place 1 infantry from your reinforcements on a planet you control in that system.",
     faction: "yin",
     revisions: [
-      { label: "Yin Spinner Ω", text: "* After you produce units, place up to 2 infantry from your reinforcements on any planet you control or in any space area that contains 1 or more of your ships" },
+      { label: "Yin Spinner Ω", text: "* After you produce units, place up to 2 infantry from your reinforcements on any planet you control or in any space area that contains 1 or more of your ships", expansion: "codex1" },
     ],
   },
   {

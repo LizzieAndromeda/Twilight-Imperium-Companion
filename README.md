@@ -102,6 +102,16 @@ the app, correctly filtered, with no other changes.
 To add a new expansion, add it to `EXPANSIONS` in `lib/expansions.ts` and it gains a
 checkbox automatically.
 
+**Expansion tags are not only on top-level records.** A faction sheet is not all
+from one product: leaders and mechs arrived with Prophecy of Kings and
+breakthroughs with Thunder's Edge, and they sit on base game faction sheets too.
+So leaders, mechs, breakthroughs, faction technologies, promissory notes and
+every Codex revision carry their own `expansion`, taken from the `{{Edition|…}}`
+marker on the wiki, and the UI filters each block on its own tag rather than
+inheriting the faction's. Anything nested that came from a different product
+needs the same treatment — including search fields, which should only match
+content that is actually on screen.
+
 ### Regenerating the scraped data
 
 Six datasets are generated rather than hand-written:

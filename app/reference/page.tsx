@@ -296,7 +296,7 @@ type SecretPhaseFilter = "all" | SecretObjectivePhase;
 const SECRET_PHASES: SecretObjectivePhase[] = ["Action", "Status", "Agenda"];
 
 function Secrets() {
-  const { scope, hydrated } = useSettings();
+  const { scope, isEnabled, hydrated } = useSettings();
   const [query, setQuery] = useState("");
   const [phase, setPhase] = useState<SecretPhaseFilter>("all");
 
@@ -361,9 +361,9 @@ function Secrets() {
                       <span className={styles.objPoints}>1 VP</span>
                     </div>
                     <p className={styles.objReq}>{objective.requirement}</p>
-                    {objective.omega ? (
+                    {objective.omega && isEnabled(objective.omegaExpansion ?? "codex3") ? (
                       <p className={styles.objOmega}>
-                        <span className={styles.omegaTag}>Ω Codex III</span>
+                        <span className={styles.omegaTag}>Ω {EXPANSION_BY_ID[objective.omegaExpansion ?? "codex3"].shortName}</span>
                         {objective.omega}
                       </p>
                     ) : null}
@@ -388,7 +388,7 @@ function Secrets() {
 type StageFilter = "all" | ObjectiveStage;
 
 function Objectives() {
-  const { scope, hydrated } = useSettings();
+  const { scope, isEnabled, hydrated } = useSettings();
   const [query, setQuery] = useState("");
   const [stage, setStage] = useState<StageFilter>("all");
 
@@ -464,9 +464,9 @@ function Objectives() {
                       </span>
                     </div>
                     <p className={styles.objReq}>{objective.requirement}</p>
-                    {objective.omega ? (
+                    {objective.omega && isEnabled(objective.omegaExpansion ?? "codex3") ? (
                       <p className={styles.objOmega}>
-                        <span className={styles.omegaTag}>Ω Codex III</span>
+                        <span className={styles.omegaTag}>Ω {EXPANSION_BY_ID[objective.omegaExpansion ?? "codex3"].shortName}</span>
                         {objective.omega}
                       </p>
                     ) : null}

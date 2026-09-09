@@ -93,6 +93,9 @@ function clean(s, { keepBreaks = false } = {}) {
 function sections(w) {
   const stack = []; // [{ level, key }]
   const s = { "(intro)": [] };
+  // A heading can carry an {{Edition|…}} marker naming the product that
+  // section came from; `clean` strips it, so it is captured separately.
+  const editions = {};
   stack.push({ level: 0, key: "(intro)" });
 
   for (const line of w.split("\n")) {
@@ -102,13 +105,32 @@ function sections(w) {
       while (stack.length && stack[stack.length - 1].level >= level) stack.pop();
       const key = clean(m[2]) ?? "";
       s[key] ??= [];
+      editions[key] ??= editionOf(m[2]);
       stack.push({ level, key });
     } else {
       // Append to every open ancestor so parents contain their subsections.
       for (const frame of stack) s[frame.key].push(line);
     }
   }
-  return Object.fromEntries(Object.entries(s).map(([k, v]) => [k, v.join("\n")]));
+  const text = Object.fromEntries(
+    Object.entries(s).map(([k, v]) => [k, v.join("\n")]),
+  );
+  return { text, editions };
+}
+
+/** Raw (uncleaned) cells, for when a row's `{{Edition}}` marker matters. */
+function tableRowsRaw(text) {
+  const m = text.match(/\{\|[\s\S]*?\n\|\}/);
+  if (!m) return [];
+  return m[0]
+    .split(/\n\|-\s*\n?/)
+    .slice(1)
+    .map((chunk) => {
+      const stop = chunk.indexOf("\n|}");
+      const c = stop === -1 ? chunk : chunk.slice(0, stop);
+      return c.split(/\n\|(?!\})/).map((x) => cellContent(x));
+    })
+    .filter((cells) => cells.some((x) => squash(clean(x) ?? "")));
 }
 
 /**
@@ -273,7 +295,9 @@ function namedCards(text) {
       ...chunk.slice(0, nameMatch.index).matchAll(/\{\{Tech\|([a-z]+)\}\}/gi),
     ].map((m) => m[1].toLowerCase());
 
-    const card = { name, text: quotes.join(" ") };
+    // A card can name the product it came from — Codex revisions of faction
+    // technologies and promissory notes do.
+    const card = { name, text: quotes.join(" "), expansion: editionOf(chunk) };
     if (colours.length) card.color = colours[0];
     if (prerequisites) card.prerequisites = prerequisites;
     if (card.text) out.push(card);
@@ -318,6 +342,33 @@ const listFrom = (raw) =>
 /* ------------------------------------------------------------ per faction */
 
 const warnings = [];
+
+/**
+ * `{{Edition|X}}` markers say which product a piece of a faction sheet comes
+ * from. A base-game faction still has a leader block, a mech and a breakthrough
+ * on its page, because those were added by later products — so each of those
+ * needs its own expansion tag rather than inheriting the faction's.
+ */
+const EDITION_TO_EXPANSION = {
+  "base game": "base",
+  "prophecy of kings": "pok",
+  "codex i": "codex1",
+  "codex ii": "codex2",
+  "codex iii": "codex3",
+  "codex iv": "codex4",
+  "thunder's edge": "thundersedge",
+  "thunders edge": "thundersedge",
+};
+
+/** Read the first `{{Edition|…}}` marker out of a chunk of raw wikitext. */
+function editionOf(raw) {
+  const m = String(raw ?? "").match(/\{\{Edition\|([^}|]+)/i);
+  if (!m) return null;
+  const key = squash(m[1]).toLowerCase().replace(/[‘’]/g, "'");
+  const expansion = EDITION_TO_EXPANSION[key];
+  if (!expansion) warnings.push(`unrecognised edition marker "${m[1]}"`);
+  return expansion ?? null;
+}
 
 /* --------------------------------------------------------------- symbols */
 
@@ -380,8 +431,24 @@ async function fetchPage(title) {
 }
 
 function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
-  const s = sections(w);
+  const { text: s, editions } = sections(w);
   const box = infobox(w);
+
+  /**
+   * Which product a section came from. Leaders and mechs arrived with Prophecy
+   * of Kings and breakthroughs with Thunder's Edge, on every faction sheet
+   * including the base game ones — so the expected value is asserted and a
+   * mismatch is reported rather than silently trusted.
+   */
+  const sectionExpansion = (heading, expected) => {
+    const found = editions[heading];
+    if (found && found !== expected) {
+      warnings.push(
+        `${title}: "${heading}" is marked ${found}, expected ${expected}`,
+      );
+    }
+    return found ?? expected;
+  };
 
   const abilities = bulletAbilities(s["Faction Abilities"] ?? "");
   if (!abilities.length) warnings.push(`${title}: no faction abilities parsed`);
@@ -391,11 +458,18 @@ function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
   // Where a leader has an Omega revision the role, portrait and unlock cells
   // use rowspan, so the follow-up rows carry only [name, ability] and inherit
   // the role above them.
+  const leadersExpansion = sectionExpansion("Leaders", "pok");
   const leaders = [];
+  const leaderRows = tableRows(s["Leaders"] ?? "");
+  const leaderRowsRaw = tableRowsRaw(s["Leaders"] ?? "");
   let currentRole = null;
   let currentUnlock = "";
-  for (const row of tableRows(s["Leaders"] ?? "")) {
+  leaderRows.forEach((row, i) => {
     const first = squash(row[0] ?? "");
+    // An Omega leader names its own codex in the row; the rest inherit the
+    // section's product.
+    const rowExpansion =
+      editionOf((leaderRowsRaw[i] ?? []).join(" ")) ?? leadersExpansion;
     if (/^(Agent|Commander|Hero)$/i.test(first)) {
       currentRole = first[0].toUpperCase() + first.slice(1).toLowerCase();
       currentUnlock = squash(row[3] ?? "");
@@ -406,6 +480,7 @@ function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
           name,
           unlock: currentUnlock,
           ability: squash(row[4] ?? ""),
+          expansion: rowExpansion,
         });
       }
     } else if (currentRole && row.length >= 2 && first) {
@@ -414,9 +489,10 @@ function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
         name: first,
         unlock: currentUnlock,
         ability: squash(row[1] ?? ""),
+        expansion: rowExpansion,
       });
     }
-  }
+  });
 
   // Flagship table: name | cost | combat | move | capacity | abilities
   let flagship = null;
@@ -440,7 +516,7 @@ function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
     const rows = tableRows(mechText);
     const name = clean(nameMatch?.[1] ?? "");
     const text = squash(rows[0]?.[0] ?? "");
-    if (name && text) mech = { name, text };
+    if (name && text) mech = { name, text, expansion: sectionExpansion("Mech", "pok") };
   }
 
   // Breakthrough (Thunder's Edge): name in the header, synergy text below.
@@ -459,7 +535,11 @@ function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
       .map((m) => m[1].toLowerCase())
       .filter((c, i, a) => a.indexOf(c) === i);
     if (name) {
-      breakthrough = { name, text: squash(text) };
+      breakthrough = {
+        name,
+        text: squash(text),
+        expansion: sectionExpansion("Breakthrough", "thundersedge"),
+      };
       if (synergy.length === 2) breakthrough.synergy = synergy;
     }
   }
@@ -588,7 +668,8 @@ const body = parsed
           .map(
             (l) =>
               `      {\n        role: ${j(l.role)},\n        name: ${j(l.name)},\n` +
-              `        unlock: ${j(l.unlock)},\n        ability: ${j(l.ability)},\n      },`,
+              `        unlock: ${j(l.unlock)},\n        ability: ${j(l.ability)},\n` +
+              `        expansion: ${j(l.expansion)},\n      },`,
           )
           .join("\n")}\n    ],`,
       );
@@ -602,13 +683,14 @@ const body = parsed
     }
     if (f.mech)
       lines.push(
-        `    mech: { name: ${j(f.mech.name)}, text: ${j(f.mech.text)} },`,
+        `    mech: { name: ${j(f.mech.name)}, text: ${j(f.mech.text)}, expansion: ${j(f.mech.expansion)} },`,
       );
     if (f.breakthrough) {
       const bt = [
         `      name: ${j(f.breakthrough.name)},`,
         `      text: ${j(f.breakthrough.text)},`,
       ];
+      bt.push(`      expansion: ${j(f.breakthrough.expansion)},`);
       if (f.breakthrough.synergy)
         bt.push(`      synergy: ${j(f.breakthrough.synergy)},`);
       lines.push(`    breakthrough: {\n${bt.join("\n")}\n    },`);
@@ -618,7 +700,7 @@ const body = parsed
         `    promissory: [\n${f.promissory
           .map(
             (n) =>
-              `      { name: ${j(n.name)}, text: ${j(n.text)} },`,
+              `      { name: ${j(n.name)}, text: ${j(n.text)}, expansion: ${j(n.expansion ?? f.expansion)} },`,
           )
           .join("\n")}\n    ],`,
       );
@@ -627,7 +709,11 @@ const body = parsed
       lines.push(
         `    factionTech: [\n${f.factionTech
           .map((t) => {
-            const parts = [`        name: ${j(t.name)}`, `        text: ${j(t.text)}`];
+            const parts = [
+              `        name: ${j(t.name)}`,
+              `        text: ${j(t.text)}`,
+              `        expansion: ${j(t.expansion ?? f.expansion)}`,
+            ];
             if (t.color) parts.push(`        color: ${j(t.color)}`);
             if (t.prerequisites)
               parts.push(`        prerequisites: ${j(t.prerequisites)}`);

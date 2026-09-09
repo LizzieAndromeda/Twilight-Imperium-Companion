@@ -89,6 +89,43 @@ function tableRows(text) {
 const warnings = [];
 
 /**
+ * A revised objective names the codex it came from, so the revision can be
+ * hidden unless that codex is enabled.
+ */
+const EDITION_TO_EXPANSION = {
+  "codex i": "codex1",
+  "codex ii": "codex2",
+  "codex iii": "codex3",
+  "codex iv": "codex4",
+  "prophecy of kings": "pok",
+  "thunder's edge": "thundersedge",
+};
+
+function editionOf(raw) {
+  const m = String(raw ?? "").match(/\{\{Edition\|([^}|]+)/i);
+  if (!m) return null;
+  const key = squash(m[1]).toLowerCase().replace(/[‘’]/g, "'");
+  const expansion = EDITION_TO_EXPANSION[key];
+  if (!expansion) warnings.push(`unrecognised edition marker "${m[1]}"`);
+  return expansion ?? null;
+}
+
+/** Raw (uncleaned) cells, so a row's `{{Edition}}` marker survives. */
+function tableRowsRaw(text) {
+  const m = text.match(/\{\|[\s\S]*?\n\|\}/);
+  if (!m) return [];
+  return m[0]
+    .split(/\n\|-\s*\n?/)
+    .slice(1)
+    .map((chunk) => {
+      const stop = chunk.indexOf("\n|}");
+      const c = stop === -1 ? chunk : chunk.slice(0, stop);
+      return c.split(/\n\|(?!\})/).map((x) => cellContent(x));
+    })
+    .filter((cells) => cells.some((x) => squash(clean(x) ?? "")));
+}
+
+/**
  * Parse one product table.
  *
  * Where a card has a Codex III revision, the name and points cells use
@@ -97,15 +134,22 @@ const warnings = [];
  */
 function parseTable(text, expansion, extra) {
   const out = [];
-  for (const row of tableRows(text)) {
+  const rows = tableRows(text);
+  const rowsRaw = tableRowsRaw(text);
+  for (const [index, row] of rows.entries()) {
     const [first, second] = row;
     if (!first) continue;
+    // Which codex published a revision, read before the markup was stripped.
+    const rowExpansion = editionOf((rowsRaw[index] ?? []).join(" "));
 
     // A continuation row has a single cell: the Omega condition.
     const isContinuation = row.filter(Boolean).length === 1 && out.length > 0;
     if (isContinuation) {
       const revision = first.replace(/^Ω\s*:?\s*/, "").trim();
-      if (revision) out[out.length - 1].omega = revision;
+      if (revision) {
+        out[out.length - 1].omega = revision;
+        out[out.length - 1].omegaExpansion = rowExpansion ?? "codex3";
+      }
       continue;
     }
     if (!second) continue;
@@ -113,6 +157,7 @@ function parseTable(text, expansion, extra) {
     // Omega text sometimes lands in the condition cell of its own row.
     if (/^Ω\s*:?/.test(second) && out.length > 0) {
       out[out.length - 1].omega = second.replace(/^Ω\s*:?\s*/, "").trim();
+      out[out.length - 1].omegaExpansion = rowExpansion ?? "codex3";
       continue;
     }
 
@@ -228,7 +273,10 @@ const render = (o, extraKey) => {
     `    ${extraKey}: ${j(o[extraKey])},`,
     `    requirement: ${j(o.requirement)},`,
   ];
-  if (o.omega) lines.push(`    omega: ${j(o.omega)},`);
+  if (o.omega) {
+    lines.push(`    omega: ${j(o.omega)},`);
+    lines.push(`    omegaExpansion: ${j(o.omegaExpansion)},`);
+  }
   return `  {\n${lines.join("\n")}\n  },`;
 };
 

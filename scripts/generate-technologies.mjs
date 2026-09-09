@@ -172,6 +172,29 @@ function effectOf(table) {
   return clean(m?.[1] ?? "", { keepBreaks: true }) ?? "";
 }
 
+/**
+ * Codex rewrites name the volume they came from, so a revision can be hidden
+ * unless that codex is enabled.
+ */
+const EDITION_TO_EXPANSION = {
+  "base game": "base",
+  "prophecy of kings": "pok",
+  "codex i": "codex1",
+  "codex ii": "codex2",
+  "codex iii": "codex3",
+  "codex iv": "codex4",
+  "thunder's edge": "thundersedge",
+};
+
+function editionOf(raw) {
+  const m = String(raw ?? "").match(/\{\{Edition\|([^}|]+)/i);
+  if (!m) return null;
+  const key = squash(m[1]).toLowerCase().replace(/[‘’]/g, "'");
+  const expansion = EDITION_TO_EXPANSION[key];
+  if (!expansion) warnings.push(`unrecognised edition marker "${m[1]}"`);
+  return expansion ?? null;
+}
+
 /** The table's own header row, which carries the name and any Ω marker. */
 function headerOf(table) {
   const m = table.match(/^!\s*colspan="\d+"[^|]*\|([\s\S]*?)(?=\n\|-)/m);
@@ -210,7 +233,7 @@ function parseColourPage(wikitext, colour) {
         faction: owner,
         startingFor: pending.starting,
         revisions: rest
-          .map((t) => ({ label: headerOf(t), text: effectOf(t) }))
+          .map((t) => ({ label: headerOf(t), text: effectOf(t), expansion: editionOf(t) }))
           .filter((r) => r.label && r.text),
       };
       if (!entry.text) warnings.push(`${pending.name}: no effect text parsed`);
@@ -453,7 +476,7 @@ const body = technologies
     if (t.revisions.length) {
       lines.push(
         `    revisions: [\n${t.revisions
-          .map((r) => `      { label: ${j(r.label)}, text: ${j(r.text)} },`)
+          .map((r) => `      { label: ${j(r.label)}, text: ${j(r.text)}, expansion: ${j(r.expansion ?? t.expansion)} },`)
           .join("\n")}\n    ],`,
       );
     }

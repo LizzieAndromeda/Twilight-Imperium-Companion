@@ -46,18 +46,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Letani Ospha",
         unlock: "At Game Start",
         ability: "ACTION: Exhaust this card and choose a player's non-fighter ship; that player may replace that ship with one from their reinforcements that costs up to 2 more than the replaced ship.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Dirzuga Rophal",
         unlock: "Have 12 Ground Forces on Planets you control.",
         ability: "After another player activates a system that contains 1 or more of your units that have PRODUCTION: You may produce 1 unit in that system.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Letani Miasmiala",
         unlock: "Have 3 Scored Objectives",
         ability: "ULTRASONIC EMITTER ACTION: Produce any number of units in any number of systems that contain 1 or more of your ground forces. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -68,20 +71,22 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "5",
       text: "Sustain Damage After you activate this system, you may produce up to 5 units in this system.",
     },
-    mech: { name: "Letani Behemoth", text: "DEPLOY: When you would use your MITOSIS faction ability you may replace 1 of your infantry with 1 mech from your reinforcements instead. Sustain Damage Production 2 Planetary Shield" },
+    mech: { name: "Letani Behemoth", text: "DEPLOY: When you would use your MITOSIS faction ability you may replace 1 of your infantry with 1 mech from your reinforcements instead. Sustain Damage Production 2 Planetary Shield", expansion: "pok" },
     breakthrough: {
       name: "Psychospore",
       text: "ACTION: Exhaust this card to remove a command token from a system that contains 1 or more of your infantry and return it to your reinforcements. Then, place 1 infantry in that system.",
+      expansion: "thundersedge",
       synergy: ["warfare","biotic"],
     },
     promissory: [
-      { name: "Stymie", text: "ACTION: Place this card face up in your play area. While this card is in your play area, the Arborec player cannot produce units in or adjacent to non-home systems that contain 1 or more of your units. If you activate a system that contains 1 or more of the Arborec player's units, return this card to the Arborec player." },
-      { name: "Stymie Ω", text: "After another player moves ships into a system that contains 1 or more of your units: You may place 1 command token from that player's reinforcements in any non-home system. Then, return this card to the Arborec player." },
+      { name: "Stymie", text: "ACTION: Place this card face up in your play area. While this card is in your play area, the Arborec player cannot produce units in or adjacent to non-home systems that contain 1 or more of your units. If you activate a system that contains 1 or more of the Arborec player's units, return this card to the Arborec player.", expansion: "base" },
+      { name: "Stymie Ω", text: "After another player moves ships into a system that contains 1 or more of your units: You may place 1 command token from that player's reinforcements in any non-home system. Then, return this card to the Arborec player.", expansion: "codex1" },
     ],
     factionTech: [
       {
         name: "Bioplasmosis",
         text: "At the end of the status phase , you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems.",
+        expansion: "base",
       },
     ],
     uniqueUnits: [
@@ -142,18 +147,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Viscount Unlenn",
         unlock: "At Game Start",
         ability: "At the start of a Space Combat round: You may exhaust this card to choose 1 ship in the active system. That ship rolls 1 additional die during this combat round.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Rear Admiral Farran",
         unlock: "Have 5 non-fighter ships in 1 system",
         ability: "After 1 of your units uses SUSTAIN DAMAGE: You may gain 1 Trade Good.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Darktalon Treilla",
         unlock: "Have 3 Scored Objectives",
         ability: "DARK MATTER AFFINITY ACTION: Place this card near the game board; the number of non-fighter ships you can have in systems is not limited by laws or by the number of command tokens in your fleet pool during this game round. At the end of that game round, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -164,24 +172,27 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Bombardment 5 (x3) Other players' units in this system lose PLANETARY SHIELD. At the start of each space combat round, repair this ship.",
     },
-    mech: { name: "Dunlain Reaper", text: "DEPLOY: At the start of a round of ground combat, you may spend 2 resources to replace 1 of your infantry in that combat with 1 mech. Sustain Damage" },
+    mech: { name: "Dunlain Reaper", text: "DEPLOY: At the start of a round of ground combat, you may spend 2 resources to replace 1 of your infantry in that combat with 1 mech. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Gravleash Maneuvers",
       text: "Before you roll dice during space combat, apply +X to the results of 1 of your ship's rolls, where X is the number of ship types you have in the combat. During movement, your non-fighter ships' move values are equal to the highest move value amongst moving ships in the system they started in.",
+      expansion: "thundersedge",
       synergy: ["propulsion","warfare"],
     },
     promissory: [
-      { name: "War Funding", text: "At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, re-roll any number of your dice. Then, return this card to the Letnev player." },
-      { name: "War Funding Ω", text: "After you and your opponent roll dice during space combat: You may reroll all of your opponent's dice. You may reroll any number of your dice. Then, return this card to the Letnev player." },
+      { name: "War Funding", text: "At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, re-roll any number of your dice. Then, return this card to the Letnev player.", expansion: "base" },
+      { name: "War Funding Ω", text: "After you and your opponent roll dice during space combat: You may reroll all of your opponent's dice. You may reroll any number of your dice. Then, return this card to the Letnev player.", expansion: "codex1" },
     ],
     factionTech: [
       {
         name: "L4 Disruptors",
         text: "During an invasion, units cannot use SPACE CANNON against your units.",
+        expansion: "base",
       },
       {
         name: "Non-Euclidean Shielding",
         text: "When 1 of your units uses SUSTAIN DAMAGE, cancel 2 hits instead of 1.",
+        expansion: "base",
       },
     ],
     faq: [
@@ -222,18 +233,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Captain Mendosa",
         unlock: "At Game Start",
         ability: "After a player activates a system: You may exhaust this card to increase the move value of 1 of that player's ships to match the move value of the ship on the game board that has the highest move value.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Rowl Sarrig",
         unlock: "Have 3 space docks on the game board",
         ability: "When you produce fighters or infantry: You may place each of those units at any of your space docks that are not blockaded.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Gurno Aggero",
         unlock: "Have 3 Scored Objectives",
         ability: "ARMAGEDDON RELAY ACTION: Choose 1 system that is adjacent to 1 of your space docks. Destroy all other player's infantry and fighters in that system. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -244,19 +258,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Anti-Fighter Barrage 6 (x4)",
     },
-    mech: { name: "Scavenger Zeta", text: "DEPLOY: After you gain control of a planet, you may spend 1 trade good to place 1 mech on that planet. Sustain Damage" },
+    mech: { name: "Scavenger Zeta", text: "DEPLOY: After you gain control of a planet, you may spend 1 trade good to place 1 mech on that planet. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Deorbit Barrage",
       text: "ACTION: Exhaust this card and spend any amount of resources to choose a planet up to 2 systems away from an asteroid field that contains your ships; roll a number of dice equal to the amount spent, and assign 1 hit to a ground force on that planet for each roll of 4 or greater",
+      expansion: "thundersedge",
       synergy: ["propulsion","warfare"],
     },
     promissory: [
-      { name: "Ragh's Call", text: "After you commit 1 or more units to land on a planet: Remove all of the Saar player's ground forces from that planet and place them on a planet controlled by the Saar player. Then, return this card to the Saar player." },
+      { name: "Ragh's Call", text: "After you commit 1 or more units to land on a planet: Remove all of the Saar player's ground forces from that planet and place them on a planet controlled by the Saar player. Then, return this card to the Saar player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Chaos Mapping",
         text: "Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at least 1 of your units that has Production.",
+        expansion: "base",
       },
     ],
     uniqueUnits: [
@@ -313,18 +329,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Umbat",
         unlock: "At Game Start",
         ability: "ACTION: Exhaust this card to choose a player; that player may produce up to 2 units that each have a cost of 4 or less in a system that contains one of their war suns or their flagship.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Magmus",
         unlock: "Produce a War Sun",
         ability: "After you spend a token from your strategy pool: You may gain 1 trade good.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Adjudicator Ba'al",
         unlock: "Have 3 Scored Objectives",
         ability: "NOVA SEED After you move a war sun into a non-home system other than Mecatol Rex: You may destroy all other players' units in that system and replace that system tile with the Muaat supernova tile. If you do, purge this card and each planet card that corresponds to the replaced system tile.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -335,23 +354,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage ACTION: Spend 1 token from your strategy pool to place 1 cruiser in this unit's system.",
     },
-    mech: { name: "Ember Colossus", text: "When you use your STAR FORGE faction ability in this system or an adjacent system, you may place 1 infantry from your reinforcements with this unit. Sustain Damage" },
+    mech: { name: "Ember Colossus", text: "When you use your STAR FORGE faction ability in this system or an adjacent system, you may place 1 infantry from your reinforcements with this unit. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Stellar Genesis",
       text: "When you gain this card, place the Avernus planet token into a non-home system that is adjacent to a planet you control; gain control of and ready it. After you move 1 of your war suns out of or through Avernus's system and into a non-home system, you may move the Avernus token with it.",
+      expansion: "thundersedge",
       synergy: ["warfare","cybernetic"],
     },
     promissory: [
-      { name: "Fires of the Gashlai", text: "ACTION: Remove 1 token from the Muaat player's fleet pool and return it to their reinforcements. Then, gain your war sun unit upgrade technology card. Then, return this card to the Muaat player." },
+      { name: "Fires of the Gashlai", text: "ACTION: Remove 1 token from the Muaat player's fleet pool and return it to their reinforcements. Then, gain your war sun unit upgrade technology card. Then, return this card to the Muaat player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Magmus Reactor",
         text: "Your ships can move into supernovas. After 1 or more of your units use Production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good.",
+        expansion: "base",
       },
       {
         name: "Magmus Reactor Ω",
         text: "Your ships can move into supernovas. Each supernova that contains 1 or more of your units gains the PRODUCTION 5 ability as if it were 1 of your units.",
+        expansion: "codex1",
       },
     ],
     uniqueUnits: [
@@ -412,18 +434,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Carth of Golden Sands",
         unlock: "At Game Start",
         ability: "During the action phase: You may exhaust this card to gain 2 commodities or replenish another player's commodities.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Gila the Silvertongue",
         unlock: "Have 10 Trade Goods",
         ability: "When you cast votes: You may spend any number of trade goods; cast 2 additional votes for each trade good spent.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Harrugh Gefhara",
         unlock: "Have 3 Scored Objectives",
         ability: "GALACTIC SECURITIES NET When 1 or more of your units use PRODUCTION: You may reduce the cost of each of your units to 0 during this use of PRODUCTION. If you do, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -434,23 +459,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage After you roll a die during a space combat in this system, you may spend 1 trade good to apply +1 to the result.",
     },
-    mech: { name: "Pride of Kenara", text: "This planet's card may be traded as part of a transaction; if you do, move all of your units from this planet to another planet you control. Sustain Damage" },
+    mech: { name: "Pride of Kenara", text: "This planet's card may be traded as part of a transaction; if you do, move all of your units from this planet to another planet you control. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Auto-Factories",
       text: "When you produce 3 or more non-fighter ships, place 1 command token from your reinforcements into your fleet pool.",
+      expansion: "thundersedge",
       synergy: ["warfare","cybernetic"],
     },
     promissory: [
-      { name: "Trade Convoys", text: "ACTION: Place this card face-up in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If you activate a system that contains 1 or more of the Hacan player's units, return this card to the Hacan player." },
+      { name: "Trade Convoys", text: "ACTION: Place this card face-up in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If you activate a system that contains 1 or more of the Hacan player's units, return this card to the Hacan player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Production Biomes",
         text: "ACTION: Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods",
+        expansion: "base",
       },
       {
         name: "Quantum Datahub Node",
         text: "At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of their strategy cards.",
+        expansion: "base",
       },
     ],
     faq: [
@@ -493,18 +521,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Evelyn Delouis",
         unlock: "At Game Start",
         ability: "At the start of a ground combat round: You may exhaust this card to choose 1 ground force in the active system; that ground force rolls 1 additional die during that combat round.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Claire Gibson",
         unlock: "Control planets that have a combined total of at least 12 resources.",
         ability: "At the start of a ground combat on a planet you control: You may place 1 infantry from your reinforcements on that planet.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Jace X. 4th Air Legion",
         unlock: "Have 3 Scored Objectives",
         ability: "HELIO COMMAND ARRAY ACTION: Remove each of your command tokens from the game board and return them to your reinforcements. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -515,14 +546,15 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "12",
       text: "Sustain Damage At the end of the status phase, place 1 infantry from your reinforcements in this system's space area.",
     },
-    mech: { name: "ZS Thunderbolt M2", text: "DEPLOY: After you use your ORBITAL DROP faction ability, you may spend 3 resources to place 1 mech on that planet. Sustain Damage" },
+    mech: { name: "ZS Thunderbolt M2", text: "DEPLOY: After you use your ORBITAL DROP faction ability, you may spend 3 resources to place 1 mech on that planet. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Bellum Gloriosum",
       text: "When you produce a ship that has capacity, you may also produce any combination of ground forces or fighters up to that ship's capacity; they do not count against your PRODUCTION limit.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Military Support", text: "At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to their reinforcements. Then, you may place 2 infantry from your reinforcements on any planet you control. Then, return this card to the Sol player." },
+      { name: "Military Support", text: "At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to their reinforcements. Then, you may place 2 infantry from your reinforcements on any planet you control. Then, return this card to the Sol player.", expansion: "base" },
     ],
     uniqueUnits: [
       {
@@ -586,18 +618,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Emissary Taivra",
         unlock: "At Game Start",
         ability: "After a player activates a system that contains a non-delta wormhole: You may exhaust this card; if you do, that system is adjacent to all other systems that contain a wormhole during this tactical action.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Sai Seravus",
         unlock: "Have units in 3 systems that contain alpha or beta wormholes.",
         ability: "After your ships move: For each ship that has a capacity value and moved through 1 or more wormholes, you may place 1 fighter from your reinforcements with that ship if you have unused capacity in the active system.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Riftwalker Meian",
         unlock: "Have 3 Scored Objectives",
         ability: "SINGULARITY REACTOR ACTION: Swap the positions of any 2 systems that contain wormholes or your units, other than the Creuss system and the Wormhole Nexus. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -608,27 +643,31 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage This ship's system contains a delta wormhole. During movement, this ship may move before or after your other ships.",
     },
-    mech: { name: "Icarus Drive", text: "After any player activates a system, you may remove this unit from the game board to place or move a Creuss wormhole token into this system. Sustain Damage" },
+    mech: { name: "Icarus Drive", text: "After any player activates a system, you may remove this unit from the game board to place or move a Creuss wormhole token into this system. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Particle Synthesis",
       text: "Each wormhole in a system that contains your ships gains PRODUCTION 1 as if it were a unit you control. Reduce the combined cost of units you produce in systems that contain wormholes by 1 for each wormhole in that system.",
+      expansion: "thundersedge",
       synergy: ["propulsion","cybernetic"],
     },
     promissory: [
-      { name: "Creuss Iff", text: "At the start of your turn during the action phase: Place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships. Then, return this card to the Creuss player." },
+      { name: "Creuss Iff", text: "At the start of your turn during the action phase: Place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships. Then, return this card to the Creuss player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Wormhole Generator",
         text: "At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships",
+        expansion: "base",
       },
       {
         name: "Wormhole Generator Ω",
         text: "ACTION: Exhaust this card to place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships.",
+        expansion: "codex1",
       },
       {
         name: "Dimensional Splicer",
         text: "At the start of space combat in a system that contains a wormhole and 1 or more of your ships, you may produce 1 hit and assign it to 1 of your opponent's ships.",
+        expansion: "base",
       },
     ],
   },
@@ -666,18 +705,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "I48S",
         unlock: "At Game Start",
         ability: "After a player activates a system: You may exhaust this card to allow that player to replace 1 of their infantry in the active system with 1 mech from their reinforcements.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "2RAM",
         unlock: "Have 4 dreadnoughts on the Board",
         ability: "Units that have PLANETARY SHIELD do not prevent you from using Bombardment.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "The Helmsman",
         unlock: "Have 3 Scored Objectives",
         ability: "DARK SPACE NAVIGATION ACTION: Choose 1 system that does not contain other players' ships; you may move your flagship and any number of your dreadnoughts from other systems into the chosen system. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -688,20 +730,22 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "5",
       text: "Sustain Damage During a space combat, hits produced by this ship and by your dreadnoughts in this system must be assigned to non-fighter ships if able.",
     },
-    mech: { name: "Annihilator", text: "While not participating in ground combat, this unit can use its BOMBARDMENT ability on planets in its system as if it were a ship. Sustain Damage Bombardment 8" },
+    mech: { name: "Annihilator", text: "While not participating in ground combat, this unit can use its BOMBARDMENT ability on planets in its system as if it were a ship. Sustain Damage Bombardment 8", expansion: "pok" },
     breakthrough: {
       name: "Fealty Uplink",
       text: "When you gain control of a planet, place infantry from your reinforcements equal to that planet's influence value on that planet.",
+      expansion: "thundersedge",
       synergy: ["warfare","biotic"],
     },
     promissory: [
-      { name: "Cybernetic Enhancements", text: "At the start of your turn: Remove 1 token from the L1Z1X player's strategy pool and return it to his reinforcements. Then, place 1 command token from your reinforcements in your strategy pool. Then, return this card to the L1Z1X player." },
-      { name: "Cybernetic Enhancements Ω", text: "When you gain command tokens during the status phase: Gain 1 additional command token. Then, return this card to the L1Z1X player." },
+      { name: "Cybernetic Enhancements", text: "At the start of your turn: Remove 1 token from the L1Z1X player's strategy pool and return it to his reinforcements. Then, place 1 command token from your reinforcements in your strategy pool. Then, return this card to the L1Z1X player.", expansion: "base" },
+      { name: "Cybernetic Enhancements Ω", text: "When you gain command tokens during the status phase: Gain 1 additional command token. Then, return this card to the L1Z1X player.", expansion: "codex1" },
     ],
     factionTech: [
       {
         name: "Inheritance Systems",
         text: "You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites.",
+        expansion: "base",
       },
     ],
     uniqueUnits: [
@@ -759,18 +803,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Suffi An",
         unlock: "At Game Start",
         ability: "After the PILLAGE faction ability is used against another player: You may exhaust this card; if you do, you and that player each draw 1 action card.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "S'Ula Mentarion",
         unlock: "Have 4 cruisers on the game board",
         ability: "After you win a space combat: You may force your opponent to give you 1 promissory note from their hand.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Ipswitch, Loose Cannon",
         unlock: "Have 3 Scored Objectives",
         ability: "SLEEPER CELL At the start of space combat that you are participating in: You may purge this card; if you do, for each other player's ship that is destroyed during this combat, place 1 ship of that type from your reinforcements in the active system.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -781,23 +828,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Other players' ships in this system cannot use Sustain Damage.",
     },
-    mech: { name: "Moll Terminus", text: "Other players' ground forces on this planet cannot use SUSTAIN DAMAGE. Sustain Damage" },
+    mech: { name: "Moll Terminus", text: "Other players' ground forces on this planet cannot use SUSTAIN DAMAGE. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "The Table's Grace",
       text: "If you have the Cruiser II unit upgrade technology, flip this card and place it on top of Cruiser II.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Promise of Protection", text: "ACTION: Place this card face-up in your play area. While this card is in your play area, the Mentak player cannot use their Pillage faction ability against you. If you activate a system that contains 1 or more of the Mentak player's units, return this card to the Mentak player." },
+      { name: "Promise of Protection", text: "ACTION: Place this card face-up in your play area. While this card is in your play area, the Mentak player cannot use their Pillage faction ability against you. If you activate a system that contains 1 or more of the Mentak player's units, return this card to the Mentak player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Salvage Operations",
         text: "After you win or lose a space combat, gain 1 trade good; if you won the combat, you may also produce 1 ship in that system of any ship type that was destroyed during the combat",
+        expansion: "base",
       },
       {
         name: "Mirror Computing",
         text: "When you spend trade goods, each trade good is worth 2 resources or influence instead of 1",
+        expansion: "base",
       },
     ],
     faq: [
@@ -847,36 +897,42 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Z'eu",
         unlock: "At Game Start",
         ability: "After an agenda is revealed: You may exhaust this card to look at the top card of the agenda deck. Then, you may show that card to 1 other player.",
+        expansion: "pok",
       },
       {
         role: "Agent",
         name: "Z'eu Ω",
         unlock: "At Game Start",
         ability: "ACTION: Exhaust this card and choose a player; That player may perform a tactical action in a non-home system without placing a command token; that system still counts as being activated.",
+        expansion: "codex3",
       },
       {
         role: "Agent",
         name: "Z'eu ΩΩ",
         unlock: "At Game Start",
         ability: "After any player's command token is placed in a system: You may exhaust this card to return that token to that player's reinforcements.",
+        expansion: "thundersedge",
       },
       {
         role: "Commander",
         name: "M'aban",
         unlock: "Have 12 fighters on the game board",
         ability: "You may produce 1 additional fighter for their cost; these additional units do not count against your production limit.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "M'abanΩ",
         unlock: "Have 12 fighters on the game board",
         ability: "Have ground forces in or adjacent to the Mecatol Rex system.",
+        expansion: "codex3",
       },
       {
         role: "Hero",
         name: "The Oracle",
         unlock: "Have 3 Scored Objectives",
         ability: "C-RADIUM GEOMETRY At the end of the status phase: You may force each other player to give you 1 promissory note from their hand. If you do, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -887,19 +943,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "6",
       text: "Sustain Damage During an invasion in this system, you may commit fighters to planets as if they were ground forces. When combat ends, return those units to the space area.",
     },
-    mech: { name: "Iconoclast", text: "During combat against an opponent who has at least 1 relic fragment, apply +2 to the results of this unit's combat rolls. Sustain Damage" },
+    mech: { name: "Iconoclast", text: "During combat against an opponent who has at least 1 relic fragment, apply +2 to the results of this unit's combat rolls. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Mindsieve",
       text: "When you would resolve the secondary ability of another player's strategy card, you may give them a promissory note to resolve it without spending a command token.",
+      expansion: "thundersedge",
       synergy: ["warfare","biotic"],
     },
     promissory: [
-      { name: "Gift of Prescience", text: "At the end of the strategy phase: Place this card face-up in your play area and place the Naalu \"0\" token on your strategy card; you are first in the initiative order. The Naalu player cannot use their TELEPATHIC faction ability during this game round. Return this card to the Naalu player at the end of the status phase." },
+      { name: "Gift of Prescience", text: "At the end of the strategy phase: Place this card face-up in your play area and place the Naalu \"0\" token on your strategy card; you are first in the initiative order. The Naalu player cannot use their TELEPATHIC faction ability during this game round. Return this card to the Naalu player at the end of the status phase.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Neuroglaive",
         text: "After another player activates a system that contains 1 or more of your ships, that player removes 1 token from their fleet pool and returns it to their reinforcements.",
+        expansion: "base",
       },
     ],
     uniqueUnits: [
@@ -961,18 +1019,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Nekro Malleon",
         unlock: "At Game Start",
         ability: "During the action phase: You may exhaust this card to choose a player; that player may discard 1 action card or spend 1 command token from their command sheet to gain 2 trade goods.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Nekro Acidos",
         unlock: "Own 3 technologies. A \"Valefar Assimilator\" technology counts only if its X or Y token is on a technology",
         ability: "After you gain a technology: You may draw 1 action card.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "UNIT.DSGN. FLAYESH",
         unlock: "Have 3 Scored Objectives",
         ability: "POLYMORPHIC ALGORITHM ACTION: Choose a planet that has a technology specialty in a system that contains your units. Destroy any other player's units on that planet. Gain trade goods equal to that planet's combined resource and influence values and gain 1 technology that matches the specialty of that planet. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -983,13 +1044,14 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage At the start of a space combat, choose any number of your ground forces in this system to participate in that combat as if they were ships.",
     },
-    mech: { name: "Mordred", text: "During combat against an opponent who has an \"X\" or \"Y\" token on 1 or more of their technologies, apply +2 to the result of each of this unit's combat rolls. Sustain Damage" },
+    mech: { name: "Mordred", text: "During combat against an opponent who has an \"X\" or \"Y\" token on 1 or more of their technologies, apply +2 to the result of each of this unit's combat rolls. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Valefar Assimilator Z",
       text: "When you would gain another player's technology using one of your faction abilities, you may instead place one of your \"Z\" assimilator tokens on that player's faction sheet. Your flagship gains the text abilities of that faction's flagship in addition to its own. N/A N/A",
+      expansion: "thundersedge",
     },
     promissory: [
-      { name: "Antivirus", text: "At the start of a combat: Place this card face-up in your play area. While this card is in your play area, the Nekro player cannot use their TECHNOLOGICAL SINGULARITY faction ability against you. If you activate a system that contains 1 or more of the Nekro player's units, return this card to the Nekro player." },
+      { name: "Antivirus", text: "At the start of a combat: Place this card face-up in your play area. While this card is in your play area, the Nekro player cannot use their TECHNOLOGICAL SINGULARITY faction ability against you. If you activate a system that contains 1 or more of the Nekro player's units, return this card to the Nekro player.", expansion: "base" },
     ],
     faq: [
       "Q: Can the Nekro Virus use the “Valefar Assimilator” technologies on printed faction units such as the Embers of Muaat’s Prototype War Sun I? A: No, printed faction units are not technologies, and thus are ineligible targets for “Valefar Assimilator.”",
@@ -1043,18 +1105,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "T'ro",
         unlock: "At Game Start",
         ability: "At the end of a player's tactical action: You may exhaust this card; if you do, that player may place 2 infantry from their reinforcements on a planet they control in the active system.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "G'hom Sek'kus",
         unlock: "Control 5 planets in non-home systems",
         ability: "During the \"Commit Ground Forces\" step: You can commit up to 1 ground force from each planet in the active system and each planet in adjacent systems that do not contain 1 of your command tokens.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Sh'val, Harbinger",
         unlock: "Have 3 Scored Objectives",
         ability: "TEKKLAR CONDITIONING After you move ships into the active system: You may skip directly to the \"Commit Ground Forces\" step. If you do, after you commit ground forces to land on planets, purge this card and return each of your ships in the active system to your reinforcements.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1065,19 +1130,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Apply +1 to the result of each of your other ship's combat rolls in this system.",
     },
-    mech: { name: "Valkyrie Exoskeleton", text: "After this unit uses its SUSTAIN DAMAGE ability during Ground Combat, it produces 1 hit against your opponent's ground forces on this planet. Sustain Damage" },
+    mech: { name: "Valkyrie Exoskeleton", text: "After this unit uses its SUSTAIN DAMAGE ability during Ground Combat, it produces 1 hit against your opponent's ground forces on this planet. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "N'orr Supremacy",
       text: "After you win a combat, either gain 1 command token or research a unit upgrade technology.",
+      expansion: "thundersedge",
       synergy: ["propulsion","warfare"],
     },
     promissory: [
-      { name: "Tekklar Legion", text: "At the start of an invasion combat: Apply +1 to the result of each of your unit's combat rolls during this combat. If your opponent is the N'orr player, apply -1 to the result of each of his unit's combat rolls during this combat. Then, return this card to the N'orr player." },
+      { name: "Tekklar Legion", text: "At the start of an invasion combat: Apply +1 to the result of each of your unit's combat rolls during this combat. If your opponent is the N'orr player, apply -1 to the result of each of his unit's combat rolls during this combat. Then, return this card to the N'orr player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Valkyrie Particle Weave",
         text: "After making combat rolls during a round of ground combat, if your opponent produced 1 or more hits, you produce 1 additional hit",
+        expansion: "base",
       },
     ],
     uniqueUnits: [
@@ -1144,24 +1211,28 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Doctor Sucaban",
         unlock: "At Game Start",
         ability: "When a player spends resources to research: You may exhaust this card to allow that player to remove any number of their infantry from the game board. For each unit removed, reduce the resources spent by 1.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Ta Zern",
         unlock: "Own 8 technologies",
         ability: "After you roll dice for a unit ability: You may reroll any of those dice.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "???",
         unlock: "Own 8 technologies",
         ability: "Agnlan Oln",
+        expansion: "thundersedge",
       },
       {
         role: "Hero",
         name: "Rin, The Master's Legacy",
         unlock: "Have 3 Scored Objectives",
         ability: "GENETIC MEMORY ACTION: For each non-unit upgrade technology you own, you may replace that technology with any technology of the same color from the deck. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1172,23 +1243,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits.",
     },
-    mech: { name: "Shield Paling", text: "Your infantry on this planet are not affected by your FRAGILE faction ability. Sustain Damage" },
+    mech: { name: "Shield Paling", text: "Your infantry on this planet are not affected by your FRAGILE faction ability. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Specialized Compounds",
       text: "When you research technology using the \"Technology\" strategy card, you may exhaust a planet that has a technology speciality instead of spending resources; if you do you must research a technology of that colour.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Research Agreement", text: "After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player." },
+      { name: "Research Agreement", text: "After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "E-Res Siphons",
         text: "After another player activates a system that contains 1 or more of your ships, gain 4 trade goods.",
+        expansion: "base",
       },
       {
         name: "Spatial Conduit Cylinder",
         text: "You may exhaust this card after you activate a system that contains 1 or more of your units; that system is adjacent to all other systems that contain 1 or more of your units during this activation.",
+        expansion: "base",
       },
     ],
     faq: [
@@ -1229,18 +1303,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Berekar Berekon",
         unlock: "At Game Start",
         ability: "When 1 or more of a player's units use PRODUCTION: You may exhaust this card to reduce the combined cost of the produced units by 2.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Rickar Rickani",
         unlock: "Control Mecatol Rex or enter into a combat in the Mecatol Rex system.",
         ability: "During combat: Apply +2 to the result of each of your unit's combat rolls in the Mecatol Rex system, your home system, and each system that contains a legendary planet",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Mathis Mathinus",
         unlock: "Have 3 Scored Objectives",
         ability: "IMPERIAL SEAL ACTION: Perform the primary ability of any strategy card. Then, choose any number of other players. Those players may perform the secondary ability of that strategy card. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1251,24 +1328,27 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system.",
     },
-    mech: { name: "Reclaimer", text: "After you resolve a tactical action where you gained control of this planet, you may place 1 PDS or 1 Space Dock from your reinforcements on this planet. Sustain Damage" },
+    mech: { name: "Reclaimer", text: "After you resolve a tactical action where you gained control of this planet, you may place 1 PDS or 1 Space Dock from your reinforcements on this planet. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Imperator",
       text: "Apply +1 to the results of each of your unit's combat rolls for each \"Support for the Throne\" in your opponent's play area. After you activate a system that contains a legendary planet, apply +1 to the move value of 1 of your ships during this tactical action.",
+      expansion: "thundersedge",
       synergy: ["propulsion","warfare"],
     },
     promissory: [
-      { name: "Acquiescence", text: "At the end of the strategy phase: Exchange 1 of your strategy cards with a strategy card that was chosen by the Winnu player. Then, return this card to the Winnu player." },
-      { name: "Acquiescence Ω", text: "When the Winnu player resolves a strategic action: You do not have to spend or place a command token to resolve the secondary ability of that strategy card. Then, return this card to the Winnu player" },
+      { name: "Acquiescence", text: "At the end of the strategy phase: Exchange 1 of your strategy cards with a strategy card that was chosen by the Winnu player. Then, return this card to the Winnu player.", expansion: "base" },
+      { name: "Acquiescence Ω", text: "When the Winnu player resolves a strategic action: You do not have to spend or place a command token to resolve the secondary ability of that strategy card. Then, return this card to the Winnu player", expansion: "codex1" },
     ],
     factionTech: [
       {
         name: "Lazax Gate Folding",
         text: "During your tactical actions, if you do not control Mecatol Rex, treat its system as if it contains both an alpha and beta wormhole. ACTION: If you control Mecatol Rex, exhaust this card to place 1 infantry from your reinforcements on Mecatol Rex.",
+        expansion: "base",
       },
       {
         name: "Hegemonic Trade Policy",
         text: "Exhaust this card when 1 or more of your units use PRODUCTION; swap the resource and influence values of 1 planet you control during that use of Production",
+        expansion: "base",
       },
     ],
     faq: [
@@ -1311,30 +1391,35 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Ggrocuto Rinn",
         unlock: "At Game Start",
         ability: "ACTION: Exhaust this card to ready any planet; if that planet is in a system that is adjacent to a planet you control, you may remove 1 infantry from that planet and return it to its reinforcements.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Elder Qanoj",
         unlock: "Control planets that have a combined value of at least 12 influence",
         ability: "Each planet you exhaust to cast votes provides 1 additional vote. Game effects cannot prevent you from voting on an agenda.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Xxekir Grom",
         unlock: "Have 3 Scored Objectives",
         ability: "POLITICAL DATA NEXUS ACTION: You may discard 1 law from play. Look at the top 5 cards of the agenda deck. Choose 2 to reveal, and resolve each as if you had cast 1 vote for an outcome of your choice; discard the rest. Other players cannot resolve abilities during this action. Then, purge this card.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Xxekir Grom Ω",
         unlock: "Have 3 Scored Objectives",
         ability: "POLITICAL DATA NEXUS Ω When you exhaust planets, combine the values of their resources and influence. Treat the combined value as if it were both resources and influence.",
+        expansion: "codex3",
       },
       {
         role: "Hero",
         name: "Xxekir Grom ΩΩ",
         unlock: "Have 3 Scored Objectives",
         ability: "PLANETARY DEFENSE NEXUS ACTION: Place any combination of up to 4 PDS or mechs onto planets you control; ready each planet that you place a unit on. Then, purge this card.",
+        expansion: "thundersedge",
       },
     ],
     flagship: {
@@ -1345,23 +1430,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Space Cannon 5 (x3) You may use this unit's SPACE CANNON against ships that are in adjacent systems.",
     },
-    mech: { name: "Indomitus", text: "You may use this unit's Space Cannon ability against ships that are in adjacent systems. Sustain Damage Space Cannon 8" },
+    mech: { name: "Indomitus", text: "You may use this unit's Space Cannon ability against ships that are in adjacent systems. Sustain Damage Space Cannon 8", expansion: "pok" },
     breakthrough: {
       name: "Archon's Gift",
       text: "You can spend influence as if it were resources. You can spend resources as if it were influence.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Political Favor", text: "When an agenda is revealed: Remove 1 token from the Xxcha player's strategy pool and return it to their reinforcements. Then, discard the revealed agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead. Then, return this card to the Xxcha player." },
+      { name: "Political Favor", text: "When an agenda is revealed: Remove 1 token from the Xxcha player's strategy pool and return it to their reinforcements. Then, discard the revealed agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead. Then, return this card to the Xxcha player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Nullification Field",
         text: "After another player activates a system that contains 1 or more of your ships, you may exhaust this card and spend 1 token from your strategy pool; immediately end that player's turn.",
+        expansion: "base",
       },
       {
         name: "Instinct Training",
         text: "You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card.",
+        expansion: "base",
       },
     ],
     faq: [
@@ -1411,54 +1499,63 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Brother Milor",
         unlock: "At Game Start",
         ability: "After a player's destroyer or cruiser is destroyed: You may exhaust this card; if you do, that player may place up to 2 fighters from their reinforcements in that unit's system.",
+        expansion: "pok",
       },
       {
         role: "Agent",
         name: "Brother Milor Ω",
         unlock: "At Game Start",
         ability: "After a player's unit is destroyed: You may exhaust this card to allow that player to place 2 fighters in the destroyed unit's system if it was a ship, or 2 infantry on its planet if it was a ground force.",
+        expansion: "codex3",
       },
       {
         role: "Agent",
         name: "Brother Milor ΩΩ",
         unlock: "At Game Start",
         ability: "After a player's unit is destroyed during combat: You may exhaust this card to allow that player to place 2 fighters in the destroyed unit's system if it was a ship, or 2 infantry on its planet if it was a ground force.",
+        expansion: "thundersedge",
       },
       {
         role: "Commander",
         name: "Brother Omar",
         unlock: "Use your INDOCTRINATION faction ability",
         ability: "This card satisfies a green technology prerequisite. You may produce 1 additional infantry for their cost. These infantry do not count against your production limit.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Brother Omar Ω",
         unlock: "Use your INDOCTRINATION faction ability",
         ability: "Use one of your faction abilities.",
+        expansion: "codex3",
       },
       {
         role: "Commander",
         name: "Brother Omar ΩΩ",
         unlock: "Use your INDOCTRINATION faction ability",
         ability: "Use one of your faction abilities.",
+        expansion: "thundersedge",
       },
       {
         role: "Hero",
         name: "Dannel of the Tenth",
         unlock: "Have 3 Scored Objectives",
         ability: "SPINNER OVERDRIVE ACTION: For each planet that contains any number of your infantry, either ready that planet or place an equal number of infantry from your reinforcements on that planet. Then, purge this card.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Dannel of the Tenth Ω",
         unlock: "Have 3 Scored Objectives",
         ability: "QUANTUM DISSEMINATION ACTION: Commit up to 3 infantry from your reinforcements to any non-home planets and resolve invasions on those planets; players cannot use SPACE CANNON against those units. Then, purge this card.",
+        expansion: "codex3",
       },
       {
         role: "Hero",
         name: "Dannel of the Tenth ΩΩ",
         unlock: "Have 3 Scored Objectives",
         ability: "QUANTUM DISSEMINATION ACTION: Commit up to 3 infantry from your reinforcements to any non-home planets and resolve ground combats on those planets; players cannot use SPACE CANNON against these units. Then, purge this card.",
+        expansion: "thundersedge",
       },
     ],
     flagship: {
@@ -1469,28 +1566,32 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage When this ship is destroyed, destroy all ships in this system.",
     },
-    mech: { name: "Moyin's Ashes", text: "DEPLOY: When you use your INDOCTRINATION faction ability, you may spend 1 additional influence to replace your opponent's unit with 1 mech instead of 1 infantry. Sustain Damage" },
+    mech: { name: "Moyin's Ashes", text: "DEPLOY: When you use your INDOCTRINATION faction ability, you may spend 1 additional influence to replace your opponent's unit with 1 mech instead of 1 infantry. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Yin Ascendant",
       text: "When you gain this card or score a public objective, gain the alliance ability of a random, unused faction.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Greyfire Mutagen", text: "After a system is activated: The Yin player cannot use faction abilities or faction technology during this tactical action. Then, return this card to the Yin player." },
-      { name: "Greyfire Mutagen Ω", text: "At the start of a ground combat against 2 or more ground forces that are not controlled by the Yin player: Replace 1 of your opponent's infantry with 1 infantry from your reinforcements. Then, return this card to the Yin player." },
+      { name: "Greyfire Mutagen", text: "After a system is activated: The Yin player cannot use faction abilities or faction technology during this tactical action. Then, return this card to the Yin player.", expansion: "base" },
+      { name: "Greyfire Mutagen Ω", text: "At the start of a ground combat against 2 or more ground forces that are not controlled by the Yin player: Replace 1 of your opponent's infantry with 1 infantry from your reinforcements. Then, return this card to the Yin player.", expansion: "codex1" },
     ],
     factionTech: [
       {
         name: "Impulse Core",
         text: "At the start of a space combat, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit against your opponent's ships; that hit must be assigned by your opponent to 1 of their non-fighter ships, if able.",
+        expansion: "base",
       },
       {
         name: "Yin Spinner",
         text: "After 1 or more of your units use PRODUCTION, place 1 infantry from your reinforcements on a planet you control in that system.",
+        expansion: "base",
       },
       {
         name: "Yin Spinner Ω",
         text: "After you produce units, place up to 2 infantry from your reinforcements on any planet you control or in any space area that contains 1 or more of your ships.",
+        expansion: "codex1",
       },
     ],
     faq: [
@@ -1537,18 +1638,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Ssruu",
         unlock: "At Game Start",
         ability: "This card has the text ability of each other player's agent, even if that agent is exhausted.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "So Ata",
         unlock: "Have 7 action cards",
         ability: "After another player activates a system that contains your units: You may look at that player's action cards, promissory notes, or secret objectives.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Kyver, Blade and Key",
         unlock: "Have 3 Scored Objectives",
         ability: "GUILD OF SPIES ACTION: Each other player shows you 1 action card from their hand. For each player, you may either take that card or force that player to discard 3 random action cards from their hand. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1559,23 +1663,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage This ship can move through systems that contain other player's ships.",
     },
-    mech: { name: "Blackshade Infiltrator", text: "DEPLOY: After you use your STALL TACTICS faction ability, you may place 1 mech on a planet you control Sustain Damage" },
+    mech: { name: "Blackshade Infiltrator", text: "DEPLOY: After you use your STALL TACTICS faction ability, you may place 1 mech on a planet you control Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Deepgloom Executable",
       text: "You can allow other players to use your STALL TACTICS or SCHEMING faction abilities; when you do, you may resolve a transaction with that player. During the action phase, that transaction does not count against the once-per-player transactions limit for that turn.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Spy Net", text: "At the start of your turn: Look at the Yssaril player's hand of action cards. Choose 1 of those cards and add it to your hand. Then, return this card to the Yssaril player." },
+      { name: "Spy Net", text: "At the start of your turn: Look at the Yssaril player's hand of action cards. Choose 1 of those cards and add it to your hand. Then, return this card to the Yssaril player.", expansion: "base" },
     ],
     factionTech: [
       {
         name: "Transparasteel Plating",
         text: "During your turn of the action phase, players that have passed cannot play action cards.",
+        expansion: "base",
       },
       {
         name: "Mageon Implants",
         text: "ACTION: Exhaust this card to look at another player's hand of action cards. Choose 1 of those cards and add it to your hand.",
+        expansion: "base",
       },
     ],
     faq: [
@@ -1620,18 +1727,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Trillossa Aun Mirik",
         unlock: "At Game Start",
         ability: "When a player produces ground forces in a system: You may exhaust this card; that player may place those units on any planets they control in that system and any adjacent systems.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Trrakan Aun Zulok",
         unlock: "Have 6 units that have ANTI-FIGHTER BARRAGE, SPACE CANNON or BOMBARDMENT on the game board",
         ability: "When 1 or more of your units make a roll for a unit ability: You may choose 1 of those units to roll 1 additional die.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Mirik Aun Sissiri",
         unlock: "Have 3 Scored Objectives",
         ability: "HELIX PROTOCOL ACTION: Move any number of your ships from any systems to any number of other systems that contain 1 of your command tokens and no other players' ships. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1642,19 +1752,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Other players cannot use space cannon against your ships in this system",
     },
-    mech: { name: "Aerie Sentinel", text: "This unit does not count against capacity if it is being transported or if it is in a space area with 1 or more of your ships that have capacity values Sustain Damage" },
+    mech: { name: "Aerie Sentinel", text: "This unit does not count against capacity if it is being transported or if it is in a space area with 1 or more of your ships that have capacity values Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Wing Transfer",
       text: "When you activate a system that contains only your units, you may place command tokens from your reinforcements into any system adjacent to that system that contain only your units; at the end of this action, you may move ships among the active system and systems adjacent to it that contain your command tokens.",
+      expansion: "thundersedge",
       synergy: ["propulsion","cybernetic"],
     },
     promissory: [
-      { name: "Strike Wing Ambuscade", text: "When 1 or more of your units make a roll for a unit ability: Choose 1 of those units to roll 1 additional die Then, return this card to the Argent player" },
+      { name: "Strike Wing Ambuscade", text: "When 1 or more of your units make a roll for a unit ability: Choose 1 of those units to roll 1 additional die Then, return this card to the Argent player", expansion: "pok" },
     ],
     factionTech: [
       {
         name: "Aerie Hololattice",
         text: "Other players cannot move ships through systems that contain your structures. Each planet that contains 1 or more of your structures gains the PRODUCTION 1 ability as if it were a unit",
+        expansion: "pok",
       },
     ],
     uniqueUnits: [
@@ -1714,18 +1826,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Acamar",
         unlock: "At Game Start",
         ability: "After a player moves ships into a system that does not contain any planets: You may exhaust this card; that player gains 1 command token.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Xuange",
         unlock: "Be neighbors with all other players",
         ability: "After another player moves ships into a system that contains 1 of your command tokens: You may return that token to your reinforcements.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Conservator Procyon",
         unlock: "Have 3 Scored Objectives",
         ability: "MULTIVERSE SHIFT ACTION: Place 1 frontier token in each system that does not contain any planets and does not already have a frontier token. Then, explore each frontier token that is in a system that contains 1 or more of your ships. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1736,24 +1851,27 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage After any player's unit in this system or an adjacent system uses SUSTAIN DAMAGE, you may spend 2 influence to repair that unit.",
     },
-    mech: { name: "Watcher", text: "You may remove this unit from a system that contains or is adjacent to another player's units to cancel an action card played by that player. Sustain Damage" },
+    mech: { name: "Watcher", text: "You may remove this unit from a system that contains or is adjacent to another player's units to cancel an action card played by that player. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Void Tether",
       text: "When you activate a system that contains or is adjacent to a unit or planet you control, you may place or move 1 of your void tether tokens onto a border that system shares with another system; other players do not treat those systems as adjacent to each other unless you allow it.",
+      expansion: "thundersedge",
       synergy: ["biotic","propulsion"],
     },
     promissory: [
-      { name: "Dark Pact", text: "ACTION: Place this card face up in your play area. When you give a number of commodities to the Empyrean player equal to your maximum commodity value, you each gain 1 trade good. If you activate a system that contains 1 or more of the Empyrean player's units, return this card to the Empyrean player." },
-      { name: "Blood Pact", text: "ACTION: Place this card face up in your play area. When you and the Empyrean player cast votes for the same outcome, cast 4 additional votes for that outcome. If you activate a system that contains 1 or more of the Empyrean player's units, return this card to the Empyrean player." },
+      { name: "Dark Pact", text: "ACTION: Place this card face up in your play area. When you give a number of commodities to the Empyrean player equal to your maximum commodity value, you each gain 1 trade good. If you activate a system that contains 1 or more of the Empyrean player's units, return this card to the Empyrean player.", expansion: "pok" },
+      { name: "Blood Pact", text: "ACTION: Place this card face up in your play area. When you and the Empyrean player cast votes for the same outcome, cast 4 additional votes for that outcome. If you activate a system that contains 1 or more of the Empyrean player's units, return this card to the Empyrean player.", expansion: "pok" },
     ],
     factionTech: [
       {
         name: "Aetherstream",
         text: "After you or one of your neighbors activates a system that is adjacent to an anomaly, you may apply +1 to the move value of all of that player's ships during this tactical action.",
+        expansion: "pok",
       },
       {
         name: "Voidwatch",
         text: "After a player moves ships into a system that contains 1 or more of your units, they must give you 1 promissory note from their hand, if able.",
+        expansion: "pok",
       },
     ],
     faq: [
@@ -1796,18 +1914,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Jae Mir Kan",
         unlock: "At Game Start",
         ability: "When you would spend a command token during the secondary ability of a strategic action: You may exhaust this card to remove 1 of the active player's command tokens from the board and use it instead.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Il Na Viroset",
         unlock: "Have 2 other factions' command tokens in your fleet pool.",
         ability: "During your tactical actions, you can activate systems that contain your command tokens. If you do, return both command tokens to your reinforcements and end your turn.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Airo Shir Aur",
         unlock: "Have 3 Scored Objectives",
         ability: "BENEDICTION ACTION: Move all units in the space area of any system to an adjacent system that contains a different player's ships. Space Combat is resolved in that system; neither player can retreat or resolve abilities that would move their ships. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1818,19 +1939,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage During combat against an opponent whose command token is not in your fleet pool, apply +2 to the results of this unit's combat rolls.",
     },
-    mech: { name: "Starlancer", text: "After a player whose command token is in your fleet pool activates this system, you may spend their token from your fleet pool to end their turn; they gain that token. Sustain Damage" },
+    mech: { name: "Starlancer", text: "After a player whose command token is in your fleet pool activates this system, you may spend their token from your fleet pool to end their turn; they gain that token. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Vaults of the Heir",
       text: "ACTION: Exhaust this card and purge 1 of your technologies to gain 1 relic.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Scepter of Dominion", text: "At the start of the strategy phase: Choose 1 non-home system that contains your units; each other player who has a token on the Mahact player's command sheet places a token from their reinforcements in that system. Then, return this card to the Mahact player." },
+      { name: "Scepter of Dominion", text: "At the start of the strategy phase: Choose 1 non-home system that contains your units; each other player who has a token on the Mahact player's command sheet places a token from their reinforcements in that system. Then, return this card to the Mahact player.", expansion: "pok" },
     ],
     factionTech: [
       {
         name: "Genetic Recombination",
         text: "You may exhaust this card before a player casts votes; that player must cast at least 1 vote for an outcome of your choice or remove 1 token from their fleet pool and return it to their reinforcements.",
+        expansion: "pok",
       },
     ],
     uniqueUnits: [
@@ -1902,18 +2025,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Garv and Gunn",
         unlock: "At Game Start",
         ability: "At the end of a player's turn: You may exhaust this card to allow that player to explore 1 of their planets.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Dart and Tai",
         unlock: "Have 3 mechs in 3 systems",
         ability: "After you gain control of a planet that was controlled by another player: You may explore that planet.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Hesh and Prit",
         unlock: "Have 3 Scored Objectives",
         ability: "PERFECT SYNTHESIS ACTION: Gain 1 relic and perform the secondary ability of up to 2 readied or unchosen strategy cards; during this action, spend command tokens from your reinforcements instead of your strategy pool. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -1924,23 +2050,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "4",
       text: "Sustain Damage Your mechs in this system roll 1 additional die during combat.",
     },
-    mech: { name: "Eidolon", text: "If this unit is in the space area of the active system at the start of a space combat, flip this card. Sustain Damage (This card begins the game with this side face up)" },
+    mech: { name: "Eidolon", text: "If this unit is in the space area of the active system at the start of a space combat, flip this card. Sustain Damage (This card begins the game with this side face up)", expansion: "pok" },
     breakthrough: {
       name: "Absolute Synergy",
       text: "When you have 4 mechs in the same system, you may return 3 of those mechs to your reinforcements to flip this card and place it on top of your mech card.",
+      expansion: "thundersedge",
       synergy: ["biotic","propulsion"],
     },
     promissory: [
-      { name: "Black Market Forgery", text: "ACTION: Purge 2 of your relic fragments of the same type to gain 1 relic. Then, return this card to the Naaz-Rokha player." },
+      { name: "Black Market Forgery", text: "ACTION: Purge 2 of your relic fragments of the same type to gain 1 relic. Then, return this card to the Naaz-Rokha player.", expansion: "pok" },
     ],
     factionTech: [
       {
         name: "Supercharge",
         text: "At the start of a combat round, you may exhaust this card to apply +1 to the result of each of your unit's combat rolls during this combat round.",
+        expansion: "pok",
       },
       {
         name: "Pre-Fab Arcologies",
         text: "After you explore a planet, ready that planet.",
+        expansion: "pok",
       },
     ],
     faq: [
@@ -1983,30 +2112,35 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Artuno the Betrayer",
         unlock: "At Game Start",
         ability: "When you gain trade goods from the supply: You may exhaust this card to place an equal number of trade goods on this card. When this card readies, gain the trade goods on this card.",
+        expansion: "pok",
       },
       {
         role: "Agent",
         name: "Field Marshal Mercer",
         unlock: "At Game Start",
         ability: "At the end of a player's turn: You may exhaust this card to allow that player to remove up to 2 of their ground forces from the game board and place them on planets they control in the active system.",
+        expansion: "pok",
       },
       {
         role: "Agent",
         name: "The Thundarian",
         unlock: "At Game Start",
         ability: "After the \"Roll Dice\" step of combat: You may exhaust this card. If you do, hits are not assigned to either players' units. Return to the start of this combat round's \"Roll Dice\" step.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Navarch Feng",
         unlock: "Have 1 scored secret objective",
         ability: "You can produce your flagship without spending resources.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Ahk-Syl Siven",
         unlock: "Have 3 Scored Objectives",
         ability: "PROBABILITY MATRIX ACTION: Place this card near the game board; your flagship and units it transports can move out of systems that contain your command tokens during this game round. At the end of that game round, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2017,19 +2151,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Anti-Fighter Barrage 8 (x3) You may treat this unit as if it were adjacent to systems that contain one or more of your mechs.",
     },
-    mech: { name: "Quantum Manipulator", text: "While this unit is in a space area during combat, you may use its SUSTAIN DAMAGE ability to cancel a hit that is produced against your ships in this system. Sustain Damage" },
+    mech: { name: "Quantum Manipulator", text: "While this unit is in a space area during combat, you may use its SUSTAIN DAMAGE ability to cancel a hit that is produced against your ships in this system. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Thunder's Paradox",
       text: "At the start of any player's turn, you may exhaust 1 of your agents to ready any other agent.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "The Cavalry", text: "At the start of a space combat against a player other than the Nomad: During this combat, treat 1 of your non-fighter ships as if it has the SUSTAIN DAMAGE ability, combat value, and ANTI-FIGHTER BARRAGE value of the Nomad's flagship. Return this card to the Nomad player at the end of this combat." },
+      { name: "The Cavalry", text: "At the start of a space combat against a player other than the Nomad: During this combat, treat 1 of your non-fighter ships as if it has the SUSTAIN DAMAGE ability, combat value, and ANTI-FIGHTER BARRAGE value of the Nomad's flagship. Return this card to the Nomad player at the end of this combat.", expansion: "pok" },
     ],
     factionTech: [
       {
         name: "Temporal Command Suite",
         text: "After any player's agent becomes exhausted, you may exhaust this card to ready that agent; if you ready another player's agent, you may perform a transaction with that player.",
+        expansion: "pok",
       },
     ],
     faq: [
@@ -2072,18 +2208,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Tellurian",
         unlock: "At Game Start",
         ability: "When a hit is produced against a unit: You may exhaust this card to cancel that hit.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Tungstantus",
         unlock: "Have 5 structures on the game board",
         ability: "When 1 or more of your units use PRODUCTION: You may gain 1 trade good.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Ul The Progenitor",
         unlock: "Have 3 Scored Objectives",
         ability: "GEOFORM ACTION: Ready Elysium and attach this card to it. Its resource and influence values are each increased by 3, and it gains the SPACE CANNON 5 (x3) ability as if it were a unit.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2094,14 +2233,15 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage DEPLOY: After you activate a system that contains 1 or more of your PDS, you may replace 1 of those PDS with this unit.",
     },
-    mech: { name: "Hecatoncheires", text: "DEPLOY: When you would place a PDS on a planet, you may place 1 mech and 1 infantry on that planet instead. Sustain Damage" },
+    mech: { name: "Hecatoncheires", text: "DEPLOY: When you would place a PDS on a planet, you may place 1 mech and 1 infantry on that planet instead. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Slumberstate Computing",
       text: "When COALESCENCE results in a ground combat, if you commit no other units, you may choose for your units to coexist instead. During the status phase, for each player you are coexisting with, you and that player each draw 1 additional action card. Other players may allow you to place a sleeper token on a planet they control.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Terraform", text: "ACTION: Attach this card to a non-home planet you control other than Mecatol Rex. Its resource and influence values are each increased by 1 and it is treated as having all 3 planet traits (Cultural, Hazardous, and Industrial)." },
+      { name: "Terraform", text: "ACTION: Attach this card to a non-home planet you control other than Mecatol Rex. Its resource and influence values are each increased by 1 and it is treated as having all 3 planet traits (Cultural, Hazardous, and Industrial).", expansion: "pok" },
     ],
     uniqueUnits: [
       {
@@ -2177,18 +2317,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "The Stillness of Stars",
         unlock: "At Game Start",
         ability: "After another player replenishes commodities: You may exhaust this card to convert their commodities to trade goods and capture 1 unit from their reinforcements that has a cost equal to or lower than their commodity value.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "That Which Molds Flesh",
         unlock: "Have units in 3 Gravity Rifts",
         ability: "When you produce fighter or infantry units: Up to 2 of those units do not count against your PRODUCTION limit.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "It Feeds on Carrion",
         unlock: "Have 3 Scored Objectives",
         ability: "DIMENSIONAL ANCHOR ACTION: Each other player rolls a die for each of their non-fighter ships that are in or adjacent to a system that contains a dimensional tear; on a 1-3, capture that unit. If this causes a player's ground forces or fighters to be removed, also capture those units. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2199,19 +2342,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Bombardment 5 Capture all other non-structure units that are destroyed in this system, including your own.",
     },
-    mech: { name: "Reanimator", text: "When your infantry on this planet are destroyed, place them on your faction sheet; those units are captured. Sustain Damage" },
+    mech: { name: "Reanimator", text: "When your infantry on this planet are destroyed, place them on your faction sheet; those units are captured. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Al'Raith Ix Ianovar",
       text: "This breakthrough causes The Fracture to enter play without a roll, if it is not already in play. After this card enters play, move up to 2 ingress tokens into systems that contain gravity rifts. Apply +1 to the Move value of each of your ships that start their movement in The Fracture.",
+      expansion: "thundersedge",
       synergy: ["warfare","biotic"],
     },
     promissory: [
-      { name: "Crucible", text: "After you activate a system: Your ships do not roll for gravity rifts during this movement; apply an additional +1 to the move values of your ships that would move out of or through a gravity rift instead. Then, return this card to the Vuil'raith player." },
+      { name: "Crucible", text: "After you activate a system: Your ships do not roll for gravity rifts during this movement; apply an additional +1 to the move values of your ships that would move out of or through a gravity rift instead. Then, return this card to the Vuil'raith player.", expansion: "pok" },
     ],
     factionTech: [
       {
         name: "Vortex",
         text: "ACTION: Exhaust this card to choose another player's non-structure unit in a system that is adjacent to 1 or more of your space docks. Capture 1 unit of that type from that player's reinforcements",
+        expansion: "pok",
       },
     ],
     uniqueUnits: [
@@ -2281,42 +2426,49 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Xander Alexin Victori III",
         unlock: "At Game Start",
         ability: "At any time: You may exhaust this card to allow any player to spend commodities as if they were trade goods",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Suffi An",
         unlock: "Spend 1 trade good after you play an action card that has a component action",
         ability: "After you perform a component action: You may perform an additional action.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Hero If Argent Flight Chosen for Tribunii",
         unlock: "Spend 1 trade good after you play an action card that has a component action",
         ability: "",
+        expansion: "codex3",
       },
       {
         role: "Commander",
         name: "Kuuasi Aun Jalatai",
         unlock: "Spend 1 trade good after you play an action card that has a component action",
         ability: "OVERWING ZETA At the start of a round of space combat in a system that contains a planet you control: Place your flagship and any combination of up to 2 cruisers or destroyers from your reinforcements in the active system. Then, purge this card.",
+        expansion: "thundersedge",
       },
       {
         role: "Commander",
         name: "Hero If Xxcha Chosen for Tribunii",
         unlock: "Spend 1 trade good after you play an action card that has a component action",
         ability: "",
+        expansion: "codex3",
       },
       {
         role: "Commander",
         name: "Odlynn Myrr",
         unlock: "Spend 1 trade good after you play an action card that has a component action",
         ability: "OPERATION ARCHON After an agenda is revealed: You may cast up to 6 additional votes on this agenda. Predict aloud an outcome for this agenda. For each player that abstains or votes for another outcome, gain 1 trade good and 1 command token. Then, purge this card.",
+        expansion: "thundersedge",
       },
       {
         role: "Commander",
         name: "Hero If Mentak Chosen for Tribunii",
         unlock: "Spend 1 trade good after you play an action card that has a component action",
         ability: "",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2327,31 +2479,36 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "6",
       text: "Sustain Damage Other players must spend 2 influence to activate the system that contains this ship.",
     },
-    mech: { name: "Omniopiares", text: "Other players must spend 1 influence to commit ground forces to the planet that contains this unit. Sustain Damage" },
+    mech: { name: "Omniopiares", text: "Other players must spend 1 influence to commit ground forces to the planet that contains this unit. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "I.I.H.Q. Modernization",
       text: "When you gain this card, gain the Custodia Vigilia planet card and its legendary planet ability card. You are neighbors with all players that have units or control planets in or adjacent to the Mecatol Rex system.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Keleres Rider", text: "After an agenda is revealed: You cannot vote on this agenda. Predict aloud an outcome of this agenda. If your prediction is correct, draw 1 action card and gain 2 trade goods. Then, return this card to the Keleres player." },
+      { name: "Keleres Rider", text: "After an agenda is revealed: You cannot vote on this agenda. Predict aloud an outcome of this agenda. If your prediction is correct, draw 1 action card and gain 2 trade goods. Then, return this card to the Keleres player.", expansion: "codex3" },
     ],
     factionTech: [
       {
         name: "I.I.H.Q. Modernization",
         text: "You are neighbors with all players that have units or control planets in or adjacent to the Mecatol Rex system. Gain the Custodia Vigilia planet card and its legendary planet ability card. You cannot lose these cards, and this card cannot have an X or Y assimilator token placed on it.",
+        expansion: "codex3",
       },
       {
         name: "Agency Supply Network",
         text: "Whenever you resolve one of your PRODUCTION abilities, you may resolve an additional one of your PRODUCTION abilities in any system; the additional use does not trigger this ability.",
+        expansion: "codex3",
       },
       {
         name: "Executive Order",
         text: "ACTION: Exhaust this card and draw the top or bottom card of the agenda deck. Players immediately vote on this agenda as if you were the speaker; you can spend trade goods and resources on this agenda as if they were votes.",
+        expansion: "thundersedge",
       },
       {
         name: "Agency Supply Network",
         text: "Once per action, when you resolve a unit's PRODUCTION ability, you may resolve another of your unit's PRODUCTION abilities in any system.",
+        expansion: "thundersedge",
       },
     ],
     faq: [
@@ -2401,18 +2558,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Ahk Ravin",
         unlock: "At Game Start",
         ability: "ACTION: Exhaust this card to choose 1 player. That player may swap the position of 2 of their ships in any systems; they may transport units when they swap.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Ahk Siever",
         unlock: "Place a breach token in a system that contains another player's unit.",
         ability: "At the end of a combat between any players: Gain 1 commodity or convert 1 of your commodities to a trade good.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Homesick Phantom",
         unlock: "Have 3 Scored Objectives",
         ability: "FRAGMENT REALITY When you produce ships: You may place any of those ships on this card. At the start of a space combat, you may purge this card to place all ships from this card into the active system.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2423,19 +2583,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage While this unit is in a system that contains an active breach, other players' units in systems with active breaches lose all their unit abilities.",
     },
-    mech: { name: "Revenant", text: "DEPLOY: During the \"Commit Ground Forces\" step of your tactical action in a system that contains an active breach, you may commit 1 mech, even if you have no units in the system Sustain Damage" },
+    mech: { name: "Revenant", text: "DEPLOY: During the \"Commit Ground Forces\" step of your tactical action in a system that contains an active breach, you may commit 1 mech, even if you have no units in the system Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Resonance Generator",
       text: "During your tactical actions, apply +1 to the move value of each of your ships that start in your home system or in a system that contains an active breach. ACTION: Exhaust this card to flip any breach or place an active breach in a non-home system that contains your units.",
+      expansion: "thundersedge",
       synergy: ["propulsion","warfare"],
     },
     promissory: [
-      { name: "Sever", text: "ACTION: Place this card faceup in your play area, and place the sever token in a system that contains your units; wormholes in that system have no effect during movement. Remove the sever token and return this card to the Rebellion player at end of the status phase." },
+      { name: "Sever", text: "ACTION: Place this card faceup in your play area, and place the sever token in a system that contains your units; wormholes in that system have no effect during movement. Remove the sever token and return this card to the Rebellion player at end of the status phase.", expansion: "thundersedge" },
     ],
     factionTech: [
       {
         name: "Subatomic Splicer",
         text: "When one of your ships is destroyed, you may produce a ship of the same type at a space dock in your home system.",
+        expansion: "thundersedge",
       },
     ],
     uniqueUnits: [
@@ -2489,18 +2651,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Doctor Carrina",
         unlock: "At Game Start",
         ability: "When another player researches a technology: You may exhaust this card to allow that player to ignore 1 prerequisite; if they do, you may place 1 infantry from your reinforcements into coexistence on a non-home planet they control",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Aello",
         unlock: "Have an ocean card in play.",
         ability: "When another player spends resources to research a technology: That player may reduce the cost by 1, if they do, gain 1 commodity or convert 1 of your commodities to a trade good.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Ta Zern",
         unlock: "Have 3 Scored Objectives",
         ability: "WAVE FUNCTION COLLAPSE ACTION: Purge this card and a non-unit upgrade technology you own or from your deck; then, purge all cards with the same name owned by other players and in other players' decks. Then, each player that purged a technology they owned researches another technology.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2511,23 +2676,26 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "6",
       text: "Sustain Damage This ship can move through systems that contain your units, even if other players' units are present: if it would, apply +1 to its move value for each of those systems.",
     },
-    mech: { name: "Eanautic", text: "When another player activates this system, if this unit is coexisting, you may move it and any of your infantry on its planet to a planet you control in your home system. Sustain Damage Production 1" },
+    mech: { name: "Eanautic", text: "When another player activates this system, if this unit is coexisting, you may move it and any of your infantry on its planet to a planet you control in your home system. Sustain Damage Production 1", expansion: "pok" },
     breakthrough: {
       name: "Visionaria Select",
       text: "ACTION: Exhaust this card to allow each other player to spend 3 trade goods and give you 1 promissory note. Each player that does may research a non-faction, non-unit upgrade technology. You also gain each technology researched this way.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Share Knowledge", text: "ACTION: Place this card faceup in your play area and gain 1 non-faction, non-unit upgrade technology that the Deepwrought player owns; place that technology on this card. Return that technology to the deck and this card to the Deepwrought player at the end of the status phase." },
+      { name: "Share Knowledge", text: "ACTION: Place this card faceup in your play area and gain 1 non-faction, non-unit upgrade technology that the Deepwrought player owns; place that technology on this card. Return that technology to the deck and this card to the Deepwrought player at the end of the status phase.", expansion: "thundersedge" },
     ],
     factionTech: [
       {
         name: "Radical Advancement",
         text: "At the start of the status phase, you may replace one of your non-unit upgrade technologies with a technology of the same color that has exactly 1 more prerequisite.",
+        expansion: "thundersedge",
       },
       {
         name: "Hydrothermal Mining",
         text: "At the start of the status phase, gain 1 trade good for each ocean card in play.",
+        expansion: "thundersedge",
       },
     ],
     faq: [
@@ -2573,18 +2741,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Myru Vos",
         unlock: "At Game Start",
         ability: "When a player moves ships: You may exhaust this card; if you do, SPACE CANNON cannot be used against those ships. If they are not transporting units, they can also move through other players' ships.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Captain Aroz",
         unlock: "Have one plot card in play.",
         ability: "You may treat planets in systems that contain your ships as if you controlled them for the purpose of scoring secret objectives.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Sharsiss",
         unlock: "Have 3 Scored Objectives",
         ability: "THE BLADE BECKONS ACTION: Place 1 of your plot cards in play with any other player's control token on it. Then, you may place any player's control token on 1 of your in-play plot cards; one plot cannot have two of the same player's tokens. Then, purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2595,32 +2766,37 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage If the Active System contains units that belong to a player who has a Control Token on one of your Plots, apply +1 to this ship's move value and repair it at the end of every Combat Round.",
     },
-    mech: { name: "Viper EX-23", text: "When ground forces are committed to this planet, you may choose for your units to coexist, if they were not already. Flip this card if your faction becomes the Obsidian. Sustain Damage" },
+    mech: { name: "Viper EX-23", text: "When ground forces are committed to this planet, you may choose for your units to coexist, if they were not already. Flip this card if your faction becomes the Obsidian. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "The Sowing",
       text: "When you gain this card and at the start of the status phase, you may place up to three of your trade goods on this card. Flip this card if you become The Obsidian faction.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Black Ops", text: "When you receive this card: If you are not The Firmament, the Firmament player may place 1 facedown plot card in their play area with your control token on it. Then, gain 2 command tokens, gain 2 trade goods, and purge this card." },
-      { name: "Malevolency", text: "At the end of one of your tactical actions: Spend 1 Influence to give this card to 1 of your neighbors; you can use this ability even if you are The Obsidian player. At the end of the status phase, if you are not the Obsidian player, remove 1 command token from your fleet pool and return it to your reinforcements." },
+      { name: "Black Ops", text: "When you receive this card: If you are not The Firmament, the Firmament player may place 1 facedown plot card in their play area with your control token on it. Then, gain 2 command tokens, gain 2 trade goods, and purge this card.", expansion: "thundersedge" },
+      { name: "Malevolency", text: "At the end of one of your tactical actions: Spend 1 Influence to give this card to 1 of your neighbors; you can use this ability even if you are The Obsidian player. At the end of the status phase, if you are not the Obsidian player, remove 1 command token from your fleet pool and return it to your reinforcements.", expansion: "thundersedge" },
     ],
     factionTech: [
       {
         name: "Plane Splitter",
         text: "When you gain this card, put The Fracture into play. Flip this card if the Obsidian faction is in play.",
+        expansion: "thundersedge",
       },
       {
         name: "Neural Parasite",
         text: "At the start of the status phase, you may place 1 infantry from your reinforcements on a planet you control in your home system. Flip this card if the Obsidian faction is in play.",
+        expansion: "thundersedge",
       },
       {
         name: "Plane Splitter",
         text: "At the start of your strategic actions, you may move an ingress token into a system that contains or is adjacent to your units. This technology cannot be researched.",
+        expansion: "thundersedge",
       },
       {
         name: "Neural Parasite",
         text: "At the start of your turn, destroy 1 of another player's infantry in or adjacent to a system that contains your infantry. This technology cannot be researched.",
+        expansion: "thundersedge",
       },
     ],
     faq: [
@@ -2665,18 +2841,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Dame Briar",
         unlock: "At Game Start",
         ability: "When a player's unit is destroyed: You may exhaust this card to galvanize another of that player's units in the destroyed unit's system.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Nip and Tuck",
         unlock: "There are 3 galvanized units on the game board",
         ability: "Your action cards cannot be canceled by \"Sabotage\" action cards. The Nekro Virus cannot place assimilator tokens on your components.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Lyra Keen",
         unlock: "Have 3 Scored Objectives",
         ability: "ENTITY 4X41A \"APOLLO\" When one of your galvanized units is destroyed: You may purge this card to roll 1 die for each unit in its system that belongs to another player; if the result is equal to or greater than the galvanized unit's combat value, destroy that unit.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2687,19 +2866,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "3",
       text: "Sustain Damage Production 1 Apply +1 to the results of each of this unit's combat rolls for each non-home system that contains a planet you control.",
     },
-    mech: { name: "A3 Valiance", text: "When this unit is destroyed, if it was galvanized, galvanize up to 3 of your infantry in its system Sustain Damage" },
+    mech: { name: "A3 Valiance", text: "When this unit is destroyed, if it was galvanized, galvanize up to 3 of your infantry in its system Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "The Icon",
       text: "When you produce ships, you may exhaust this card to place those ships in a system that contains one of your command tokens, at least one of your ground forces, and no other player's ships.",
+      expansion: "thundersedge",
       synergy: ["warfare","cybernetic"],
     },
     promissory: [
-      { name: "Raise the Standard", text: "At the end of a combat: Galvanize 1 of your units that participated. Then, return this card to the Last Bastion player." },
+      { name: "Raise the Standard", text: "At the end of a combat: Galvanize 1 of your units that participated. Then, return this card to the Last Bastion player.", expansion: "thundersedge" },
     ],
     factionTech: [
       {
         name: "Proxima Targeting VI",
         text: "Cancel 1 hit produced by BOMBARDMENT rolls made against your ground forces for each of your galvanized units present. At the start of a round of ground combat, you may resolve BOMBARDMENT 8 (x3) against your opponents ground forces; if you do, make an identical roll against your own ground forces.",
+        expansion: "thundersedge",
       },
     ],
     uniqueUnits: [
@@ -2753,18 +2934,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
         name: "Kan Kip Rel",
         unlock: "At Game Start",
         ability: "ACTION: Exhaust this card to draw 2 action cards; give 1 of those cards to another player.",
+        expansion: "pok",
       },
       {
         role: "Commander",
         name: "Watchful Ojz",
         unlock: "Be the last person to pass during the Action Phase",
         ability: "When you declare a retreat: Immediately retreat up to 2 of your ships from the active system to an adjacent system that does not contain another player's ships. Place a command token from your reinforcements into that system.",
+        expansion: "pok",
       },
       {
         role: "Hero",
         name: "Director Nel",
         unlock: "Have 3 Scored Objectives",
         ability: "SIGNAL INTRUSION After the last player passes: You may choose to no longer be passed; if you do, gain 2 command tokens, draw 1 action card, and purge this card.",
+        expansion: "pok",
       },
     ],
     flagship: {
@@ -2775,19 +2959,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       capacity: "4",
       text: "Sustain Damage When this unit retreats, you may destroy 1 ship in the active system that does not have SUSTAIN DAMAGE.",
     },
-    mech: { name: "Alarum", text: "At the end of a round of combat on this planet, you may move up to 2 of your ground forces to this planet from planets in adjacent systems. Sustain Damage" },
+    mech: { name: "Alarum", text: "At the end of a round of combat on this planet, you may move up to 2 of your ground forces to this planet from planets in adjacent systems. Sustain Damage", expansion: "pok" },
     breakthrough: {
       name: "Data Skimmer",
       text: "During the action phase, if you have not passed, when other players would discard action cards, they are placed on this card instead. When you pass, take 1 action card from this card and discard the rest.",
+      expansion: "thundersedge",
       synergy: ["cybernetic","biotic"],
     },
     promissory: [
-      { name: "Nano-Link Permit", text: "After you activate a system: You may move your structures from adjacent systems that do not contain your command tokens onto planets you control in the active system. Then, return this card to the Ral Nel player." },
+      { name: "Nano-Link Permit", text: "After you activate a system: You may move your structures from adjacent systems that do not contain your command tokens onto planets you control in the active system. Then, return this card to the Ral Nel player.", expansion: "thundersedge" },
     ],
     factionTech: [
       {
         name: "Nanomachines",
         text: "ACTION: Exhaust this card to place 1 PDS on a planet you control. ACTION: Exhaust this card to repair all of your damaged units. ACTION: Exhaust this card and discard 1 action card to draw 1 action card.",
+        expansion: "thundersedge",
       },
     ],
     uniqueUnits: [

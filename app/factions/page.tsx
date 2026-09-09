@@ -35,7 +35,7 @@ const DIFFICULTY_TONE = {
 } as const;
 
 export default function FactionsPage() {
-  const { scope, hydrated } = useSettings();
+  const { scope, isEnabled, hydrated } = useSettings();
   const [query, setQuery] = useState("");
   const [difficulty, setDifficulty] = useState<DifficultyFilter>("all");
   const [selected, setSelected] = useState<Faction | null>(null);
@@ -52,15 +52,17 @@ export default function FactionsPage() {
         faction.tagline ?? "",
         faction.playstyle ?? "",
         ...faction.abilities.flatMap((a) => [a.name, a.text]),
-        ...(faction.leaders ?? []).flatMap((l) => [l.name, l.ability]),
+        // Only search what is actually on screen — a leader hidden because
+        // Prophecy of Kings is off should not pull its faction into results.
+        ...scope(faction.leaders ?? []).flatMap((l) => [l.name, l.ability]),
         faction.flagship?.name ?? "",
-        faction.mech?.name ?? "",
+        faction.mech && isEnabled(faction.mech.expansion) ? faction.mech.name : "",
       ]
         .join(" ")
         .toLowerCase()
         .includes(q);
     });
-  }, [available, query, difficulty]);
+  }, [available, query, difficulty, scope, isEnabled]);
 
   return (
     <>
@@ -165,6 +167,23 @@ const LEADER_CLASS = {
 } as const;
 
 function FactionDetail({ faction }: { faction: Faction }) {
+  const { scope, isEnabled } = useSettings();
+
+  /**
+   * A faction sheet is not all from one product. Leaders and mechs arrived
+   * with Prophecy of Kings and breakthroughs with Thunder's Edge, on base game
+   * factions too, so each block is filtered on its own tag rather than the
+   * faction's.
+   */
+  const leaders = scope(faction.leaders ?? []);
+  const factionTech = scope(faction.factionTech ?? []);
+  const promissory = scope(faction.promissory ?? []);
+  const mech = faction.mech && isEnabled(faction.mech.expansion) ? faction.mech : null;
+  const breakthrough =
+    faction.breakthrough && isEnabled(faction.breakthrough.expansion)
+      ? faction.breakthrough
+      : null;
+
   return (
     <div>
       <div className={styles.detailHead}>
@@ -210,11 +229,11 @@ function FactionDetail({ faction }: { faction: Faction }) {
         ) : null}
       </div>
 
-      {faction.leaders?.length ? (
+      {leaders.length ? (
         <>
           <h4 className={styles.subhead}>Leaders</h4>
           <div className={styles.stack}>
-            {faction.leaders.map((leader, i) => (
+            {leaders.map((leader, i) => (
               <div
                 key={`${leader.role}-${leader.name}-${i}`}
                 className={[styles.leader, LEADER_CLASS[leader.role]].join(" ")}
@@ -233,7 +252,7 @@ function FactionDetail({ faction }: { faction: Faction }) {
         </>
       ) : null}
 
-      {faction.flagship || faction.mech || faction.breakthrough ? (
+      {faction.flagship || mech || breakthrough ? (
         <>
           <h4 className={styles.subhead}>Unique units</h4>
           <div className={styles.stack}>
@@ -259,25 +278,25 @@ function FactionDetail({ faction }: { faction: Faction }) {
                 <p className={styles.abilityText}>{faction.flagship.text}</p>
               </div>
             ) : null}
-            {faction.mech ? (
+            {mech ? (
               <div className={styles.ability}>
-                <p className={styles.abilityName}>{faction.mech.name} — Mech</p>
-                <p className={styles.abilityText}>{faction.mech.text}</p>
+                <p className={styles.abilityName}>{mech.name} — Mech</p>
+                <p className={styles.abilityText}>{mech.text}</p>
               </div>
             ) : null}
-            {faction.breakthrough ? (
+            {breakthrough ? (
               <div className={styles.ability}>
                 <p className={styles.abilityName}>
-                  {faction.breakthrough.name} — Breakthrough
+                  {breakthrough.name} — Breakthrough
                 </p>
-                {faction.breakthrough.synergy ? (
+                {breakthrough.synergy ? (
                   <p className={styles.unitStats}>
                     <span>
-                      Synergy <b>{faction.breakthrough.synergy.join(" ↔ ")}</b>
+                      Synergy <b>{breakthrough.synergy.join(" ↔ ")}</b>
                     </span>
                   </p>
                 ) : null}
-                <p className={styles.abilityText}>{faction.breakthrough.text}</p>
+                <p className={styles.abilityText}>{breakthrough.text}</p>
               </div>
             ) : null}
             {faction.uniqueUnits?.map((unit) => (
@@ -305,11 +324,11 @@ function FactionDetail({ faction }: { faction: Faction }) {
         </>
       ) : null}
 
-      {faction.factionTech?.length ? (
+      {factionTech.length ? (
         <>
           <h4 className={styles.subhead}>Faction technologies</h4>
           <div className={styles.stack}>
-            {faction.factionTech.map((tech) => (
+            {factionTech.map((tech) => (
               <div key={tech.name} className={styles.ability}>
                 <p className={styles.abilityName}>
                   {tech.color ? (
@@ -334,13 +353,13 @@ function FactionDetail({ faction }: { faction: Faction }) {
         </>
       ) : null}
 
-      {faction.promissory?.length ? (
+      {promissory.length ? (
         <>
           <h4 className={styles.subhead}>
-            Promissory note{faction.promissory.length > 1 ? "s" : ""}
+            Promissory note{promissory.length > 1 ? "s" : ""}
           </h4>
           <div className={styles.stack}>
-            {faction.promissory.map((note) => (
+            {promissory.map((note) => (
               <div key={note.name} className={styles.ability}>
                 <p className={styles.abilityName}>{note.name}</p>
                 <p className={styles.abilityText}>{note.text}</p>

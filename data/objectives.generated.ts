@@ -413,6 +413,7 @@ export const SECRET_OBJECTIVES: SecretObjective[] = [
     phase: "Action",
     requirement: "Use ANTI-FIGHTER BARRAGE to destroy the last of a player's fighters in a system.",
     omega: "Destroy the last of a player's fighters in the active system during the anti-fighter barrage step.",
+    omegaExpansion: "codex3",
   },
   {
     id: "forge-an-alliance",
@@ -470,6 +471,7 @@ export const SECRET_OBJECTIVES: SecretObjective[] = [
     phase: "Action",
     requirement: "Use BOMBARDMENT to destroy the last of a player's ground forces on a planet.",
     omega: "Destroy the last of a player's ground forces on a planet during the bombardment step.",
+    omegaExpansion: "codex3",
   },
   {
     id: "master-the-laws-of-physics",
@@ -569,6 +571,7 @@ export const SECRET_OBJECTIVES: SecretObjective[] = [
     phase: "Action",
     requirement: "Use SPACE CANNON to destroy the last of a player's ships in a system.",
     omega: "Destroy the last of a player's non-fighter ships in the active system during the space cannon offense step.",
+    omegaExpansion: "codex3",
   },
   {
     id: "unveil-flagship",

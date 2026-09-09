@@ -178,10 +178,13 @@ export default function TechnologiesPage() {
 }
 
 function TechnologyCard({ tech }: { tech: Technology }) {
+  const { isEnabled } = useSettings();
   const owner = tech.faction ? FACTION_BY_ID.get(tech.faction) : null;
+  // Only name factions that are actually in play.
   const startingFor = (tech.startingFor ?? [])
-    .map((id) => FACTION_BY_ID.get(id)?.shortName)
-    .filter(Boolean);
+    .map((id) => FACTION_BY_ID.get(id))
+    .filter((f) => f && isEnabled(f.expansion))
+    .map((f) => f!.shortName);
 
   return (
     <Card
@@ -244,7 +247,7 @@ function TechnologyCard({ tech }: { tech: Technology }) {
 
       <p className={styles.text}>{tech.text}</p>
 
-      {tech.revisions?.map((revision) => (
+      {tech.revisions?.filter((rev) => !rev.expansion || isEnabled(rev.expansion)).map((revision) => (
         <div key={revision.label} className={styles.revision}>
           <span className={styles.revisionTag}>{revision.label}</span>
           <span>{revision.text}</span>
