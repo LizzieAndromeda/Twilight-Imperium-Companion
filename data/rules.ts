@@ -1,0 +1,1134 @@
+import type { Rule } from "@/lib/types";
+
+/**
+ * Rules reference.
+ *
+ * A curated, paraphrased digest of the rules people actually stop the game to
+ * look up — not a reproduction of the rulebook. The official Living Rules
+ * Reference is authoritative; where this disagrees with it, it is wrong.
+ *
+ * Entries tagged `pok` (or a codex) only appear when that expansion is enabled
+ * in Settings, so a base-game table never sees leader or exploration rules.
+ */
+export const RULES: Rule[] = [
+  /* ------------------------------------------------------------------ Core */
+  {
+    id: "victory-points",
+    term: "Victory Points",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "First player to 10 victory points wins immediately, at the moment they reach it.",
+    clauses: [
+      "Players score victory points by fulfilling objectives and through a handful of card and token effects.",
+      "The game ends immediately when a player reaches the victory point target — you do not finish the round.",
+      "If two or more players would reach the target at the same time, the player earliest in initiative order wins.",
+      "A player cannot have more victory points than the target, and cannot drop below zero.",
+      "Groups often play to 14 points for a longer game; the rulebook offers this as a supported variant.",
+    ],
+    related: ["public-objectives", "secret-objectives", "scoring"],
+  },
+  {
+    id: "game-round",
+    term: "Game Round",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Every round runs Strategy, Action, Status and — once the custodians token is gone — Agenda.",
+    clauses: [
+      "1. Strategy phase — players choose strategy cards, which set initiative order for the round.",
+      "2. Action phase — in initiative order, players take turns until everyone has passed.",
+      "3. Status phase — score objectives, reveal a new one, draw cards, and reset the board.",
+      "4. Agenda phase — two agendas are revealed and voted on. This phase does not exist until the custodians token has been removed from Mecatol Rex.",
+      "After the last phase, a new round begins with a new strategy phase.",
+    ],
+    related: ["strategy-phase", "action-phase", "status-phase", "agenda-phase"],
+  },
+  {
+    id: "initiative-order",
+    term: "Initiative Order",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Turn order each round is the initiative number on the strategy cards players chose.",
+    clauses: [
+      "Initiative order runs from the lowest strategy card number to the highest — Leadership (1) acts before Imperial (8).",
+      "Initiative order governs the action phase, scoring in the status phase, and any other effect that resolves 'in initiative order'.",
+      "A player who holds no strategy card (only possible through unusual effects) is last in initiative order.",
+      "In a three- or four-player game each player holds two strategy cards; their initiative is the lower of the two numbers.",
+    ],
+    gotcha:
+      "Initiative order is not the same as the seating order used for the strategy phase and for agenda voting.",
+    related: ["strategy-cards", "strategy-phase", "speaker"],
+  },
+  {
+    id: "control",
+    term: "Control",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "You control a planet if your control token or your ground forces are on it.",
+    clauses: [
+      "You gain control of a planet when you commit ground forces to it and win the ground combat, or when you land on an empty planet.",
+      "When you gain control, place a control token on the planet and take its planet card.",
+      "You keep control after your ground forces leave — the control token remains until someone else takes the planet.",
+      "You lose control the moment another player gains control of that planet.",
+      "A planet cannot be controlled by two players at once.",
+    ],
+    related: ["invasion", "planets", "ground-combat"],
+  },
+  {
+    id: "neighbors",
+    term: "Neighbours",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Two players are neighbours if they both have something in the same or adjacent systems.",
+    clauses: [
+      "Players are neighbours if they each have a unit or control a planet in the same system, or in two systems that are adjacent to each other.",
+      "Only neighbours may resolve transactions with each other.",
+      "Wormhole adjacency counts, so players can be neighbours across the galaxy.",
+      "Being a neighbour is checked at the moment it matters — it is not a permanent status.",
+    ],
+    related: ["transactions", "adjacency", "deals"],
+  },
+  {
+    id: "transactions",
+    term: "Transactions",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Once per turn with each neighbour you may swap trade goods, commodities and promissory notes.",
+    clauses: [
+      "During your turn you may resolve one transaction with each of your neighbours.",
+      "A transaction can exchange any combination of trade goods, commodities, promissory notes and — with Prophecy of Kings — relic fragments.",
+      "A transaction can be one-sided: you may give something and receive nothing.",
+      "You may also resolve a transaction with a player during their turn, if their turn's agenda involves you (for example when an effect lets you).",
+      "Commodities given to another player immediately become trade goods for the receiver.",
+    ],
+    related: ["neighbors", "commodities", "trade-goods", "promissory-notes", "deals"],
+  },
+  {
+    id: "trade-goods",
+    term: "Trade Goods",
+    category: "Core",
+    expansion: "base",
+    summary: "The game's flexible currency — spend them as resources or as influence.",
+    clauses: [
+      "A trade good can be spent as either 1 resource or 1 influence.",
+      "Trade goods can be spent in any combination with exhausted planets to pay a cost.",
+      "Trade goods can be freely traded with neighbours; they are never exhausted or readied.",
+      "The trade good token has a '1' side and a '3' side — flip tokens as needed, they are the same currency.",
+    ],
+    related: ["commodities", "resources-influence", "transactions"],
+  },
+  {
+    id: "commodities",
+    term: "Commodities",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Personal currency that is worthless to you and valuable to everyone else.",
+    clauses: [
+      "Your commodity value is printed on your faction sheet; replenishing sets your commodities to that value.",
+      "You cannot spend commodities as resources or influence.",
+      "When you give commodities to another player, they immediately become trade goods for that player.",
+      "You cannot replenish commodities beyond your commodity value, and excess is lost.",
+    ],
+    gotcha:
+      "Commodities are only useful if you trade them away. Sitting on a full commodity bank is wasted income.",
+    related: ["trade-goods", "transactions", "strategy-cards"],
+  },
+  {
+    id: "resources-influence",
+    term: "Resources & Influence",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Every planet has both values; exhaust the planet to spend one or the other, never both.",
+    clauses: [
+      "Resources (the top-left value) pay for units and technology.",
+      "Influence (the bottom-left value) pays for command tokens and votes.",
+      "To spend either, exhaust the planet card. Exhausting spends the whole planet — you choose resources or influence, not both.",
+      "Planets ready during the status phase, and again after the agenda phase.",
+      "Trade goods can supplement either payment.",
+    ],
+    related: ["exhausted-readied", "trade-goods", "planets", "voting"],
+  },
+  {
+    id: "exhausted-readied",
+    term: "Exhausted & Readied",
+    category: "Core",
+    expansion: "base",
+    summary: "Cards are turned face-down when used and turned back up each round.",
+    clauses: [
+      "Planet cards, technology cards and some leader and relic cards can be exhausted.",
+      "An exhausted card cannot be exhausted again until it is readied.",
+      "All cards ready during the 'Ready Cards' step of the status phase.",
+      "Planets ready a second time at the end of the agenda phase, so voting does not cost you your economy for the next round.",
+    ],
+    related: ["resources-influence", "status-phase", "agenda-phase"],
+  },
+  {
+    id: "command-tokens",
+    term: "Command Tokens",
+    category: "Core",
+    expansion: "base",
+    summary:
+      "Your three pools — tactic, fleet and strategy — are the real limit on what you can do each round.",
+    clauses: [
+      "You begin the game with 8 tokens: 3 in your tactic pool, 3 in your fleet pool and 2 in your strategy pool.",
+      "Tactic tokens pay for tactical actions — one token is placed on the board per activation.",
+      "Fleet tokens are never spent; the number in the pool caps your non-fighter ships in any one system.",
+      "Strategy tokens pay for the secondary abilities of other players' strategy cards.",
+      "You gain 2 tokens during the status phase and may distribute them between pools however you like.",
+      "You can gain more tokens by spending influence with the Leadership strategy card.",
+    ],
+    gotcha:
+      "Moving a token between pools is only allowed when an effect says so — most commonly the status phase redistribute step and Leadership.",
+    related: ["fleet-pool", "tactical-action", "strategy-cards", "status-phase"],
+  },
+
+  /* ---------------------------------------------------------------- Phases */
+  {
+    id: "strategy-phase",
+    term: "Strategy Phase",
+    category: "Phases",
+    expansion: "base",
+    summary: "Starting with the speaker and going clockwise, each player takes a strategy card.",
+    clauses: [
+      "The speaker chooses first, then play proceeds clockwise until every player has a card.",
+      "In a three- or four-player game, each player chooses two strategy cards — go around twice, reversing on the second pass is not used; simply continue clockwise.",
+      "When you take a card, also take any trade goods sitting on it.",
+      "After every player has chosen, place 1 trade good from the supply on each strategy card that was not chosen.",
+      "The numbers on the chosen cards set initiative order for the whole round.",
+    ],
+    related: ["strategy-cards", "initiative-order", "speaker"],
+  },
+  {
+    id: "action-phase",
+    term: "Action Phase",
+    category: "Phases",
+    expansion: "base",
+    summary:
+      "In initiative order players take one action per turn until everyone has passed.",
+    clauses: [
+      "Starting with the lowest initiative number, each player takes a turn consisting of exactly one action.",
+      "The available actions are: a tactical action, a strategic action, or a component action.",
+      "Instead of taking an action you may pass. Once passed, you take no further turns this phase.",
+      "You cannot pass until you have resolved the primary ability of every strategy card you hold.",
+      "Play continues around the table, skipping passed players, until all players have passed.",
+    ],
+    related: ["tactical-action", "strategic-action", "component-action", "pass"],
+  },
+  {
+    id: "status-phase",
+    term: "Status Phase",
+    category: "Phases",
+    expansion: "base",
+    summary: "Eight housekeeping steps that score the round and reset the board.",
+    clauses: [
+      "1. Score objectives — in initiative order, each player may score up to 1 public and 1 secret objective.",
+      "2. Reveal public objective — the speaker flips the next objective from the current stage.",
+      "3. Draw action cards — in initiative order, each player draws 1 action card.",
+      "4. Remove command tokens — every player returns all their command tokens from the board to their reinforcements.",
+      "5. Gain and redistribute command tokens — each player gains 2 tokens, then may freely redistribute all tokens among their pools.",
+      "6. Ready cards — every player readies all of their exhausted cards.",
+      "7. Repair units — all damaged units are repaired.",
+      "8. Return strategy cards — strategy cards go back to the common play area.",
+    ],
+    gotcha:
+      "Step 5 is the only routine chance to move tokens between pools. Decide your fleet size for next round here.",
+    related: ["scoring", "command-tokens", "public-objectives"],
+  },
+  {
+    id: "agenda-phase",
+    term: "Agenda Phase",
+    category: "Phases",
+    expansion: "base",
+    summary:
+      "Two agendas are revealed and voted on — but only after the custodians token leaves Mecatol Rex.",
+    clauses: [
+      "There is no agenda phase until a player has removed the custodians token from Mecatol Rex. It begins in the round that happens.",
+      "First agenda: the speaker reveals the top agenda card, players discuss, then vote in clockwise order starting to the speaker's left.",
+      "Second agenda: repeat the process with a new card.",
+      "Ready planets: every player readies all of their planets.",
+      "Then a new game round begins with the strategy phase.",
+    ],
+    related: ["voting", "agenda-cards", "speaker", "mecatol-rex"],
+  },
+
+  /* --------------------------------------------------------------- Actions */
+  {
+    id: "tactical-action",
+    term: "Tactical Action",
+    category: "Actions",
+    expansion: "base",
+    summary:
+      "The workhorse action: activate a system, move in, fight, invade, and build.",
+    clauses: [
+      "1. Activation — place a command token from your tactic pool in the chosen system. That system is now the active system.",
+      "2. Movement — move any of your ships from other systems into the active system, then resolve Space Cannon Offence.",
+      "3. Space combat — if two players have ships in the active system, they fight.",
+      "4. Invasion — bombard, commit ground forces, resolve Space Cannon Defence and ground combat, then establish control.",
+      "5. Production — resolve the PRODUCTION ability of your units in the active system.",
+      "Every step is optional except activation; you may activate a system and do nothing else.",
+    ],
+    gotcha:
+      "You cannot activate a system that already contains one of your own command tokens.",
+    related: ["activation", "movement", "space-combat", "invasion", "production"],
+  },
+  {
+    id: "activation",
+    term: "Activation",
+    category: "Actions",
+    expansion: "base",
+    summary:
+      "Placing a tactic token in a system makes it the active system and locks you out of returning.",
+    clauses: [
+      "Take a token from your tactic pool and place it in the system you want to act in.",
+      "You may activate any system, including empty ones and ones you already have units in.",
+      "You may not activate a system that already contains one of your command tokens.",
+      "Your token stays in the system until the 'Remove Command Tokens' step of the status phase.",
+      "Ships in a system containing your command token cannot move out of it during that round — only ships in other systems can move into the active system.",
+    ],
+    related: ["tactical-action", "movement", "command-tokens"],
+  },
+  {
+    id: "strategic-action",
+    term: "Strategic Action",
+    category: "Actions",
+    expansion: "base",
+    summary:
+      "Play your strategy card: you resolve the primary, everyone else may pay for the secondary.",
+    clauses: [
+      "On your turn, exhaust one of your strategy cards and resolve its primary ability.",
+      "Then, in clockwise order starting from you, every other player may resolve the secondary ability.",
+      "The secondary ability usually costs 1 token from the strategy pool; some cards cost something else, and some are free.",
+      "Resolving the secondary is always optional.",
+      "After everyone has had the chance, your turn ends.",
+    ],
+    gotcha:
+      "You cannot pass while you still hold an unused strategy card, so plan your last actions around playing it.",
+    related: ["strategy-cards", "action-phase", "pass"],
+  },
+  {
+    id: "component-action",
+    term: "Component Action",
+    category: "Actions",
+    expansion: "base",
+    summary:
+      "Any card or sheet ability with the ACTION header can be used as your whole turn.",
+    clauses: [
+      "Component actions appear on action cards, technology cards, faction sheets, leaders, relics and exploration cards.",
+      "Playing one uses your entire turn — you cannot also take a tactical action.",
+      "If the component action cannot be fully resolved, you cannot take it.",
+      "There is no limit to how many component actions you can take over a phase, only one per turn.",
+    ],
+    related: ["action-cards", "action-phase", "leaders"],
+  },
+  {
+    id: "pass",
+    term: "Passing",
+    category: "Actions",
+    expansion: "base",
+    summary: "Once you pass, you are out for the rest of the action phase.",
+    clauses: [
+      "Instead of taking an action, you may pass.",
+      "You cannot pass until you have resolved the primary ability of every strategy card you hold.",
+      "In a three- or four-player game that means both of your strategy cards must be played first.",
+      "After passing, you take no further turns this action phase, though you may still resolve secondary abilities and other players' triggered effects.",
+      "The action phase ends once every player has passed.",
+    ],
+    related: ["action-phase", "strategic-action"],
+  },
+  {
+    id: "production",
+    term: "Production",
+    category: "Actions",
+    expansion: "base",
+    summary:
+      "Build units in the active system, limited by the total PRODUCTION value there.",
+    clauses: [
+      "Add up the PRODUCTION values of all your units in the active system — that is the number of units you may produce.",
+      "A space dock's PRODUCTION value equals the resource value of its planet plus 2.",
+      "Pay each unit's resource cost. Fighters and infantry cost 1 resource for two units.",
+      "If your total PRODUCTION value in the active system is 1 or 0, you may still produce one unit, but you must pay its full cost.",
+      "Produced units must respect capacity and fleet pool limits at the moment they are placed.",
+      "Ground forces are placed on planets you control; ships are placed in the space area.",
+    ],
+    gotcha:
+      "Producing a single fighter still costs the full 1 resource — the two-for-one rate does not round in your favour.",
+    related: ["tactical-action", "structures", "fleet-pool", "transport-capacity"],
+  },
+  {
+    id: "invasion",
+    term: "Invasion",
+    category: "Actions",
+    expansion: "base",
+    summary:
+      "The five-step process of taking planets in the active system.",
+    clauses: [
+      "1. Bombardment — units with BOMBARDMENT roll against ground forces on planets without a Planetary Shield.",
+      "2. Commit ground forces — move infantry and mechs from ships in the space area down onto planets.",
+      "3. Space Cannon Defence — the defender's SPACE CANNON units on that planet fire at the committed ground forces.",
+      "4. Ground combat — resolve combat on each contested planet.",
+      "5. Establish control — place control tokens on planets you took, and take their planet cards.",
+      "You may commit ground forces to several planets in the system; resolve each planet's combat separately.",
+      "Committing to an empty, uncontrolled planet takes it with no combat at all.",
+    ],
+    related: ["ground-combat", "bombardment", "space-cannon", "control"],
+  },
+
+  /* -------------------------------------------------------------- Movement */
+  {
+    id: "movement",
+    term: "Movement",
+    category: "Movement",
+    expansion: "base",
+    summary:
+      "Ships move into the active system, spending up to their move value in system hops.",
+    clauses: [
+      "Each ship may move up to its printed move value in systems, counted in adjacency steps.",
+      "Ships may only move into the active system; they cannot stop part-way.",
+      "A ship cannot move out of, or through, a system that contains another player's ships.",
+      "A ship cannot move out of a system that contains one of your own command tokens.",
+      "Ships may carry fighters and ground forces along with them, up to their capacity.",
+      "After movement is complete, resolve Space Cannon Offence.",
+    ],
+    gotcha:
+      "Moving through a system that contains another player's ships is illegal even if you have more ships than they do.",
+    related: ["adjacency", "transport-capacity", "space-cannon", "anomalies"],
+  },
+  {
+    id: "adjacency",
+    term: "Adjacency",
+    category: "Movement",
+    expansion: "base",
+    summary: "Systems that share a border, plus anything joined by a matching wormhole.",
+    clauses: [
+      "Two system tiles are adjacent if they physically touch on the board.",
+      "Two systems are also adjacent if they contain matching wormholes — all alpha wormholes are adjacent to each other, and all beta wormholes to each other.",
+      "A planet is adjacent to the system that contains it, and to every system adjacent to that system.",
+      "A system is never adjacent to itself.",
+      "Adjacency matters for movement, neighbours, Space Cannon range and many card effects.",
+    ],
+    related: ["wormholes", "movement", "neighbors"],
+  },
+  {
+    id: "wormholes",
+    term: "Wormholes",
+    category: "Movement",
+    expansion: "base",
+    summary: "Matching wormholes make distant systems adjacent.",
+    clauses: [
+      "The base game has alpha and beta wormholes; Prophecy of Kings adds gamma wormholes and further wormhole effects.",
+      "All systems containing an alpha wormhole are adjacent to each other; the same is true for beta and for gamma.",
+      "An alpha wormhole is not adjacent to a beta wormhole unless an effect says so.",
+      "Wormhole adjacency works for movement, for being neighbours, and for adjacency-based abilities.",
+    ],
+    related: ["adjacency", "movement", "neighbors"],
+  },
+  {
+    id: "transport-capacity",
+    term: "Capacity & Transport",
+    category: "Movement",
+    expansion: "base",
+    summary:
+      "Fighters and ground forces need ships with spare capacity to exist in space and to move.",
+    clauses: [
+      "Each ship has a capacity value; the total capacity in a system limits the fighters and ground forces that may be in its space area.",
+      "Units being transported must begin the move in the system the transporting ship starts in, or be picked up along its path.",
+      "You may not pick up units from a system that contains one of your command tokens, other than the active system.",
+      "If capacity is exceeded at the end of a move or after production, the excess units are removed.",
+      "Ground forces on planets do not use capacity — only those in the space area do.",
+    ],
+    related: ["movement", "production", "fleet-pool"],
+  },
+  {
+    id: "fleet-pool",
+    term: "Fleet Pool",
+    category: "Movement",
+    expansion: "base",
+    summary:
+      "The number of tokens in your fleet pool caps your non-fighter ships in any single system.",
+    clauses: [
+      "Count the tokens in your fleet pool: that is the maximum number of non-fighter ships you may have in one system.",
+      "Fighters do not count against the fleet pool.",
+      "The limit is per system, not across the board.",
+      "If you ever exceed the limit, you must immediately remove ships of your choice until you are within it.",
+      "Fleet tokens are never spent — they sit in the pool doing their job.",
+    ],
+    related: ["command-tokens", "transport-capacity", "movement"],
+  },
+  {
+    id: "anomalies",
+    term: "Anomalies",
+    category: "Movement",
+    expansion: "base",
+    summary:
+      "Asteroid fields, nebulae, gravity rifts and supernovas each bend movement or combat.",
+    clauses: [
+      "Asteroid field — ships cannot move into or through it without the Antimass Deflector technology.",
+      "Supernova — ships cannot move into or through it at all.",
+      "Nebula — ships can only move into a nebula if it is the active system; a ship that starts in a nebula has move value 1; defending ships in a nebula get +1 to combat rolls.",
+      "Gravity rift — a ship that moves out of or through a gravity rift gets +1 move value, but you must roll a die for it: on a 1, 2 or 3 the ship is destroyed.",
+      "A system can carry more than one anomaly, and all of their effects apply.",
+    ],
+    gotcha:
+      "The gravity rift roll happens for every ship that exits or passes through, and it happens after the move is complete.",
+    related: ["movement", "space-combat"],
+  },
+
+  /* ---------------------------------------------------------------- Combat */
+  {
+    id: "space-combat",
+    term: "Space Combat",
+    category: "Combat",
+    expansion: "base",
+    summary:
+      "Rounds of simultaneous dice until only one player has ships in the active system.",
+    clauses: [
+      "Space combat happens in the active system whenever two players both have ships there.",
+      "1. Anti-Fighter Barrage — first round only.",
+      "2. Announce retreats — the defender announces first, then the attacker. A retreat announced now resolves at the end of this round.",
+      "3. Roll dice — each player rolls one die per ship, per that ship's combat value and number of dice.",
+      "4. Assign hits — each player assigns hits produced against them to their own ships, destroying them.",
+      "5. Retreat — a player who announced a retreat now moves their remaining ships.",
+      "If both players still have ships, begin another combat round. Combat ends when only one player has ships in the system.",
+      "The player with ships remaining is the winner; if neither has ships, there is no winner.",
+    ],
+    related: ["hit-assignment", "sustain-damage", "retreat", "anti-fighter-barrage"],
+  },
+  {
+    id: "ground-combat",
+    term: "Ground Combat",
+    category: "Combat",
+    expansion: "base",
+    summary: "Same dice procedure as space combat, resolved planet by planet.",
+    clauses: [
+      "Ground combat is resolved separately on each planet where both players have ground forces.",
+      "Each round, both players roll one die per participating ground force against its combat value.",
+      "Hits are assigned and units destroyed simultaneously.",
+      "There is no retreat from ground combat — it continues until one side has no ground forces on the planet.",
+      "The winner gains control of the planet; if the attacker has no ground forces left, the defender keeps it.",
+    ],
+    gotcha:
+      "Structures such as space docks and PDS do not fight in ground combat, but they are destroyed when the planet changes hands.",
+    related: ["invasion", "control", "structures"],
+  },
+  {
+    id: "hit-assignment",
+    term: "Assigning Hits",
+    category: "Combat",
+    expansion: "base",
+    summary:
+      "The player who was hit chooses which of their own units die.",
+    clauses: [
+      "For each hit produced against you, choose one of your participating units and destroy it.",
+      "You always choose — your opponent never picks your casualties.",
+      "Before destroying a unit you may use SUSTAIN DAMAGE on an undamaged unit to cancel one hit instead.",
+      "Hits from ANTI-FIGHTER BARRAGE may only be assigned to fighters; excess hits are lost.",
+      "Destroyed units return to your reinforcements and can be produced again later.",
+    ],
+    related: ["sustain-damage", "space-combat", "ground-combat"],
+  },
+  {
+    id: "sustain-damage",
+    term: "Sustain Damage",
+    category: "Combat",
+    expansion: "base",
+    summary: "Cancel one hit by taking a wound instead of dying.",
+    clauses: [
+      "Before assigning hits to units, a unit with SUSTAIN DAMAGE may cancel 1 hit and become damaged.",
+      "Mark a damaged unit by laying it on its side.",
+      "A damaged unit cannot use SUSTAIN DAMAGE again until it is repaired.",
+      "Damaged units still fight normally.",
+      "All damaged units repair during the 'Repair Units' step of the status phase.",
+      "SUSTAIN DAMAGE can be used against hits from combat, bombardment, space cannon and anti-fighter barrage.",
+    ],
+    related: ["hit-assignment", "status-phase", "units-overview"],
+  },
+  {
+    id: "anti-fighter-barrage",
+    term: "Anti-Fighter Barrage",
+    category: "Combat",
+    expansion: "base",
+    summary: "A free volley at enemy fighters before the first round of space combat.",
+    clauses: [
+      "Resolved at the start of the first round of space combat only.",
+      "Each unit with ANTI-FIGHTER BARRAGE rolls the listed number of dice against the listed value.",
+      "Hits may only be assigned to fighters; any excess hits are lost.",
+      "Both players resolve barrage simultaneously — losses do not reduce the opponent's barrage.",
+      "Destroyers are the classic barrage unit; upgrading them makes them dramatically better at it.",
+    ],
+    related: ["space-combat", "hit-assignment", "ships"],
+  },
+  {
+    id: "bombardment",
+    term: "Bombardment",
+    category: "Combat",
+    expansion: "base",
+    summary: "Ships shell ground forces from orbit before the invasion lands.",
+    clauses: [
+      "Resolved during the first step of the invasion, before ground forces are committed.",
+      "Each unit with BOMBARDMENT rolls its dice against a planet you are about to invade.",
+      "Hits are assigned by the defending player to their ground forces on that planet.",
+      "A planet with a Planetary Shield cannot be bombarded.",
+      "A war sun in the system ignores Planetary Shield, allowing bombardment anyway.",
+      "You may split bombardment between multiple planets if the unit's ability allows it; otherwise choose one planet per unit.",
+    ],
+    related: ["invasion", "planetary-shield", "war-sun"],
+  },
+  {
+    id: "space-cannon",
+    term: "Space Cannon",
+    category: "Combat",
+    expansion: "base",
+    summary:
+      "Defensive fire that happens twice: at enemy ships after movement, and at landing troops during invasion.",
+    clauses: [
+      "Space Cannon Offence resolves at the end of the movement step, after the attacker's ships have arrived.",
+      "Any player with SPACE CANNON units in the active system may fire at the active player's ships; the active player assigns the hits.",
+      "Space Cannon Defence resolves during the invasion, after ground forces are committed, and targets those committed ground forces.",
+      "PDS are the standard Space Cannon unit; the Deep Space Cannon technology lets them fire into adjacent systems.",
+      "Space Cannon fire does not start a combat and does not require the firing player to have ships present.",
+    ],
+    gotcha:
+      "Space Cannon Offence can be fired by a third party who merely has a PDS in the system — not only by the player you are attacking.",
+    related: ["invasion", "structures", "movement"],
+  },
+  {
+    id: "planetary-shield",
+    term: "Planetary Shield",
+    category: "Combat",
+    expansion: "base",
+    summary: "Blocks bombardment against the planet entirely.",
+    clauses: [
+      "A unit with PLANETARY SHIELD prevents players from using BOMBARDMENT against that planet.",
+      "PDS have Planetary Shield in the base game.",
+      "Planetary Shield does not stop ground combat, space cannon, or anything else — only bombardment.",
+      "War suns ignore Planetary Shield: if a war sun is in the system, bombardment may be used normally.",
+    ],
+    related: ["bombardment", "structures", "war-sun"],
+  },
+  {
+    id: "retreat",
+    term: "Retreat",
+    category: "Combat",
+    expansion: "base",
+    summary: "Announce before you roll, then leave at the end of the round.",
+    clauses: [
+      "A retreat must be announced during the 'Announce Retreats' step, before dice are rolled.",
+      "The defender announces before the attacker; if the defender announces a retreat, the attacker cannot.",
+      "At the end of the combat round, move all of your remaining ships in the combat to a single eligible system.",
+      "The destination must be adjacent to the active system, must contain one of your units or a planet you control, and must not contain another player's ships.",
+      "Ground forces and fighters retreat with the ships that carry them, within capacity; anything that cannot fit is destroyed.",
+      "A player who retreats loses the combat.",
+    ],
+    gotcha:
+      "You commit to a retreat before you see the dice. If the round goes well you still have to leave.",
+    related: ["space-combat", "movement", "adjacency"],
+  },
+
+  /* ----------------------------------------------------------------- Units */
+  {
+    id: "units-overview",
+    term: "Units",
+    category: "Units",
+    expansion: "base",
+    summary:
+      "Every unit is defined by cost, combat value, move value and capacity on your faction sheet.",
+    clauses: [
+      "Cost — resources to produce. A cost with two unit icons means you get two units for that cost.",
+      "Combat — the value you must roll at or above to score a hit. A superscript indicates extra dice.",
+      "Move — how many systems the unit can travel in one movement step.",
+      "Capacity — how many fighters and ground forces the unit can carry.",
+      "A dash means the unit has no value in that category.",
+      "Unit upgrade technologies replace the printed stats with the upgraded card's stats.",
+    ],
+    related: ["ships", "ground-forces", "structures", "unit-upgrades"],
+  },
+  {
+    id: "ships",
+    term: "Ships",
+    category: "Units",
+    expansion: "base",
+    summary:
+      "Carriers, cruisers, destroyers, dreadnoughts, fighters, war suns and your flagship.",
+    clauses: [
+      "Ships occupy the space area of a system and are the only units that can move on their own.",
+      "Carriers are capacity; cruisers are flexible; destroyers barrage fighters; dreadnoughts sustain damage and bombard.",
+      "Fighters have no capacity and do not count against your fleet pool, but they need capacity to exist in space.",
+      "War suns are the largest ship in the game and ignore Planetary Shield.",
+      "Each faction has one unique flagship with its own ability.",
+    ],
+    related: ["units-overview", "fleet-pool", "war-sun", "flagship"],
+  },
+  {
+    id: "ground-forces",
+    term: "Ground Forces",
+    category: "Units",
+    expansion: "base",
+    summary: "Infantry — and, with Prophecy of Kings, mechs — hold planets.",
+    clauses: [
+      "Ground forces are the only units that can be committed to planets and fight ground combat.",
+      "In the space area they consume capacity on your ships; on a planet they consume nothing.",
+      "Infantry cost 1 resource for two units.",
+      "Ground forces on a planet you control are what stop another player simply walking in.",
+      "Ground forces cannot move on their own — they must be carried by ships.",
+    ],
+    related: ["ground-combat", "invasion", "transport-capacity", "mechs"],
+  },
+  {
+    id: "structures",
+    term: "Structures",
+    category: "Units",
+    expansion: "base",
+    summary: "Space docks produce, PDS shoot — both sit on planets and cannot move.",
+    clauses: [
+      "Structures are placed on planets you control and can never move.",
+      "A space dock provides PRODUCTION equal to its planet's resource value plus 2.",
+      "A PDS provides SPACE CANNON and PLANETARY SHIELD.",
+      "You may only have one space dock and (in the base game) up to two PDS on a single planet.",
+      "Structures do not participate in ground combat; when a planet changes hands its structures are destroyed.",
+      "Structures are built with the Construction strategy card, not with production.",
+    ],
+    related: ["production", "space-cannon", "planetary-shield", "strategy-cards"],
+  },
+  {
+    id: "war-sun",
+    term: "War Suns",
+    category: "Units",
+    expansion: "base",
+    summary: "The biggest hammer in the game — and it ignores Planetary Shield.",
+    clauses: [
+      "War suns require the War Sun technology before they can be produced, unless your faction starts with one.",
+      "A war sun has a high combat value with multiple dice, sustain damage, bombardment and large capacity.",
+      "While you have a war sun in a system, Planetary Shield does not prevent your bombardment there.",
+      "War suns count against your fleet pool like any other non-fighter ship.",
+    ],
+    related: ["ships", "bombardment", "planetary-shield", "unit-upgrades"],
+  },
+  {
+    id: "flagship",
+    term: "Flagship",
+    category: "Units",
+    expansion: "base",
+    summary: "One unique, unupgradeable ship per faction with a rules-bending ability.",
+    clauses: [
+      "Each faction has exactly one flagship, described on its faction sheet.",
+      "A flagship can be produced like any other ship, at its printed cost.",
+      "Flagships cannot be upgraded by unit upgrade technologies.",
+      "If your flagship is destroyed you may produce it again later.",
+      "Flagship abilities are often the strongest single effect a faction has — read yours in setup.",
+    ],
+    related: ["ships", "units-overview"],
+  },
+
+  /* --------------------------------------------------------------- Planets */
+  {
+    id: "planets",
+    term: "Planets",
+    category: "Planets",
+    expansion: "base",
+    summary:
+      "The board's economy: each planet is a card with resources, influence and often a trait.",
+    clauses: [
+      "Taking a planet gives you its planet card, which you exhaust to spend resources or influence.",
+      "Planet traits — cultural, hazardous and industrial — matter for objectives and, with Prophecy of Kings, for exploration.",
+      "Some planets have a technology specialty, giving a free prerequisite when researching.",
+      "Home system planets belong to a faction's starting area and are called out by several objectives.",
+      "Planets in your home system are readied and controlled at setup.",
+    ],
+    related: ["resources-influence", "control", "planet-traits", "technology-specialties"],
+  },
+  {
+    id: "planet-traits",
+    term: "Planet Traits",
+    category: "Planets",
+    expansion: "base",
+    summary: "Cultural, hazardous or industrial — the symbol in the planet card's corner.",
+    clauses: [
+      "There are three traits: cultural (blue), hazardous (red) and industrial (green).",
+      "A planet has at most one trait; Mecatol Rex, home planets and some special planets have none.",
+      "Several public objectives ask you to control planets of a matching trait.",
+      "With Prophecy of Kings, a planet's trait determines which exploration deck you draw from.",
+    ],
+    related: ["planets", "exploration", "public-objectives"],
+  },
+  {
+    id: "mecatol-rex",
+    term: "Mecatol Rex & the Custodians Token",
+    category: "Planets",
+    expansion: "base",
+    summary:
+      "The throne world at the centre. Taking it costs 6 influence, gives a point, and starts the agenda phase.",
+    clauses: [
+      "Mecatol Rex begins the game with the custodians token on it and no units.",
+      "To commit ground forces to Mecatol Rex you must first spend 6 influence to remove the custodians token.",
+      "The player who removes it immediately gains 1 victory point.",
+      "Once the token is removed, the agenda phase happens at the end of that round and every round after.",
+      "Mecatol Rex has high influence and is the target of several objectives and effects.",
+    ],
+    gotcha:
+      "Taking Mecatol Rex is what turns the agenda phase on for everyone. Think about whether the table is ready for that.",
+    related: ["agenda-phase", "victory-points", "invasion"],
+  },
+  {
+    id: "legendary-planets",
+    term: "Legendary Planets",
+    category: "Planets",
+    expansion: "pok",
+    summary: "Planets that come with a permanent, exhaustable ability card.",
+    clauses: [
+      "A legendary planet is marked with a legendary icon and has its own ability card.",
+      "When you gain control of a legendary planet you also take its ability card.",
+      "The ability card is usually exhausted to use and readies with your other cards.",
+      "Legendary planets are common targets for objectives such as Make History and Become a Legend.",
+    ],
+    related: ["planets", "control", "public-objectives"],
+  },
+
+  /* ------------------------------------------------------------ Technology */
+  {
+    id: "technology",
+    term: "Technology",
+    category: "Technology",
+    expansion: "base",
+    summary:
+      "Four colours of tech with prerequisite chains, researched mainly through the Technology strategy card.",
+    clauses: [
+      "The four colours are biotic (green), propulsion (blue), cybernetic (yellow) and warfare (red).",
+      "A technology card's prerequisites are the coloured symbols in its corner; you must already own that many technologies of each colour.",
+      "You research technology with the Technology strategy card, or through other card effects.",
+      "The Technology secondary ability costs 1 strategy token and 4 resources.",
+      "Owning a planet with a technology specialty lets you ignore one prerequisite of the matching colour when researching there.",
+      "Faction technologies have a faction icon and can only be researched by that faction.",
+    ],
+    related: ["unit-upgrades", "technology-specialties", "strategy-cards"],
+  },
+  {
+    id: "unit-upgrades",
+    term: "Unit Upgrades",
+    category: "Technology",
+    expansion: "base",
+    summary: "Replace a unit's printed stats across your whole fleet, instantly.",
+    clauses: [
+      "A unit upgrade is a technology card showing an improved version of one of your units.",
+      "When you research it, place it over that unit's box on your faction sheet — every existing and future unit uses the new stats immediately.",
+      "Unit upgrades have prerequisites but no colour of their own.",
+      "Several objectives count how many unit upgrade technologies you own.",
+      "Flagships cannot be upgraded.",
+    ],
+    related: ["technology", "units-overview", "public-objectives"],
+  },
+  {
+    id: "technology-specialties",
+    term: "Technology Specialties",
+    category: "Technology",
+    expansion: "base",
+    summary: "A coloured icon on a planet that skips one prerequisite.",
+    clauses: [
+      "Some planet cards show a technology specialty icon in one of the four technology colours.",
+      "When you research a technology, you may exhaust a planet with a matching specialty to ignore one prerequisite of that colour.",
+      "Exhausting a planet this way means you cannot also spend it for resources or influence this round.",
+      "Objectives such as Found Research Outposts and Form Galactic Brain Trust count planets with specialties.",
+    ],
+    related: ["technology", "planets", "public-objectives"],
+  },
+
+  /* -------------------------------------------------------------- Politics */
+  {
+    id: "agenda-cards",
+    term: "Agendas: Laws & Directives",
+    category: "Politics",
+    expansion: "base",
+    summary: "Laws stay on the table forever; directives resolve once and are discarded.",
+    clauses: [
+      "A law's effect remains in play permanently once it is enacted, and is placed in the common play area or attached to a player.",
+      "A directive resolves immediately and is then discarded.",
+      "If a law is elected 'Against', it is discarded rather than enacted.",
+      "Laws can be removed by later agendas or specific card effects.",
+      "Every agenda names its possible outcomes — 'For'/'Against', or the election of a player, planet or law.",
+    ],
+    related: ["voting", "agenda-phase", "rider"],
+  },
+  {
+    id: "voting",
+    term: "Voting",
+    category: "Politics",
+    expansion: "base",
+    summary:
+      "Exhaust planets for influence, cast all your votes for one outcome, speaker votes last.",
+    clauses: [
+      "Voting proceeds clockwise, starting with the player to the speaker's left. The speaker votes last.",
+      "To vote, exhaust any number of your planets and cast votes equal to their total influence.",
+      "All of your votes must go to a single outcome.",
+      "You may abstain, casting no votes at all.",
+      "The outcome with the most votes is resolved. If there is a tie, the speaker chooses among the tied outcomes.",
+      "If nobody votes at all, the speaker chooses any outcome.",
+      "Trade goods cannot be spent as votes.",
+    ],
+    gotcha:
+      "Trade goods normally stand in for influence, but not for votes. Only exhausted planets produce votes.",
+    related: ["agenda-phase", "speaker", "resources-influence", "rider"],
+  },
+  {
+    id: "speaker",
+    term: "Speaker",
+    category: "Politics",
+    expansion: "base",
+    summary:
+      "Picks a strategy card first, reveals agendas, votes last and breaks every tie.",
+    clauses: [
+      "The speaker chooses their strategy card first each strategy phase.",
+      "The speaker reveals public objectives during the status phase.",
+      "The speaker reveals agendas and votes last during the agenda phase.",
+      "The speaker breaks all ties, both on agenda outcomes and on game effects that require a choice.",
+      "The Politics strategy card is the standard way to take the speaker token.",
+    ],
+    related: ["strategy-phase", "voting", "strategy-cards"],
+  },
+  {
+    id: "rider",
+    term: "Riders",
+    category: "Politics",
+    expansion: "base",
+    summary: "Action cards that bet on an agenda outcome before the votes are counted.",
+    clauses: [
+      "A rider is an action card played after an agenda is revealed, predicting an outcome.",
+      "Playing a rider means you are betting on that outcome; if it is the one resolved, you gain the rider's reward.",
+      "Most riders are played before anyone votes, and some prevent you from voting.",
+      "If the predicted outcome is not resolved, the rider does nothing.",
+    ],
+    related: ["agenda-cards", "voting", "action-cards"],
+  },
+
+  /* ------------------------------------------------------------ Objectives */
+  {
+    id: "public-objectives",
+    term: "Public Objectives",
+    category: "Objectives",
+    expansion: "base",
+    summary:
+      "Face-up objectives anyone can score — Stage I is worth 1 point, Stage II is worth 2.",
+    clauses: [
+      "The speaker reveals one public objective during each status phase.",
+      "Stage I objectives are revealed first and are worth 1 victory point each.",
+      "Stage II objectives are revealed after the Stage I objectives run out and are worth 2 victory points each.",
+      "Any number of players may score the same public objective, but each player may only score it once, ever.",
+      "You may score at most one public objective per status phase.",
+      "You must meet the objective's requirement at the moment you score it.",
+    ],
+    related: ["scoring", "secret-objectives", "status-phase", "victory-points"],
+  },
+  {
+    id: "secret-objectives",
+    term: "Secret Objectives",
+    category: "Objectives",
+    expansion: "base",
+    summary: "Private one-point objectives that only you can score.",
+    clauses: [
+      "You begin the game with one secret objective, drawn during setup.",
+      "A secret objective is worth 1 victory point and can only ever be scored by its holder.",
+      "You may hold at most three secret objectives at a time; if you would exceed that, discard down.",
+      "Reveal a secret objective when you score it and place it face-up in front of you.",
+      "You may score at most one secret objective per status phase.",
+      "The Imperial strategy card is the usual way to draw more secret objectives.",
+    ],
+    related: ["scoring", "public-objectives", "strategy-cards"],
+  },
+  {
+    id: "scoring",
+    term: "Scoring Objectives",
+    category: "Objectives",
+    expansion: "base",
+    summary:
+      "In the status phase, in initiative order, each player may score one public and one secret.",
+    clauses: [
+      "Scoring happens during the first step of the status phase, in initiative order.",
+      "Each player may score up to one public objective and up to one secret objective per status phase.",
+      "Some objectives and effects can be scored during the action phase or agenda phase instead — read the card.",
+      "You must fully meet the requirement when you score; you cannot score partially.",
+      "Objectives that ask you to spend something require you to actually spend it at the time of scoring.",
+      "Points also come from the custodians token, certain agendas, relics and the Support for the Throne promissory note.",
+    ],
+    related: ["public-objectives", "secret-objectives", "status-phase", "victory-points"],
+  },
+
+  /* ------------------------------------------------------------ Components */
+  {
+    id: "strategy-cards",
+    term: "Strategy Cards",
+    category: "Components",
+    expansion: "base",
+    summary:
+      "Eight numbered cards that set initiative order and give one strong ability each round.",
+    clauses: [
+      "The eight cards are Leadership (1), Diplomacy (2), Politics (3), Construction (4), Trade (5), Warfare (6), Technology (7) and Imperial (8).",
+      "Each card has a primary ability, used only by its holder, and a secondary ability other players may pay for.",
+      "You use a strategy card by taking a strategic action during the action phase.",
+      "Cards return to the common play area at the end of the status phase.",
+      "Unchosen cards accumulate a trade good each strategy phase, which the next player to take them collects.",
+    ],
+    related: ["strategy-phase", "strategic-action", "initiative-order"],
+  },
+  {
+    id: "action-cards",
+    term: "Action Cards",
+    category: "Components",
+    expansion: "base",
+    summary: "Played at the timing on the card — hand limit seven.",
+    clauses: [
+      "You draw one action card in each status phase, plus more from the Politics strategy card and other effects.",
+      "Each card states when it may be played; play it at exactly that timing.",
+      "Cards headed ACTION take your entire turn as a component action.",
+      "Your hand limit is seven action cards; if you exceed it you must discard down to seven.",
+      "Only one action card with the same name can be played per timing window, and identical cards cannot both resolve.",
+    ],
+    related: ["component-action", "rider", "status-phase"],
+  },
+  {
+    id: "promissory-notes",
+    term: "Promissory Notes",
+    category: "Components",
+    expansion: "base",
+    summary: "Personal favours you trade away and eventually get back.",
+    clauses: [
+      "Each player has a set of promissory notes, some generic and some unique to their faction.",
+      "Promissory notes can only change hands through transactions.",
+      "A player cannot hold their own promissory notes; if one returns to you, it goes back to your hand of notes.",
+      "Most notes are returned to their owner after being used.",
+      "Support for the Throne gives the receiving player a victory point while they hold it.",
+    ],
+    related: ["transactions", "deals", "scoring"],
+  },
+  {
+    id: "deals",
+    term: "Deals",
+    category: "Components",
+    expansion: "base",
+    summary:
+      "Only what changes hands immediately is binding. Everything else is a promise.",
+    clauses: [
+      "Players may negotiate anything, at any time, including things the rules cannot enforce.",
+      "A deal is binding only if it can be resolved immediately, at the moment it is agreed.",
+      "Anything that depends on future behaviour is non-binding — the other player may simply not do it.",
+      "Game components that cannot be traded (planets, units, victory points) cannot be part of a binding deal.",
+      "Transactions are the formal, enforced subset of dealing.",
+    ],
+    related: ["transactions", "neighbors", "promissory-notes"],
+  },
+
+  /* --------------------------------------------------------------- Leaders */
+  {
+    id: "leaders",
+    term: "Leaders",
+    category: "Leaders",
+    expansion: "pok",
+    summary: "Each faction gets an agent, a commander and a hero.",
+    clauses: [
+      "Agents start unlocked. They are exhausted to use and ready in the status phase, and can often be used on other players' turns.",
+      "Commanders start locked and unlock when you meet their condition. Once unlocked they provide a permanent, always-on ability.",
+      "Heroes start locked and unlock when you have three scored objectives (public and secret combined). They are purged after a single, powerful use.",
+      "Leaders are not units and cannot be destroyed or captured.",
+      "With Codex II, the Alliance promissory note lets you share your commander's ability with another player.",
+    ],
+    related: ["mechs", "alliance-notes", "component-action"],
+  },
+  {
+    id: "mechs",
+    term: "Mechs",
+    category: "Leaders",
+    expansion: "pok",
+    summary: "A unique, powerful ground force — up to four per faction.",
+    clauses: [
+      "Mechs are ground forces, so they fight ground combat and hold planets.",
+      "Each faction has a unique mech with its own printed ability.",
+      "Mechs cost 2 resources and are produced like any other unit.",
+      "You have four mechs in your reinforcements; that is a hard cap.",
+      "Mechs typically have SUSTAIN DAMAGE, making them far more durable than infantry.",
+    ],
+    related: ["ground-forces", "leaders", "production"],
+  },
+  {
+    id: "alliance-notes",
+    term: "Alliance Promissory Notes",
+    category: "Leaders",
+    expansion: "codex2",
+    summary: "Trade your commander's ability to another player.",
+    clauses: [
+      "Codex II gives every faction an Alliance promissory note.",
+      "While another player holds your Alliance note, they may use your commander's ability.",
+      "Your commander must be unlocked for the note to do anything.",
+      "The note is traded like any other promissory note, in a transaction with a neighbour.",
+    ],
+    related: ["leaders", "promissory-notes", "transactions"],
+  },
+
+  /* ----------------------------------------------------------- Exploration */
+  {
+    id: "exploration",
+    term: "Exploration",
+    category: "Exploration",
+    expansion: "pok",
+    summary: "Taking a planet for the first time draws a card from its trait's deck.",
+    clauses: [
+      "When you gain control of a planet that has not been explored, draw a card from the deck matching the planet's trait.",
+      "The three planet decks are cultural, hazardous and industrial; a planet with no trait is not explored.",
+      "Exploration cards may give trade goods, attachments that permanently improve the planet, or relic fragments.",
+      "Frontier tokens sit in systems with no planets; move a ship there and explore the frontier deck.",
+      "Resolve the card, then discard it unless it becomes an attachment.",
+    ],
+    related: ["planet-traits", "relics", "attachments", "frontier-tokens"],
+  },
+  {
+    id: "frontier-tokens",
+    term: "Frontier Tokens",
+    category: "Exploration",
+    expansion: "pok",
+    summary: "Explorable markers in empty space.",
+    clauses: [
+      "Frontier tokens are placed in systems that contain no planets during setup.",
+      "When you have a ship in a system with a frontier token at the end of your movement, you may explore it.",
+      "Draw from the frontier exploration deck and resolve the card, then discard the token.",
+      "The Dark Energy Tap technology is a common enabler for exploring frontier tokens.",
+    ],
+    related: ["exploration", "relics", "movement"],
+  },
+  {
+    id: "attachments",
+    term: "Attachments",
+    category: "Exploration",
+    expansion: "pok",
+    summary: "Permanent upgrades stapled to a planet card.",
+    clauses: [
+      "Some exploration cards and agendas become attachments on a planet.",
+      "An attachment stays with the planet forever, even when the planet changes hands.",
+      "Attachments can add resources, influence, a technology specialty, or a legendary status.",
+      "Objectives such as Discover Lost Outposts and Reclaim Ancient Monuments count planets with attachments.",
+    ],
+    related: ["exploration", "planets", "public-objectives"],
+  },
+  {
+    id: "relics",
+    term: "Relics",
+    category: "Exploration",
+    expansion: "pok",
+    summary: "Purge three relic fragments of a kind to draw a game-changing artefact.",
+    clauses: [
+      "Relic fragments come in cultural, hazardous, industrial and unknown varieties, drawn from exploration.",
+      "Purge three fragments of the same type to draw a relic; unknown fragments can stand in for any type.",
+      "Relic fragments can be traded with neighbours as part of a transaction.",
+      "Relics are powerful one-off or ongoing effects, and some grant victory points directly.",
+      "The Naaz-Rokha Alliance is built around converting fragments into relics faster than anyone else.",
+    ],
+    related: ["exploration", "transactions", "scoring"],
+  },
+];
+
+export const RULE_BY_ID = new Map(RULES.map((r) => [r.id, r]));
+
+/** Ordered list of the categories that actually appear in the dataset. */
+export const RULE_CATEGORIES = Array.from(new Set(RULES.map((r) => r.category)));

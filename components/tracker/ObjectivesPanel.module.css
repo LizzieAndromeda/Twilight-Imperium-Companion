@@ -1,0 +1,88 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.obj {
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  border-radius: var(--r-md);
+  background: var(--surface-inset);
+}
+
+.stage1 {
+  border-left-color: var(--cyan);
+}
+
+.stage2 {
+  border-left-color: var(--plasma);
+}
+
+.objTop {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-bottom: var(--s-2);
+}
+
+.objName {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.objReq {
+  margin-bottom: var(--s-3);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.scorers {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.scorer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.scorer:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.scorerOn {
+  border-color: var(--success);
+  background: var(--success-wash);
+  color: var(--success);
+}
+
+.remove {
+  margin-left: auto;
+}
+
+.dialogGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}

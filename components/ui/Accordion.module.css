@@ -1,0 +1,83 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.item {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.item[data-state="open"] {
+  border-color: var(--line-accent);
+}
+
+.header {
+  margin: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  padding: var(--s-4);
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.trigger:hover {
+  background: var(--surface-raised);
+}
+
+.chevron {
+  flex: none;
+  color: var(--text-dim);
+  transition: transform var(--dur) var(--ease);
+}
+
+.trigger[data-state="open"] .chevron {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+
+.content {
+  overflow: hidden;
+}
+
+.content[data-state="open"] {
+  animation: slideDown var(--dur) var(--ease);
+}
+
+.content[data-state="closed"] {
+  animation: slideUp var(--dur) var(--ease);
+}
+
+.contentInner {
+  padding: 0 var(--s-4) var(--s-4);
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}

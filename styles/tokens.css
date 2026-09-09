@@ -1,0 +1,96 @@
+/*
+ * Design tokens for the Twilight Imperium Companion.
+ *
+ * The app is dark-only by design: it is meant to be used at a games table with
+ * the lights down, so every surface is tuned against a near-black "void" ground.
+ * Everything downstream (components, layouts) reads from these variables only —
+ * no component should hardcode a hex value.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* --- Surfaces, from deepest to most raised --- */
+  --void: #05070d;
+  --bg: #080b13;
+  --surface: #0f1420;
+  --surface-raised: #151b2b;
+  --surface-inset: #0b0f1a;
+  --overlay: rgba(3, 5, 10, 0.72);
+
+  /* --- Lines --- */
+  --line: #1e2637;
+  --line-strong: #2d3854;
+  --line-accent: rgba(232, 184, 75, 0.35);
+
+  /* --- Type --- */
+  --text: #e9edf7;
+  --text-muted: #98a3bd;
+  --text-dim: #67718c;
+  --text-on-accent: #1a1204;
+
+  /* --- Brand: imperial gold + nebula plasma --- */
+  --accent: #e8b84b;
+  --accent-bright: #f6cd6c;
+  --accent-dim: #9c7b2c;
+  --accent-wash: rgba(232, 184, 75, 0.12);
+  --accent-glow: rgba(232, 184, 75, 0.28);
+
+  --plasma: #9d7bea;
+  --plasma-wash: rgba(157, 123, 234, 0.14);
+
+  --cyan: #4ecdc4;
+  --cyan-wash: rgba(78, 205, 196, 0.13);
+
+  /* --- Status --- */
+  --danger: #f0605c;
+  --danger-wash: rgba(240, 96, 92, 0.14);
+  --success: #4ade80;
+  --success-wash: rgba(74, 222, 128, 0.13);
+  --warning: #fbbf24;
+
+  /* --- Player / faction colors (the eight TI4 plastic colors) --- */
+  --p-red: #e04b42;
+  --p-blue: #4b8ef0;
+  --p-green: #43b56b;
+  --p-yellow: #e5c04a;
+  --p-purple: #a86ee0;
+  --p-black: #7b8496;
+  --p-orange: #f08a3c;
+  --p-pink: #ef6fae;
+
+  /* --- Radii --- */
+  --r-sm: 4px;
+  --r-md: 7px;
+  --r-lg: 11px;
+  --r-xl: 16px;
+  --r-pill: 999px;
+
+  /* --- Spacing scale --- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* --- Elevation --- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.6);
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.2, 0.8, 0.3, 1);
+  --dur-fast: 110ms;
+  --dur: 180ms;
+
+  /* --- Layout --- */
+  --nav-h: 60px;
+  --content-max: 1180px;
+
+  --font-display: var(--font-orbitron), "Geist", system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+}

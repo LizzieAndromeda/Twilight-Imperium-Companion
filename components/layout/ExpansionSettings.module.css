@@ -1,0 +1,22 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.note {
+  margin-top: var(--s-4);
+  padding: var(--s-3);
+  border-left: 2px solid var(--line-accent);
+  background: var(--surface-inset);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}

@@ -1,0 +1,20 @@
+.main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--s-6) var(--s-5) var(--s-8);
+}
+
+.footer {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--s-5) var(--s-5) var(--s-7);
+  border-top: 1px solid var(--line);
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.footer strong {
+  color: var(--text-muted);
+  font-weight: 600;
+}
