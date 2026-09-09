@@ -229,6 +229,20 @@ export interface PublicObjective extends ExpansionScoped {
   name: string;
   stage: ObjectiveStage;
   requirement: string;
+  /** The Codex III revision of this card's requirement, where one exists. */
+  omega?: string;
+}
+
+/** The phase a secret objective's timing window falls in. */
+export type SecretObjectivePhase = "Action" | "Status" | "Agenda";
+
+export interface SecretObjective extends ExpansionScoped {
+  id: string;
+  name: string;
+  phase: SecretObjectivePhase;
+  requirement: string;
+  /** The Codex III revision of this card's requirement, where one exists. */
+  omega?: string;
 }
 
 /* --------------------------------------------------------------- tracker */

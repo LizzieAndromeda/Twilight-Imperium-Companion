@@ -1,9 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ObjectiveStage } from "@/lib/types";
+import type { ObjectiveStage, SecretObjectivePhase } from "@/lib/types";
 import { STRATEGY_CARDS } from "@/data/strategyCards";
-import { PUBLIC_OBJECTIVES, STAGE_POINTS } from "@/data/objectives";
+import {
+  PUBLIC_OBJECTIVES,
+  SECRET_OBJECTIVES,
+  STAGE_POINTS,
+} from "@/data/objectives";
 import { GALACTIC_EVENTS } from "@/data/galacticEvents.generated";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
@@ -25,6 +29,7 @@ export default function ReferencePage() {
         items={[
           { value: "strategy", label: "Strategy cards", content: <StrategyCards /> },
           { value: "objectives", label: "Public objectives", content: <Objectives /> },
+          { value: "secrets", label: "Secret objectives", content: <Secrets /> },
           { value: "events", label: "Galactic events", content: <Events /> },
         ]}
       />
@@ -163,6 +168,101 @@ function Events() {
   );
 }
 
+type SecretPhaseFilter = "all" | SecretObjectivePhase;
+
+/** Secret objectives are grouped by the phase their timing window sits in. */
+const SECRET_PHASES: SecretObjectivePhase[] = ["Action", "Status", "Agenda"];
+
+function Secrets() {
+  const { scope, hydrated } = useSettings();
+  const [query, setQuery] = useState("");
+  const [phase, setPhase] = useState<SecretPhaseFilter>("all");
+
+  const available = useMemo(() => scope(SECRET_OBJECTIVES), [scope]);
+
+  const results = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return available.filter((objective) => {
+      if (phase !== "all" && objective.phase !== phase) return false;
+      if (!q) return true;
+      return `${objective.name} ${objective.requirement} ${objective.omega ?? ""}`
+        .toLowerCase()
+        .includes(q);
+    });
+  }, [available, query, phase]);
+
+  return (
+    <>
+      <p className={styles.note}>
+        Every secret objective is worth 1 victory point and can only be scored by
+        the player holding it. You are dealt two at setup and keep one, and may
+        hold at most three at a time — scored ones included.
+      </p>
+
+      <div className={styles.objControls}>
+        <SearchInput
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search secret objectives…"
+          aria-label="Search secret objectives"
+        />
+        <Segmented
+          label="Filter by scoring phase"
+          value={phase}
+          onValueChange={setPhase}
+          options={[
+            { value: "all", label: "All" },
+            ...SECRET_PHASES.map((p) => ({ value: p, label: p })),
+          ]}
+        />
+        <span className={styles.count}>
+          {results.length} of {available.length}
+        </span>
+      </div>
+
+      {results.length === 0 && hydrated ? (
+        <EmptyState icon={<TargetIcon size={26} />} title="No secret objectives match">
+          Nothing here fits that search.
+        </EmptyState>
+      ) : (
+        SECRET_PHASES.map((p) => {
+          const items = results.filter((o) => o.phase === p);
+          if (!items.length) return null;
+          return (
+            <section key={p} className={styles.objGroup}>
+              <h3 className={styles.abilityLabel}>{p} phase — 1 victory point each</h3>
+              <div className={styles.objList}>
+                {items.map((objective) => (
+                  <article key={objective.id} className={[styles.obj, styles.objSecret].join(" ")}>
+                    <div className={styles.objTop}>
+                      <h4 className={styles.objName}>{objective.name}</h4>
+                      <span className={styles.objPoints}>1 VP</span>
+                    </div>
+                    <p className={styles.objReq}>{objective.requirement}</p>
+                    {objective.omega ? (
+                      <p className={styles.objOmega}>
+                        <span className={styles.omegaTag}>Ω Codex III</span>
+                        {objective.omega}
+                      </p>
+                    ) : null}
+                    {objective.expansion !== "base" ? (
+                      <div className={styles.objMeta}>
+                        <Badge tone="plasma">
+                          {EXPANSION_BY_ID[objective.expansion].shortName}
+                        </Badge>
+                      </div>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            </section>
+          );
+        })
+      )}
+    </>
+  );
+}
+
 type StageFilter = "all" | ObjectiveStage;
 
 function Objectives() {
@@ -189,9 +289,9 @@ function Objectives() {
   return (
     <>
       <p className={styles.note}>
-        A working subset of the public objective decks rather than every printed
-        card. The tracker always lets you type in an objective that is not
-        listed here.
+        The full public objective decks — 20 Stage I and 20 Stage II across the
+        base game and Prophecy of Kings. The tracker still lets you type in an
+        objective by hand if you need one this list does not carry.
       </p>
 
       <div className={styles.objControls}>
@@ -242,6 +342,12 @@ function Objectives() {
                       </span>
                     </div>
                     <p className={styles.objReq}>{objective.requirement}</p>
+                    {objective.omega ? (
+                      <p className={styles.objOmega}>
+                        <span className={styles.omegaTag}>Ω Codex III</span>
+                        {objective.omega}
+                      </p>
+                    ) : null}
                     {objective.expansion !== "base" ? (
                       <div className={styles.objMeta}>
                         <Badge tone="plasma">

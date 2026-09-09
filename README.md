@@ -24,9 +24,10 @@ this app is not affiliated with or endorsed by them.
   home planets, starting units and tech, and the FAQ rulings for that faction —
   all from the faction sheets, plus a hand-written read on how each one plays.
 - **Reference tables** — the strategy cards with both abilities (including the two
-  Thunder's Edge Omega revisions, which hide the cards they replace), the public
-  objective decks split by stage, and all 20 galactic events with their complexity
-  ratings.
+  Thunder's Edge Omega revisions, which hide the cards they replace), the complete
+  public objective decks (20 Stage I, 20 Stage II), all 40 secret objectives grouped
+  by the phase they score in, and all 20 galactic events with their complexity
+  ratings. Codex III revisions are shown on the cards they revise.
 - **Game tracker** — rounds and phases, initiative order, victory points, revealed
   objectives, the speaker token, custodians token, trade goods, commodities and
   command token pools for three to eight players. The whole game is saved to the
@@ -97,6 +98,7 @@ Two datasets are generated rather than hand-written:
 npm run gen:action-cards   # data/actionCards.ts
 npm run gen:factions       # data/factions.generated.ts
 npm run gen:events         # data/galacticEvents.generated.ts
+npm run gen:objectives     # data/objectives.generated.ts
 ```
 
 Both are deterministic — running them twice gives byte-identical output — and
@@ -145,9 +147,9 @@ disagreement rather than silently preferring one. Two known handling decisions:
 
 Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
-**Scraped, verbatim** — action cards and faction sheets. Generated from the
-sources above, complete for the products they cover, and regenerable. Trust
-these at the table.
+**Scraped, verbatim** — action cards, faction sheets, both objective decks and
+galactic events. Generated from the sources above, complete for the products
+they cover, and regenerable. Trust these at the table.
 
 The rules reference is hand-written but has been **cross-checked against the
 wiki's rules pages** entry by entry. Phase step orders, combat and invasion
@@ -157,11 +159,8 @@ still a paraphrased digest rather than a reproduction of the rulebook, and it is
 not regenerable — a future edit can drift from the source in a way the generated
 datasets cannot.
 
-**Hand-written, paraphrased** — the rules reference, public objectives, strategy
-cards, and the faction taglines and playstyles. A curated digest for quick
-lookup, not a reproduction of the rulebook and not complete. The objective lists
-in particular are a working subset (the tracker always lets you type in a card it
-does not carry).
+**Hand-written, paraphrased** — the rules reference, the strategy cards, and the
+faction taglines and playstyles.
 
 The playstyle notes are opinion, not scraped: **the wiki carries no strategy
 content** for factions — no tier lists, no guides, and the Trivia sections are

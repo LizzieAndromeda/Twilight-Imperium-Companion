@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Phase, ScoreSource } from "@/lib/types";
 import {
   PHASE_LABEL,
@@ -23,6 +23,8 @@ import {
   TextInput,
 } from "@/components/ui";
 import { CrownIcon, RotateIcon, TrashIcon } from "@/components/ui/icons";
+import { SECRET_OBJECTIVES } from "@/data/objectives";
+import { useSettings } from "@/state/SettingsProvider";
 import { PlayerCard } from "./PlayerCard";
 import { ObjectivesPanel } from "./ObjectivesPanel";
 import styles from "./GameBoard.module.css";
@@ -267,11 +269,23 @@ function AddScoreDialog({
   onClose: () => void;
 }) {
   const { game, addScore } = useGame();
+  const { scope } = useSettings();
   const [source, setSource] = useState<ScoreSource>("secret");
   const [points, setPoints] = useState(1);
   const [label, setLabel] = useState("");
 
   const player = game?.players.find((p) => p.id === playerId) ?? null;
+
+  // Secrets are the common case, so offer the actual deck rather than making
+  // someone type the card name from memory.
+  const secretOptions = useMemo(
+    () =>
+      scope(SECRET_OBJECTIVES).map((o) => ({
+        value: o.name,
+        label: `${o.name} — ${o.phase}`,
+      })),
+    [scope],
+  );
 
   function submit() {
     if (!playerId) return;
@@ -323,6 +337,18 @@ function AddScoreDialog({
             />
           </Field>
         </div>
+
+        {source === "secret" && secretOptions.length ? (
+          <Field label="Which secret?" hint="Or leave it blank and type your own below.">
+            <SelectInput
+              label="Secret objective"
+              value={label || undefined}
+              onValueChange={setLabel}
+              placeholder="Pick from the deck…"
+              options={secretOptions}
+            />
+          </Field>
+        ) : null}
 
         <Field
           label="Note"
