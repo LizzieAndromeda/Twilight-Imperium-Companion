@@ -19,7 +19,10 @@ this app is not affiliated with or endorsed by them.
   missed. Opens on the phase your tracked game is in.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
-  on the ones people routinely get wrong.
+  on the ones people routinely get wrong. Beside it, an **FAQ** tab with 217 official
+  rulings, each labelled with how much weight it carries: printed in the Living
+  Rules Reference, an official designer answer that has not reached the reference
+  yet, or the community's reading of something FFG never answered.
 - **Technology** — 89 cards: 24 basic, 41 faction and 24 unit upgrades, with their
   prerequisite symbols, effects, Codex revisions, upgraded unit stats and which
   factions start with them. Grouped by colour and ordered by depth in the tree.
@@ -114,7 +117,7 @@ content that is actually on screen.
 
 ### Regenerating the scraped data
 
-Six datasets are generated rather than hand-written:
+Seven datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
@@ -123,9 +126,10 @@ npm run gen:events         # data/galacticEvents.generated.ts
 npm run gen:objectives     # data/objectives.generated.ts
 npm run gen:technologies   # data/technologies.generated.ts
 npm run gen:agendas        # data/agendas.generated.ts
+npm run gen:faq            # data/faq.generated.ts
 ```
 
-All six are deterministic — running them twice gives byte-identical output — and
+All seven are deterministic — running them twice gives byte-identical output — and
 each prints a warning list rather than failing silently when a source changes
 shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
@@ -150,6 +154,15 @@ not the other. That check found three places where the wiki contradicts itself:
 
 Those live in `NAME_CORRECTIONS` in the script, each with its reasoning, so the
 cross-check stays clean and any *new* disagreement surfaces as a warning.
+
+**FAQ data** keeps the page's own three-way distinction, which is the most
+useful thing on it: `authority` is `living-rules`, `designer` or `community`.
+The wiki signals the first two by whether the "Q:" is bolded, so the generator
+reads that before the markup is stripped. Rulings filed under a faction inherit
+that faction's expansion and are hidden with it; the Exploration topic is tagged
+Prophecy of Kings. Everything else is treated as base game even where an
+individual answer mentions a later card — the topic, not the answer text,
+decides.
 
 **Agenda data** checks itself twice over. The page states which cards Prophecy
 of Kings removes in two places — inline in the base tables ("Core Mining
@@ -194,8 +207,8 @@ disagreement rather than silently preferring one. Two known handling decisions:
 
 Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
-**Scraped, verbatim** — action cards, faction sheets, technologies, agendas, both
-objective decks and galactic events. Generated from the sources above, complete for the products
+**Scraped, verbatim** — action cards, faction sheets, technologies, agendas, the
+FAQ, both objective decks and galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 
 The rules reference and the phase cheat sheet are hand-written but **cross-checked

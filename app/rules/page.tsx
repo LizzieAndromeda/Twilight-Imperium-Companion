@@ -6,9 +6,10 @@ import { RULES, RULE_BY_ID } from "@/data/rules";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Accordion, Badge, EmptyState, SearchInput } from "@/components/ui";
+import { Accordion, Badge, EmptyState, SearchInput, Tabs } from "@/components/ui";
 import type { AccordionItem } from "@/components/ui";
 import { BookIcon } from "@/components/ui/icons";
+import { FaqBrowser } from "./FaqBrowser";
 import styles from "./rules.module.css";
 
 const ALL = "all" as const;
@@ -21,6 +22,25 @@ function haystack(rule: Rule): string {
 }
 
 export default function RulesPage() {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Rules reference"
+        title="Look it up, keep playing"
+        lede="The rules that actually stop a game, written as ordered steps rather than prose — and the official rulings on the arguments they cause."
+      />
+      <Tabs
+        label="Rules sections"
+        items={[
+          { value: "rules", label: "Rules", content: <RulesReference /> },
+          { value: "faq", label: "FAQ", content: <FaqBrowser /> },
+        ]}
+      />
+    </>
+  );
+}
+
+function RulesReference() {
   const { scope, hydrated } = useSettings();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<RuleCategory | typeof ALL>(ALL);
@@ -87,12 +107,6 @@ export default function RulesPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Rules reference"
-        title="Look it up, keep playing"
-        lede="The rules that actually stop a game, written as ordered steps rather than prose. Entries from expansions you have not enabled are hidden."
-      />
-
       <div className={styles.controls}>
         <div className={styles.searchRow}>
           <SearchInput

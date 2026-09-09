@@ -61,6 +61,31 @@ export interface Rule extends ExpansionScoped {
   gotcha?: string;
 }
 
+/* -------------------------------------------------------------------- FAQ */
+
+/**
+ * How much weight a ruling carries — the FAQ page draws this distinction
+ * itself and it is the most useful thing on it.
+ */
+export type FaqAuthority =
+  /** Printed in the Living Rules Reference. */
+  | "living-rules"
+  /** An official answer from the designer, not yet in the reference. */
+  | "designer"
+  /** The community's reading of something FFG has never answered. */
+  | "community";
+
+export interface FaqEntry extends ExpansionScoped {
+  id: string;
+  question: string;
+  answer: string;
+  topic: string;
+  subtopic?: string;
+  /** Faction id, for rulings filed under a specific faction. */
+  faction?: string;
+  authority: FaqAuthority;
+}
+
 /* --------------------------------------------------------------- factions */
 
 export interface FactionLeader extends ExpansionScoped {
