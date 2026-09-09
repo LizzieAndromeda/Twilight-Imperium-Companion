@@ -5,7 +5,7 @@ import type { TechColor, Technology, TechnologyKind } from "@/lib/types";
 import { TECHNOLOGIES, TECH_COLORS } from "@/data/technologies.generated";
 import { FACTION_BY_ID } from "@/data/factions";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
-import { useQuerySeed, useTabParam } from "@/lib/useUrlQuery";
+import { useQuerySeed, useTabParam, useUrlQuery } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import {
@@ -57,12 +57,22 @@ export default function TechnologiesPage() {
 
 const TECH_TABS = ["tech", "units"] as const;
 
+/**
+ * Remount the tabs when `?q=` or `?tab=` changes.
+ *
+ * Both are read once, when this mounts: the tab as `defaultValue`, the query
+ * as each panel's initial search box. Arriving from a global search result
+ * while already on the technology page changes only the query string, which remounts
+ * nothing — so without a key the URL would say one thing and the page would
+ * still be showing the last one.
+ */
 function TechnologyTabs() {
-  const tab = useTabParam(TECH_TABS);
+  const { q, tab } = useUrlQuery();
   return (
     <Tabs
+      key={`${q}|${tab}`}
       label="Technology sections"
-      defaultValue={tab}
+      defaultValue={useTabParam(TECH_TABS)}
       items={[
         { value: "tech", label: "Technologies", content: <TechnologyList /> },
         { value: "units", label: "Units", content: <UnitReference /> },

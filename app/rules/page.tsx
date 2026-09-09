@@ -4,7 +4,7 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 import type { Rule, RuleCategory } from "@/lib/types";
 import { RULES, RULE_BY_ID } from "@/data/rules";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
-import { useQuerySeed, useTabParam } from "@/lib/useUrlQuery";
+import { useQuerySeed, useTabParam, useUrlQuery } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Accordion, Badge, EmptyState, SearchInput, Tabs } from "@/components/ui";
@@ -41,12 +41,22 @@ export default function RulesPage() {
 
 const RULES_TABS = ["rules", "faq"] as const;
 
+/**
+ * Remount the tabs when `?q=` or `?tab=` changes.
+ *
+ * Both are read once, when this mounts: the tab as `defaultValue`, the query
+ * as each panel's initial search box. Arriving from a global search result
+ * while already on the rules page changes only the query string, which remounts
+ * nothing — so without a key the URL would say one thing and the page would
+ * still be showing the last one.
+ */
 function RulesTabs() {
-  const tab = useTabParam(RULES_TABS);
+  const { q, tab } = useUrlQuery();
   return (
     <Tabs
+      key={`${q}|${tab}`}
       label="Rules sections"
-      defaultValue={tab}
+      defaultValue={useTabParam(RULES_TABS)}
       items={[
         { value: "rules", label: "Rules", content: <RulesReference /> },
         { value: "faq", label: "FAQ", content: <FaqBrowser /> },

@@ -22,7 +22,7 @@ import {
   RELICS,
 } from "@/data/exploration.generated";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
-import { useQuerySeed, useTabParam } from "@/lib/useUrlQuery";
+import { useQuerySeed, useTabParam, useUrlQuery } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import {
@@ -64,12 +64,22 @@ const REFERENCE_TABS = [
   "events",
 ] as const;
 
+/**
+ * Remount the tabs when `?q=` or `?tab=` changes.
+ *
+ * Both are read once, when this mounts: the tab as `defaultValue`, the query
+ * as each panel's initial search box. Arriving from a global search result
+ * while already on the reference page changes only the query string, which remounts
+ * nothing — so without a key the URL would say one thing and the page would
+ * still be showing the last one.
+ */
 function ReferenceTabs() {
-  const tab = useTabParam(REFERENCE_TABS);
+  const { q, tab } = useUrlQuery();
   return (
     <Tabs
+      key={`${q}|${tab}`}
       label="Reference sections"
-      defaultValue={tab}
+      defaultValue={useTabParam(REFERENCE_TABS)}
       items={[
         { value: "strategy", label: "Strategy cards", content: <StrategyCards /> },
         { value: "objectives", label: "Public objectives", content: <Objectives /> },

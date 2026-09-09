@@ -40,15 +40,27 @@ export default function FactionsPage() {
   // Suspense so a search result arriving with ?q= can seed the box below.
   return (
     <Suspense fallback={null}>
-      <FactionsView />
+      <FactionsSeed />
     </Suspense>
   );
 }
 
-function FactionsView() {
-  const { scope, isEnabled, hydrated } = useSettings();
+/**
+ * Remount the view when `?q=` changes.
+ *
+ * The seed is read once, when the view mounts. Landing here from a global
+ * search result while already on this page changes only the query string, and
+ * a query-string change does not remount anything — so without a key the URL
+ * would say one thing and the search box would still show the last one.
+ */
+function FactionsSeed() {
   const { q } = useUrlQuery();
-  const [query, setQuery] = useState(q);
+  return <FactionsView key={q} seed={q} />;
+}
+
+function FactionsView({ seed }: { seed: string }) {
+  const { scope, isEnabled, hydrated } = useSettings();
+  const [query, setQuery] = useState(seed);
   const [difficulty, setDifficulty] = useState<DifficultyFilter>("all");
   const [selected, setSelected] = useState<Faction | null>(null);
 
