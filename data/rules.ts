@@ -1056,13 +1056,15 @@ export const RULES: Rule[] = [
     id: "alliance-notes",
     term: "Alliance Promissory Notes",
     category: "Leaders",
-    expansion: "codex2",
+    expansion: "pok",
     summary: "Trade your commander's ability to another player.",
     clauses: [
-      "Codex II gives every faction an Alliance promissory note.",
+      "Every faction has an Alliance promissory note, introduced alongside leaders in Prophecy of Kings.",
       "While another player holds your Alliance note, they may use your commander's ability.",
       "Your commander must be unlocked for the note to do anything.",
       "The note is traded like any other promissory note, in a transaction with a neighbour.",
+      "The Mahact are the exception: they purge their Alliance note during setup and cannot be given anyone else's.",
+      "Codex II adds reference cards for every faction's Alliance note, and an Alliance team game variant built around them.",
     ],
     related: ["leaders", "promissory-notes", "transactions"],
   },
@@ -1125,6 +1127,162 @@ export const RULES: Rule[] = [
       "The Naaz-Rokha Alliance is built around converting fragments into relics faster than anyone else.",
     ],
     related: ["exploration", "transactions", "scoring"],
+  },
+
+  /* ----------------------------------------------------- Thunder's Edge */
+
+  {
+    id: "expedition",
+    term: "The Expedition",
+    category: "Core",
+    expansion: "thundersedge",
+    summary:
+      "A race to claim six slices of the Thunder's Edge planet, which starts off the board.",
+    clauses: [
+      "The Thunder's Edge tile begins the game off the board, divided into six slices.",
+      "At the end of your turn you may commit to the expedition and claim one unclaimed slice by paying its cost.",
+      "The six costs are: spend 5 resources; discard 2 action cards; spend 5 influence; discard 1 unscored secret objective; exhaust 1 technology specialty planet; spend 3 trade goods.",
+      "Each slice can only be claimed once, by one player.",
+      "The first time you claim any slice, you gain your faction's breakthrough.",
+      "When all six slices are claimed the expedition is complete. The player who claimed the last slice flips the tile to its planet side and places it in a system with no planet, supernova or printed wormhole.",
+      "The player who claimed the most slices then takes control of the planet.",
+    ],
+    gotcha:
+      "Claiming a slice is worth doing even if you cannot win the race — the first claim is what unlocks your breakthrough.",
+    related: ["breakthroughs", "the-fracture"],
+  },
+  {
+    id: "breakthroughs",
+    term: "Breakthroughs",
+    category: "Technology",
+    expansion: "thundersedge",
+    summary:
+      "A powerful faction-specific card, plus a permanent synergy between two technology colours.",
+    clauses: [
+      "Every faction, including base game and Prophecy of Kings factions, has a breakthrough card.",
+      "You gain your breakthrough the first time you claim a slice of the Thunder's Edge expedition.",
+      "As well as its printed ability, each breakthrough grants a synergy between two technology colours.",
+      "While you have the breakthrough, you may treat technology and technology specialties of either synergy colour as the other when meeting requirements — but only one at a time, not both at once.",
+      "The synergy applies both to researching technology and to scoring technology-related objectives.",
+      "Gaining a breakthrough also triggers a die roll that can bring the Fracture into play.",
+    ],
+    related: ["expedition", "the-fracture", "technology", "technology-specialties"],
+  },
+  {
+    id: "the-fracture",
+    term: "The Fracture",
+    category: "Exploration",
+    expansion: "thundersedge",
+    summary:
+      "A pocket of space outside the galaxy, full of relics and guarded by neutral forces.",
+    clauses: [
+      "Whenever a player gains their breakthrough they roll a die; on a 1 or a 10 the Fracture enters play.",
+      "The Fracture has its own system tiles, disconnected from the rest of the galaxy.",
+      "It can only be reached through ingress tokens, placed at set points in the galaxy when the Fracture arrives.",
+      "Gaining control of any planet in the Fracture gives you a relic.",
+      "The legendary planet Styx gives you a victory point for as long as you control it.",
+      "Every Fracture planet starts guarded by neutral units, so nothing there is taken without a fight.",
+    ],
+    related: ["breakthroughs", "neutral-units", "relics", "legendary-planets"],
+  },
+  {
+    id: "neutral-units",
+    term: "Neutral Units",
+    category: "Units",
+    expansion: "thundersedge",
+    summary:
+      "Grey, non-player forces that fight anyone who enters their territory.",
+    clauses: [
+      "Neutral units are represented by their own set of grey pieces and belong to no player.",
+      "They fight any player whose units enter their system or invade their planet.",
+      "The Fracture enters play with neutral units guarding each of its planets.",
+      "Several galactic events and action cards also place neutral units onto the board.",
+    ],
+    related: ["the-fracture", "galactic-events", "space-combat", "ground-combat"],
+  },
+  {
+    id: "space-stations",
+    term: "Space Stations",
+    category: "Planets",
+    expansion: "thundersedge",
+    summary:
+      "Trading posts you hold by having the only ships there — good for commerce, useless for objectives.",
+    clauses: [
+      "You control a space station while yours are the only ships in its system.",
+      "Control persists after your ships leave; you only lose it when another player is alone there.",
+      "Each space station you control raises your commodity value by 1.",
+      "Players who control space stations can resolve transactions with each other even when they are not neighbours — this does not make them neighbours.",
+      "You may exhaust a space station at any time to convert your commodities into trade goods.",
+      "Each has a planet card, gained exhausted, which is spent and readied like a planet.",
+      "Structures and ground forces cannot be placed on or committed to a space station.",
+      "Space stations do not count as planets for scoring objectives or for controlling a home system, and cannot be elected by an elect-planet agenda.",
+    ],
+    gotcha:
+      "For Last Bastion this distinction decides the game: their home system is held by controlling Ordinian, not the Revelation space station.",
+    related: ["planets", "commodities", "transactions", "neighbors"],
+  },
+  {
+    id: "entropic-scar",
+    term: "Entropic Scar",
+    category: "Movement",
+    expansion: "thundersedge",
+    summary: "An anomaly that switches off unit abilities inside it.",
+    clauses: [
+      "Unit abilities cannot be used by, or against, units inside an entropic scar. Text abilities are unaffected.",
+      "Wormholes that would be placed inside an entropic scar are discarded instead.",
+      "At the start of the status phase, a player with ships in an entropic scar may spend a token from their strategy pool to gain one of their faction technologies.",
+    ],
+    gotcha:
+      "Sustain damage, anti-fighter barrage, bombardment and space cannon are all unit abilities, so none of them function inside the scar.",
+    related: ["anomalies", "units-overview", "technology"],
+  },
+  {
+    id: "galvanize",
+    term: "Galvanize",
+    category: "Combat",
+    expansion: "thundersedge",
+    summary: "A marker that gives a unit an extra die.",
+    clauses: [
+      "When a game effect tells you to galvanize a unit, place a galvanize token beneath it, if it does not already have one.",
+      "A galvanized unit rolls 1 additional die for combat rolls and for unit abilities.",
+      "A unit can only carry one galvanize token, so galvanizing it again does nothing.",
+      "Last Bastion is built around galvanizing: they may galvanize one participating unit at the end of every combat.",
+    ],
+    related: ["space-combat", "ground-combat", "units-overview"],
+  },
+  {
+    id: "coexistence",
+    term: "Coexistence",
+    category: "Planets",
+    expansion: "thundersedge",
+    summary:
+      "Ground forces from different players sharing a planet instead of fighting over it.",
+    clauses: [
+      "Several Thunder's Edge effects place ground forces into coexistence rather than starting a ground combat.",
+      "Coexisting units sit on a planet alongside another player's units without resolving combat.",
+      "The Deepwrought Scholarate is built on it: they may choose to coexist when committing ground forces, and turn coexisting planets into ocean cards.",
+      "The Crash Landing and Exchange Program action cards also place units into coexistence.",
+    ],
+    gotcha:
+      "This entry is a summary of how coexistence is referenced by other components. The full rule is in the Thunder's Edge rulebook, which this app does not reproduce.",
+    related: ["ground-combat", "invasion", "control"],
+  },
+  {
+    id: "galactic-events",
+    term: "Galactic Events",
+    category: "Components",
+    expansion: "codex4",
+    summary:
+      "Optional setup cards that change the rules of the game before it begins.",
+    clauses: [
+      "Galactic events are chosen during setup and are entirely optional.",
+      "Draw one at random from the deck, or agree on one in advance.",
+      "Experienced groups can play with several at once.",
+      "Each event carries a complexity rating for how far it bends the normal rules.",
+      "Codex IV introduced four events; Thunder's Edge added sixteen more.",
+      "The full list is on the Reference page under Galactic events.",
+    ],
+    related: ["neutral-units"],
   },
 ];
 

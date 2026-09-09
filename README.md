@@ -22,8 +22,10 @@ this app is not affiliated with or endorsed by them.
   flagship and mech, the Thunder's Edge breakthrough, home planets, starting
   units and tech, and the FAQ rulings for that faction — all taken from the
   faction sheets, plus a hand-written read on how each one wants to be played.
-- **Reference tables** — all eight strategy cards with both abilities, and the public
-  objective decks split by stage.
+- **Reference tables** — the strategy cards with both abilities (including the two
+  Thunder's Edge Omega revisions, which hide the cards they replace), the public
+  objective decks split by stage, and all 20 galactic events with their complexity
+  ratings.
 - **Game tracker** — rounds and phases, initiative order, victory points, revealed
   objectives, the speaker token, custodians token, trade goods, commodities and
   command token pools for three to eight players. The whole game is saved to the
@@ -93,6 +95,7 @@ Two datasets are generated rather than hand-written:
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
 npm run gen:factions       # data/factions.generated.ts
+npm run gen:events         # data/galacticEvents.generated.ts
 ```
 
 Both are deterministic — running them twice gives byte-identical output — and
@@ -149,9 +152,14 @@ status phase" with no mention that Arborec space docks *cannot produce infantry
 at all* — an ability quoted without its drawback reads as a straight buff. That
 class of error is why the sheets are scraped now.
 
-**Thunder's Edge coverage is action cards and factions.** The 2025 expansion also
-adds worlds, Galactic Events and other components that are not catalogued in
-`data/` yet, and the rules reference has no Thunder's Edge entries.
+**Thunder's Edge coverage** is action cards, factions, galactic events, the two
+revised strategy cards, and nine rules entries for its new mechanics (the
+expedition, breakthroughs, the Fracture, neutral units, space stations, the
+entropic scar, galvanize and coexistence). Its planet cards, system tiles, relics
+and alliance cards are not catalogued.
+
+Coexistence is the weak entry: the wiki has no rules page for it, only components
+that reference it, so that entry summarises those references and says so.
 
 The official Living Rules Reference is authoritative. Where this app disagrees with
 it, this app is wrong — corrections to `data/` are the most useful contribution.

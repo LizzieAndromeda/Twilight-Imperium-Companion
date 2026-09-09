@@ -159,13 +159,34 @@ export interface ActionCard extends ExpansionScoped {
 
 /* -------------------------------------------------------- strategy cards */
 
-export interface StrategyCard {
+export interface StrategyCard extends ExpansionScoped {
   initiative: number;
   name: string;
   primary: string;
   secondary: string;
   /** Cost in command tokens for the secondary ability, if any. */
   secondaryCost: string;
+  /**
+   * Set on the Thunder's Edge Omega revisions: the initiative number of the
+   * card this one replaces. While that product is enabled, the original is
+   * hidden.
+   */
+  supersedes?: number;
+}
+
+/* -------------------------------------------------------- galactic events */
+
+/**
+ * An optional setup card that changes the rules of the whole game.
+ * Introduced in Codex IV and expanded by Thunder's Edge.
+ */
+export interface GalacticEvent extends ExpansionScoped {
+  id: string;
+  name: string;
+  /** The wiki's 1-3 rating of how much this changes the game. */
+  complexity: number;
+  /** Effect text, one entry per printed line or bullet. */
+  effect: string[];
 }
 
 /* ------------------------------------------------------------ objectives */

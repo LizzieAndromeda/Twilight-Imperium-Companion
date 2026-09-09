@@ -26,32 +26,33 @@ export const EXPANSIONS: Expansion[] = [
     id: "codex1",
     name: "Codex I — Ordinian",
     shortName: "Codex I",
-    year: "2020",
+    year: "July 2020",
     description:
-      "Free card errata plus a scenario. Enable it if you play with the corrected card text.",
+      "The first free codex: Omega errata for technologies and promissory notes, 17 new action cards, and the Nexus.",
   },
   {
     id: "codex2",
     name: "Codex II — Affinity",
     shortName: "Codex II",
-    year: "2020",
+    year: "April 2021",
     description:
-      "Adds Alliance promissory notes, which let players share their commander abilities.",
+      "Faction and Alliance reference cards, more relics, and the Alliance team game variant.",
   },
   {
     id: "codex3",
     name: "Codex III — Vigil",
     shortName: "Codex III",
-    year: "2021",
+    year: "April 2022",
     description:
-      "Adds The Council Keleres, a 25th faction assembled from the councils of Mecatol Rex.",
+      "Adds The Council Keleres, plus Omega leaders, mechs, secret objectives and frontier cards.",
   },
   {
     id: "codex4",
     name: "Codex IV — Liberation",
     shortName: "Codex IV",
-    year: "2022",
-    description: "A large co-operative scenario with its own cards and rules.",
+    year: "June 2025",
+    description:
+      "Introduces Galactic Events — optional setup cards that rewrite the rules of the whole game — plus new relics.",
   },
   {
     id: "thundersedge",

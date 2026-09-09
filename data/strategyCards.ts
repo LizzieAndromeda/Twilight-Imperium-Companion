@@ -6,6 +6,7 @@ import type { StrategyCard } from "@/lib/types";
  */
 export const STRATEGY_CARDS: StrategyCard[] = [
   {
+    expansion: "base",
     initiative: 1,
     name: "Leadership",
     primary:
@@ -15,6 +16,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "No strategy token — influence only",
   },
   {
+    expansion: "base",
     initiative: 2,
     name: "Diplomacy",
     primary:
@@ -23,6 +25,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "1 strategy token",
   },
   {
+    expansion: "base",
     initiative: 3,
     name: "Politics",
     primary:
@@ -31,6 +34,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "1 strategy token",
   },
   {
+    expansion: "base",
     initiative: 4,
     name: "Construction",
     primary:
@@ -40,6 +44,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "1 strategy token, placed on the board",
   },
   {
+    expansion: "base",
     initiative: 5,
     name: "Trade",
     primary:
@@ -48,6 +53,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "1 strategy token",
   },
   {
+    expansion: "base",
     initiative: 6,
     name: "Warfare",
     primary:
@@ -56,6 +62,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "1 strategy token",
   },
   {
+    expansion: "base",
     initiative: 7,
     name: "Technology",
     primary:
@@ -64,6 +71,7 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondaryCost: "1 strategy token and 4 resources",
   },
   {
+    expansion: "base",
     initiative: 8,
     name: "Imperial",
     primary:
@@ -71,8 +79,41 @@ export const STRATEGY_CARDS: StrategyCard[] = [
     secondary: "Draw 1 secret objective.",
     secondaryCost: "1 strategy token",
   },
+
+  /* ------------------------------------------------------- Thunder's Edge */
+
+  {
+    expansion: "thundersedge",
+    initiative: 4,
+    name: "Construction ΩΩ",
+    supersedes: 4,
+    primary:
+      "Either place 1 structure on a planet you control, or use the PRODUCTION ability of 1 of your space docks. Then place 1 structure on a planet you control.",
+    secondary: "Place 1 structure on a planet you control.",
+    secondaryCost: "1 strategy token",
+  },
+  {
+    expansion: "thundersedge",
+    initiative: 6,
+    name: "Warfare Ω",
+    supersedes: 6,
+    primary:
+      "Perform a tactical action in any system without placing a command token, even if the system already has your command token in it; that system still counts as being activated. You may redistribute your command tokens before and after this action.",
+    secondary: "Use the PRODUCTION abilities of units in your home system.",
+    secondaryCost: "1 strategy token",
+  },
 ];
 
+/**
+ * Lookup by initiative number, used by the tracker for card names.
+ *
+ * Only the base cards are indexed: an Omega revision shares its initiative
+ * number with the card it replaces, and the tracker cares about the slot, not
+ * which printing of it is on the table.
+ */
 export const STRATEGY_CARD_BY_INITIATIVE = new Map(
-  STRATEGY_CARDS.map((c) => [c.initiative, c]),
+  STRATEGY_CARDS.filter((c) => c.expansion === "base").map((c) => [
+    c.initiative,
+    c,
+  ]),
 );
