@@ -15,7 +15,9 @@
     "gen:agendas": "node scripts/generate-agendas.mjs",
     "gen:faq": "node scripts/generate-faq.mjs",
     "gen:errata": "node scripts/generate-errata.mjs",
-    "gen:exploration": "node scripts/generate-exploration.mjs"
+    "gen:exploration": "node scripts/generate-exploration.mjs",
+    "gen:units": "node scripts/generate-units.mjs",
+    "gen:promissory": "node scripts/generate-promissory.mjs"
   },
   "dependencies": {
     "next": "16.3.4",

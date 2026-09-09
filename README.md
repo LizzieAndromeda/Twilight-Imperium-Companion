@@ -26,6 +26,8 @@ this app is not affiliated with or endorsed by them.
 - **Technology** — 89 cards: 24 basic, 41 faction and 24 unit upgrades, with their
   prerequisite symbols, effects, Codex revisions, upgraded unit stats and which
   factions start with them. Grouped by colour and ordered by depth in the tree.
+  A **Units** tab beside it carries the standard unit line those upgrades
+  replace — cost, combat, move, capacity and printed abilities.
 - **Factions** — all 30, including the five from Thunder's Edge, each with its
   faction symbol. Abilities, leaders (agent, commander, hero, with their Omega
   revisions), flagship, mech, unique unit variants, faction technologies,
@@ -40,8 +42,9 @@ this app is not affiliated with or endorsed by them.
   Thunder's Edge Omega revisions, which hide the cards they replace), the complete
   public objective decks (20 Stage I, 20 Stage II), all 40 secret objectives grouped
   by the phase they score in, the four exploration decks with their relic
-  fragments, all 23 relics, and all 20 galactic events with their complexity
-  ratings. Codex III revisions are shown on the cards they revise.
+  fragments, all 23 relics, the five general promissory notes, and all 20
+  galactic events with their complexity ratings. Codex III revisions are shown
+  on the cards they revise.
 - **Game tracker** — rounds and phases, initiative order, victory points, revealed
   objectives, the speaker token, custodians token, trade goods, commodities and
   command token pools for three to eight players. The whole game is saved to the
@@ -118,7 +121,7 @@ content that is actually on screen.
 
 ### Regenerating the scraped data
 
-Nine datasets are generated rather than hand-written:
+Eleven datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
@@ -130,9 +133,11 @@ npm run gen:agendas        # data/agendas.generated.ts
 npm run gen:faq            # data/faq.generated.ts
 npm run gen:errata         # data/errata.generated.ts
 npm run gen:exploration    # data/exploration.generated.ts
+npm run gen:units          # data/units.generated.ts
+npm run gen:promissory     # data/promissory.generated.ts
 ```
 
-All nine are deterministic — running them twice gives byte-identical output — and
+All eleven are deterministic — running them twice gives byte-identical output — and
 each prints a warning list rather than failing silently when a source changes
 shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
@@ -157,6 +162,13 @@ not the other. That check found three places where the wiki contradicts itself:
 
 Those live in `NAME_CORRECTIONS` in the script, each with its reasoning, so the
 cross-check stays clean and any *new* disagreement surfaces as a warning.
+
+**Unit and promissory note data** cover only what is generic. Flagships and
+mechs are absent from the unit list because there is no generic printed card
+for either — every faction prints its own, and those come off the faction
+pages. Likewise only the five general promissory notes are scraped here; the
+faction-specific ones already arrive via `gen:factions`, and scraping them
+twice would just create a second source to keep in step.
 
 **Exploration data** is checked against the page's own prose. Each relic section
 opens with a sentence like "These 10 Relics were introduced in…", so the

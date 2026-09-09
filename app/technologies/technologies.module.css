@@ -209,3 +209,94 @@
   font-size: 11px;
   color: var(--text-dim);
 }
+
+/* --- standard unit reference --- */
+.unitNote {
+  margin-bottom: var(--s-5);
+  padding: var(--s-3) var(--s-4);
+  border-left: 2px solid var(--line-strong);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: var(--surface-inset);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.unitGroup + .unitGroup {
+  margin-top: var(--s-6);
+}
+
+.unitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s-3);
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.unitName {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.unitStatRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-2);
+}
+
+.unitStat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--s-2);
+  border-radius: var(--r-sm);
+  background: var(--surface-inset);
+  text-align: center;
+}
+
+.unitStatLabel {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.unitStatValue {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--text);
+}
+
+.unitStatEmpty {
+  color: var(--text-dim);
+}
+
+.unitAbilities {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.unitRequires {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--warning);
+}

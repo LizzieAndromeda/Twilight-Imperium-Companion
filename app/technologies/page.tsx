@@ -15,8 +15,10 @@ import {
   FactionSymbol,
   SearchInput,
   Segmented,
+  Tabs,
 } from "@/components/ui";
 import { TargetIcon } from "@/components/ui/icons";
+import { UnitReference } from "./UnitReference";
 import styles from "./technologies.module.css";
 
 const ALL = "all" as const;
@@ -36,6 +38,25 @@ const KIND_LABEL: Record<TechnologyKind, string> = {
 };
 
 export default function TechnologiesPage() {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Technology"
+        title="Every card on the tree"
+        lede="Basic, faction and unit upgrade technologies with their prerequisites, effects and Codex revisions — and the standard unit line they upgrade from."
+      />
+      <Tabs
+        label="Technology sections"
+        items={[
+          { value: "tech", label: "Technologies", content: <TechnologyList /> },
+          { value: "units", label: "Units", content: <UnitReference /> },
+        ]}
+      />
+    </>
+  );
+}
+
+function TechnologyList() {
   const { scope, hydrated } = useSettings();
   const [query, setQuery] = useState("");
   const [color, setColor] = useState<TechColor | typeof ALL>(ALL);
@@ -84,12 +105,6 @@ export default function TechnologiesPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Technology"
-        title="Every card on the tree"
-        lede="Basic, faction and unit upgrade technologies with their prerequisites, effects and Codex revisions. Grouped by colour and ordered by how deep in the tree they sit."
-      />
-
       <div className={styles.controls}>
         <div className={styles.row}>
           <SearchInput

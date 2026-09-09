@@ -15,6 +15,7 @@ import {
 } from "@/data/objectives";
 import { GALACTIC_EVENTS } from "@/data/galacticEvents.generated";
 import { AGENDAS } from "@/data/agendas.generated";
+import { PROMISSORY_NOTES } from "@/data/promissory.generated";
 import {
   EXPLORATION_CARDS,
   EXPLORATION_DECKS,
@@ -51,6 +52,7 @@ export default function ReferencePage() {
           { value: "secrets", label: "Secret objectives", content: <Secrets /> },
           { value: "agendas", label: "Agendas", content: <Agendas /> },
           { value: "exploration", label: "Exploration", content: <Exploration /> },
+          { value: "promissory", label: "Promissory notes", content: <Promissory /> },
           { value: "events", label: "Galactic events", content: <Events /> },
         ]}
       />
@@ -186,6 +188,55 @@ function Events() {
           </div>
         </>
       )}
+    </>
+  );
+}
+
+/**
+ * The five general promissory notes. Each faction also has its own, which is
+ * shown on that faction rather than here.
+ */
+function Promissory() {
+  const { scope, hydrated } = useSettings();
+  const notes = useMemo(() => scope(PROMISSORY_NOTES), [scope]);
+
+  if (!notes.length && hydrated) {
+    return (
+      <EmptyState icon={<TargetIcon size={26} />} title="No promissory notes" />
+    );
+  }
+
+  return (
+    <>
+      <p className={styles.note}>
+        Every player holds these five in their own colour. Where the text says
+        &ldquo;the (color) player&rdquo; it means the note&apos;s owner — the
+        player whose colour is printed on it. Faction-specific notes are on each
+        faction&apos;s page.
+      </p>
+      <div className={styles.explList}>
+        {notes.map((note) => (
+          <article
+            key={note.id}
+            className={styles.expl}
+            style={{ ["--deck-color" as string]: "var(--cyan)" }}
+          >
+            <div className={styles.explTop}>
+              <h4 className={styles.explName}>{note.name}</h4>
+            </div>
+            <p className={styles.explText} style={{ whiteSpace: "pre-line" }}>
+              {note.text}
+            </p>
+            {note.expansion !== "base" ? (
+              <div className={styles.explFoot}>
+                <Badge tone="plasma">
+                  {EXPANSION_BY_ID[note.expansion].shortName}
+                </Badge>
+              </div>
+            ) : null}
+          </article>
+        ))}
+      </div>
     </>
   );
 }

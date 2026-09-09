@@ -61,6 +61,36 @@ export interface Rule extends ExpansionScoped {
   gotcha?: string;
 }
 
+/* ------------------------------------------------------------------ units */
+
+export type UnitCategory = "Ships" | "Ground forces" | "Structures";
+
+/** A standard unit, before any faction variant or upgrade. */
+export interface Unit extends ExpansionScoped {
+  id: string;
+  name: string;
+  category: UnitCategory;
+  cost?: string;
+  combat?: string;
+  move?: string;
+  capacity?: string;
+  /**
+   * True for the war sun, which has no printed line at all until its
+   * technology is researched.
+   */
+  requiresTechnology?: boolean;
+  abilities?: string[];
+}
+
+/* ------------------------------------------------------- promissory notes */
+
+/** One of the five general notes every player holds in their own colour. */
+export interface PromissoryNote extends ExpansionScoped {
+  id: string;
+  name: string;
+  text: string;
+}
+
 /* ------------------------------------------------------------ exploration */
 
 /** Which deck an exploration card is drawn from. */
