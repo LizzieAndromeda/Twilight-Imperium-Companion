@@ -11,14 +11,19 @@ import styles from "./PhaseCheatSheet.module.css";
  * A phase reference you can pull up mid-game without losing your place.
  *
  * When a game is running it opens on whatever phase the tracker is in, since
- * that is almost always the one being asked about.
+ * that is almost always the one being asked about. Callers that already know
+ * which phase is being asked about — the overview's round diagram, where you
+ * click the phase you want — pass `phase` to say so.
  */
 export function PhaseCheatSheet({
   open,
   onOpenChange,
+  phase,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Open on this phase rather than the one the tracker is in. */
+  phase?: Phase;
 }) {
   const { game } = useGame();
   const currentPhase = game?.phase ?? null;
@@ -33,13 +38,26 @@ export function PhaseCheatSheet({
     >
       {/* Mounted only while open, so the body's state starts fresh on the live
           phase every time the sheet is pulled up — no effect needed to sync. */}
-      {open ? <CheatSheetBody currentPhase={currentPhase} /> : null}
+      {open ? (
+        <CheatSheetBody
+          currentPhase={currentPhase}
+          initialPhase={phase ?? currentPhase}
+        />
+      ) : null}
     </Modal>
   );
 }
 
-function CheatSheetBody({ currentPhase }: { currentPhase: Phase | null }) {
-  const [selected, setSelected] = useState<Phase>(currentPhase ?? "strategy");
+function CheatSheetBody({
+  currentPhase,
+  initialPhase,
+}: {
+  /** The live phase, highlighted on its tab wherever the sheet opens. */
+  currentPhase: Phase | null;
+  /** The phase to open on. */
+  initialPhase: Phase | null;
+}) {
+  const [selected, setSelected] = useState<Phase>(initialPhase ?? "strategy");
 
   const entry = PHASE_GUIDE.find((e) => e.phase === selected) ?? PHASE_GUIDE[0];
 

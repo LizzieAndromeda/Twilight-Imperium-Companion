@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import type { Phase } from "@/lib/types";
 import { RULES } from "@/data/rules";
 import { FACTIONS } from "@/data/factions";
 import { PUBLIC_OBJECTIVES } from "@/data/objectives";
@@ -12,6 +13,7 @@ import { TRACKER_ENABLED } from "@/lib/features";
 import { useSettings } from "@/state/SettingsProvider";
 import { useGame, PHASE_LABEL } from "@/state/GameProvider";
 import { Badge, Button, Card, SectionHeading } from "@/components/ui";
+import { PhaseCheatSheet } from "@/components/layout/PhaseCheatSheet";
 import {
   BookIcon,
   ChevronRightIcon,
@@ -23,20 +25,34 @@ import {
 } from "@/components/ui/icons";
 import styles from "./page.module.css";
 
-const PHASES = [
+/**
+ * The round at a glance. Each card opens the phase cheat sheet on its own
+ * phase, so the diagram is a way in rather than just a picture — `phase` is
+ * the id the sheet is keyed by.
+ */
+const PHASES: {
+  phase: Phase;
+  name: string;
+  body: string;
+  conditional?: boolean;
+}[] = [
   {
+    phase: "strategy",
     name: "Strategy",
     body: "Starting with the speaker, each player takes a strategy card. Those numbers set initiative order for the round.",
   },
   {
+    phase: "action",
     name: "Action",
     body: "In initiative order, take one action per turn — tactical, strategic or component — until everyone has passed.",
   },
   {
+    phase: "status",
     name: "Status",
     body: "Score objectives, reveal a new one, draw action cards, then reset tokens, ready cards and repair units.",
   },
   {
+    phase: "agenda",
     name: "Agenda",
     body: "Two agendas are revealed and voted on. This phase only exists once the custodians token leaves Mecatol Rex.",
     conditional: true,
@@ -46,6 +62,7 @@ const PHASES = [
 export default function OverviewPage() {
   const { scope, enabled, hydrated } = useSettings();
   const { game, hydrated: gameHydrated, victoryPoints, initiativeOrder } = useGame();
+  const [cheatSheetPhase, setCheatSheetPhase] = useState<Phase | null>(null);
 
   const counts = useMemo(
     () => ({
@@ -173,17 +190,39 @@ export default function OverviewPage() {
       <div className={styles.flow}>
         {PHASES.map((phase, i) => (
           <div
-            key={phase.name}
+            key={phase.phase}
             className={[styles.phase, phase.conditional && styles.phaseConditional]
               .filter(Boolean)
               .join(" ")}
+            role="button"
+            tabIndex={0}
+            aria-label={`${phase.name} phase — open the cheat sheet`}
+            onClick={() => setCheatSheetPhase(phase.phase)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setCheatSheetPhase(phase.phase);
+              }
+            }}
           >
             <span className={styles.phaseNum}>{i + 1}</span>
             <h3 className={styles.phaseName}>{phase.name}</h3>
             <p className={styles.phaseBody}>{phase.body}</p>
+            <span className={styles.phaseOpen} aria-hidden>
+              Cheat sheet <ChevronRightIcon size={13} />
+            </span>
           </div>
         ))}
       </div>
+
+      {/* One state does both jobs: which phase was asked about, and whether
+          the sheet is up at all. The sheet's body mounts only while open, so
+          it picks up the phase set in the same click. */}
+      <PhaseCheatSheet
+        open={cheatSheetPhase !== null}
+        onOpenChange={(open) => !open && setCheatSheetPhase(null)}
+        phase={cheatSheetPhase ?? undefined}
+      />
 
       <SectionHeading>Content in play</SectionHeading>
       <div className={styles.strip}>
