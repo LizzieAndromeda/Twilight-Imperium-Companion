@@ -29,6 +29,10 @@ this app is not affiliated with or endorsed by them.
   promissory notes, the Thunder's Edge breakthrough and its colour synergy,
   home planets, starting units and tech, and the FAQ rulings for that faction —
   all from the faction sheets, plus a hand-written read on how each one plays.
+- **Agendas** — the whole deck, 50 cards either way. Laws and directives with
+  their FOR/AGAINST outcomes or what they elect, searchable and filterable.
+  Enabling Prophecy of Kings swaps out the 13 base agendas it removes for the
+  13 it adds.
 - **Reference tables** — the strategy cards with both abilities (including the two
   Thunder's Edge Omega revisions, which hide the cards they replace), the complete
   public objective decks (20 Stage I, 20 Stage II), all 40 secret objectives grouped
@@ -100,7 +104,7 @@ checkbox automatically.
 
 ### Regenerating the scraped data
 
-Five datasets are generated rather than hand-written:
+Six datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
@@ -108,9 +112,10 @@ npm run gen:factions       # data/factions.generated.ts
 npm run gen:events         # data/galacticEvents.generated.ts
 npm run gen:objectives     # data/objectives.generated.ts
 npm run gen:technologies   # data/technologies.generated.ts
+npm run gen:agendas        # data/agendas.generated.ts
 ```
 
-All five are deterministic — running them twice gives byte-identical output — and
+All six are deterministic — running them twice gives byte-identical output — and
 each prints a warning list rather than failing silently when a source changes
 shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
@@ -135,6 +140,14 @@ not the other. That check found three places where the wiki contradicts itself:
 
 Those live in `NAME_CORRECTIONS` in the script, each with its reasoning, so the
 cross-check stays clean and any *new* disagreement surfaces as a warning.
+
+**Agenda data** checks itself twice over. The page states which cards Prophecy
+of Kings removes in two places — inline in the base tables ("Core Mining
+(removed in PoK)") and as a bullet list further down — and the generator takes
+the union while warning about any card the two disagree on. It also asserts the
+arithmetic: 34 laws plus 16 directives is 50, and swapping the 13 removed cards
+for the 13 new ones is 50 again. Either check failing is a loud warning rather
+than a quietly wrong deck.
 
 **Faction symbols** are hot-linked from the wiki's CDN
 (`static.wikia.nocookie.net`, allow-listed in `next.config.ts`) rather than
@@ -171,7 +184,7 @@ disagreement rather than silently preferring one. Two known handling decisions:
 
 Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
-**Scraped, verbatim** — action cards, faction sheets, technologies, both
+**Scraped, verbatim** — action cards, faction sheets, technologies, agendas, both
 objective decks and galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 

@@ -245,3 +245,83 @@
   text-transform: uppercase;
   color: var(--cyan);
 }
+
+/* --- agendas --- */
+.agendaList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--s-4);
+}
+
+.agenda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  height: 100%;
+  border-left: 3px solid var(--kind-color, var(--line-strong));
+}
+
+.agendaTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.agendaName {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.electTag {
+  flex: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  flex: 1;
+}
+
+.outcome {
+  display: flex;
+  gap: var(--s-3);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.outcomeLabel {
+  flex: none;
+  min-width: 58px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding-top: 2px;
+}
+
+.labelFor {
+  color: var(--success);
+}
+
+.labelAgainst {
+  color: var(--danger);
+}
+
+.agendaFoot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}

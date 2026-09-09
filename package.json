@@ -11,7 +11,8 @@
     "gen:factions": "node scripts/generate-factions.mjs",
     "gen:events": "node scripts/generate-galactic-events.mjs",
     "gen:objectives": "node scripts/generate-objectives.mjs",
-    "gen:technologies": "node scripts/generate-technologies.mjs"
+    "gen:technologies": "node scripts/generate-technologies.mjs",
+    "gen:agendas": "node scripts/generate-agendas.mjs"
   },
   "dependencies": {
     "next": "16.3.4",

@@ -243,6 +243,31 @@ export interface Technology extends ExpansionScoped {
   revisions?: TechRevision[];
 }
 
+/* --------------------------------------------------------------- agendas */
+
+/** A law stays in play once enacted; a directive resolves once and is discarded. */
+export type AgendaKind = "Law" | "Directive";
+
+/** One of the outcomes players vote between. `label` is null for elect agendas. */
+export interface AgendaOutcome {
+  label: "FOR" | "AGAINST" | null;
+  text: string;
+}
+
+export interface Agenda extends ExpansionScoped {
+  id: string;
+  name: string;
+  kind: AgendaKind;
+  /** What the agenda elects, e.g. "Player" or "Planet". Null for for/against. */
+  elect: string | null;
+  outcomes: AgendaOutcome[];
+  /**
+   * Set on the 13 base agendas Prophecy of Kings takes out of the deck. They
+   * are hidden while that expansion is enabled.
+   */
+  removedByPok?: boolean;
+}
+
 /* -------------------------------------------------------- galactic events */
 
 /**

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ObjectiveStage, SecretObjectivePhase } from "@/lib/types";
+import type { AgendaKind, ObjectiveStage, SecretObjectivePhase } from "@/lib/types";
 import { STRATEGY_CARDS } from "@/data/strategyCards";
 import {
   PUBLIC_OBJECTIVES,
@@ -9,6 +9,7 @@ import {
   STAGE_POINTS,
 } from "@/data/objectives";
 import { GALACTIC_EVENTS } from "@/data/galacticEvents.generated";
+import { AGENDAS } from "@/data/agendas.generated";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -22,7 +23,7 @@ export default function ReferencePage() {
       <PageHeader
         eyebrow="Reference tables"
         title="The cards you keep re-reading"
-        lede="Both abilities on every strategy card, the public objective decks by stage, and the galactic events that rewrite the rules before a game even starts."
+        lede="Both abilities on every strategy card, the objective decks, the full agenda deck, and the galactic events that rewrite the rules before a game even starts."
       />
       <Tabs
         label="Reference sections"
@@ -30,6 +31,7 @@ export default function ReferencePage() {
           { value: "strategy", label: "Strategy cards", content: <StrategyCards /> },
           { value: "objectives", label: "Public objectives", content: <Objectives /> },
           { value: "secrets", label: "Secret objectives", content: <Secrets /> },
+          { value: "agendas", label: "Agendas", content: <Agendas /> },
           { value: "events", label: "Galactic events", content: <Events /> },
         ]}
       />
@@ -163,6 +165,126 @@ function Events() {
             })}
           </div>
         </>
+      )}
+    </>
+  );
+}
+
+type AgendaFilter = "all" | AgendaKind;
+
+const AGENDA_COLOR: Record<AgendaKind, string> = {
+  Law: "var(--plasma)",
+  Directive: "var(--cyan)",
+};
+
+function Agendas() {
+  const { scope, isEnabled, hydrated } = useSettings();
+  const [query, setQuery] = useState("");
+  const [kind, setKind] = useState<AgendaFilter>("all");
+
+  const available = useMemo(() => {
+    // Prophecy of Kings takes 13 base agendas out of the deck and replaces
+    // them, so those are hidden only while it is enabled.
+    const pok = isEnabled("pok");
+    return scope(AGENDAS).filter((a) => !(pok && a.removedByPok));
+  }, [scope, isEnabled]);
+
+  const results = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return available.filter((agenda) => {
+      if (kind !== "all" && agenda.kind !== kind) return false;
+      if (!q) return true;
+      return [agenda.name, agenda.elect ?? "", ...agenda.outcomes.map((o) => o.text)]
+        .join(" ")
+        .toLowerCase()
+        .includes(q);
+    });
+  }, [available, query, kind]);
+
+  return (
+    <>
+      <p className={styles.note}>
+        The deck is 50 cards either way: Prophecy of Kings removes 13 base
+        agendas and adds 13 of its own. Enabling it here swaps them out.
+      </p>
+
+      <div className={styles.objControls}>
+        <SearchInput
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search agendas…"
+          aria-label="Search agendas"
+        />
+        <Segmented
+          label="Filter by type"
+          value={kind}
+          onValueChange={setKind}
+          options={[
+            { value: "all", label: "All" },
+            { value: "Law", label: "Laws" },
+            { value: "Directive", label: "Directives" },
+          ]}
+        />
+        <span className={styles.count}>
+          {results.length} of {available.length}
+        </span>
+      </div>
+
+      {results.length === 0 && hydrated ? (
+        <EmptyState icon={<TargetIcon size={26} />} title="No agendas match">
+          Nothing here fits that search.
+        </EmptyState>
+      ) : (
+        <div className={styles.agendaList}>
+          {results.map((agenda) => (
+            <Card
+              key={agenda.id}
+              className={styles.agenda}
+              style={{ ["--kind-color" as string]: AGENDA_COLOR[agenda.kind] }}
+            >
+              <div className={styles.agendaTop}>
+                <h4 className={styles.agendaName}>{agenda.name}</h4>
+                {agenda.elect ? (
+                  <span className={styles.electTag}>Elect {agenda.elect}</span>
+                ) : null}
+              </div>
+
+              <div className={styles.outcomes}>
+                {agenda.outcomes.map((outcome, i) => (
+                  <p key={i} className={styles.outcome}>
+                    {outcome.label ? (
+                      <span
+                        className={[
+                          styles.outcomeLabel,
+                          outcome.label === "FOR"
+                            ? styles.labelFor
+                            : styles.labelAgainst,
+                        ].join(" ")}
+                      >
+                        {outcome.label}
+                      </span>
+                    ) : null}
+                    <span>{outcome.text}</span>
+                  </p>
+                ))}
+              </div>
+
+              <div className={styles.agendaFoot}>
+                <Badge tone={agenda.kind === "Law" ? "plasma" : "cyan"}>
+                  {agenda.kind}
+                </Badge>
+                {agenda.expansion !== "base" ? (
+                  <Badge tone="plasma">
+                    {EXPANSION_BY_ID[agenda.expansion].shortName}
+                  </Badge>
+                ) : null}
+                {agenda.removedByPok ? (
+                  <Badge tone="danger">Removed by PoK</Badge>
+                ) : null}
+              </div>
+            </Card>
+          ))}
+        </div>
       )}
     </>
   );
