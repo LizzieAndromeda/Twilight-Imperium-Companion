@@ -14,6 +14,9 @@ this app is not affiliated with or endorsed by them.
   timing window and text, filterable by phase, with deck copy counts, community
   clarifications and the official FAQ rulings that name each card. Thunder's Edge
   Omega cards automatically hide the Codex I cards they replace.
+- **Phase cheat sheet** — press `?` anywhere, or the Phases button in the top bar.
+  What you can do in each phase, the printed step order, and the things that get
+  missed. Opens on the phase your tracked game is in.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong.
@@ -62,9 +65,10 @@ Requires Node 20+.
 app/                    routes: overview, rules, action cards, factions, reference, tracker
 components/
   ui/                   design system primitives (Button, Card, Field, Modal, …)
-  layout/               app shell, top nav, expansion settings dialog
+  layout/               app shell, top nav, expansion settings, phase cheat sheet
   tracker/              game setup, board, player cards, objectives panel
-data/                   rules, factions, action cards, strategy cards, objectives
+data/                   rules, factions, action cards, strategy cards, objectives,
+                        galactic events, phase cheat sheet
   *.generated.ts        scraped — never hand-edit, regenerate instead
   factionNotes.ts       hand-written editorial, safe from regeneration
 scripts/                data generators
@@ -92,7 +96,7 @@ checkbox automatically.
 
 ### Regenerating the scraped data
 
-Two datasets are generated rather than hand-written:
+Four datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
@@ -101,9 +105,9 @@ npm run gen:events         # data/galacticEvents.generated.ts
 npm run gen:objectives     # data/objectives.generated.ts
 ```
 
-Both are deterministic — running them twice gives byte-identical output — and
-both print a warning list rather than failing silently when a source changes
-shape. Neither touches `data/factionNotes.ts`, which holds the hand-written
+All four are deterministic — running them twice gives byte-identical output — and
+each prints a warning list rather than failing silently when a source changes
+shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
 
 **Faction data** is scraped from the individual faction pages on the wiki:
@@ -151,10 +155,11 @@ Content in `data/` falls into two tiers, and it is worth knowing which is which.
 galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 
-The rules reference is hand-written but has been **cross-checked against the
-wiki's rules pages** entry by entry. Phase step orders, combat and invasion
+The rules reference and the phase cheat sheet are hand-written but **cross-checked
+against the wiki's rules pages** entry by entry. Phase step orders, combat and invasion
 sequences, command token counts, the custodians cost, the action card hand limit
-and the voting order all verified clean; seven entries were corrected. It is
+and the voting order all verified clean; eleven entries have been corrected across
+two passes. It is
 still a paraphrased digest rather than a reproduction of the rulebook, and it is
 not regenerable — a future edit can drift from the source in a way the generated
 datasets cannot.

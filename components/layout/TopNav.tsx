@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSettings } from "@/state/SettingsProvider";
 import { Badge, Button } from "@/components/ui";
 import {
@@ -15,6 +15,7 @@ import {
   UsersIcon,
 } from "@/components/ui/icons";
 import { ExpansionSettings } from "./ExpansionSettings";
+import { PhaseCheatSheet, useCheatSheetShortcut } from "./PhaseCheatSheet";
 import styles from "./TopNav.module.css";
 
 const LINKS = [
@@ -30,6 +31,9 @@ export function TopNav() {
   const pathname = usePathname();
   const { enabled, hydrated } = useSettings();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [cheatSheetOpen, setCheatSheetOpen] = useState(false);
+
+  useCheatSheetShortcut(useCallback(() => setCheatSheetOpen(true), []));
 
   // Everything past the always-on base game.
   const extraCount = enabled.length - 1;
@@ -78,16 +82,27 @@ export function TopNav() {
           <Button
             size="sm"
             variant="secondary"
+            onClick={() => setCheatSheetOpen(true)}
+            aria-label="Phase cheat sheet (press ?)"
+            title="Phase cheat sheet — press ?"
+          >
+            <BookIcon size={15} />
+            <span className={styles.linkLabel}>Phases</span>
+          </Button>
+          <Button
+            size="sm"
+            variant="secondary"
             onClick={() => setSettingsOpen(true)}
             aria-label="Expansion settings"
           >
             <SlidersIcon size={15} />
-            Expansions
+            <span className={styles.linkLabel}>Expansions</span>
           </Button>
         </div>
       </div>
 
       <ExpansionSettings open={settingsOpen} onOpenChange={setSettingsOpen} />
+      <PhaseCheatSheet open={cheatSheetOpen} onOpenChange={setCheatSheetOpen} />
     </header>
   );
 }
