@@ -13,6 +13,11 @@
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import {
+  assertExemptionsUsed,
+  buildLexicon,
+  requirementsFor,
+} from "./lib/expansion-requirements.mjs";
 
 const URL =
   "https://twilight-imperium.fandom.com/api.php?action=parse&page=FAQ&prop=wikitext&format=json";
@@ -223,6 +228,27 @@ for (const e of entries) {
   if (e.answer.length < 2) warnings.push(`${e.id}: suspiciously short answer`);
 }
 
+/**
+ * Work out which expansions each ruling actually needs.
+ *
+ * The page files a ruling under whoever it is about, which is not the same
+ * question as which products you need to own to care about it: most of the
+ * rulings filed under a base game faction are about that faction's Prophecy of
+ * Kings leaders. See `lib/expansion-requirements.mjs`.
+ */
+const lexicon = await buildLexicon();
+for (const e of entries) {
+  const requires = requirementsFor(
+    `${e.question} ${e.answer}`,
+    lexicon,
+    ["base", e.expansion],
+  );
+  if (requires.length) e.requires = requires;
+}
+await assertExemptionsUsed(entries.map((e) => `${e.question} ${e.answer}`));
+
+const gated = entries.filter((e) => e.requires).length;
+
 /* ----------------------------------------------------------------- emit */
 
 const j = (v) => JSON.stringify(v);
@@ -239,6 +265,8 @@ const body = entries
     ];
     if (e.subtopic) lines.push(`    subtopic: ${j(e.subtopic)},`);
     if (e.faction) lines.push(`    faction: ${j(e.faction)},`);
+    if (e.requires)
+      lines.push(`    requires: [${e.requires.map(j).join(", ")}],`);
     return `  {\n${lines.join("\n")}\n  },`;
   })
   .join("\n");
@@ -277,6 +305,10 @@ await writeFile(
 
 console.log(`Wrote ${entries.length} FAQ entries`);
 console.log(`  authority: ${JSON.stringify(byAuthority)}`);
+console.log(
+  `  ${gated} of ${entries.length} rulings need an expansion beyond the one ` +
+    `they are filed under.`,
+);
 console.log(`  topics:    ${JSON.stringify(byTopic)}`);
 console.log(
   `  ${entries.filter((e) => e.faction).length} tied to a faction, ` +

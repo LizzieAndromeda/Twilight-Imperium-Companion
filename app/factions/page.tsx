@@ -191,7 +191,7 @@ const LEADER_CLASS = {
 } as const;
 
 function FactionDetail({ faction }: { faction: Faction }) {
-  const { scope, isEnabled } = useSettings();
+  const { scope, isEnabled, allEnabled } = useSettings();
 
   /**
    * A faction sheet is not all from one product. Leaders and mechs arrived
@@ -207,6 +207,10 @@ function FactionDetail({ faction }: { faction: Faction }) {
     faction.breakthrough && isEnabled(faction.breakthrough.expansion)
       ? faction.breakthrough
       : null;
+  // Most of the rulings on a base game faction's page are about its Prophecy
+  // of Kings leaders, so the sheet they are printed on does not decide whether
+  // they can be shown — what they name does.
+  const faq = (faction.faq ?? []).filter((ruling) => allEnabled(ruling.requires));
 
   return (
     <div>
@@ -403,13 +407,13 @@ function FactionDetail({ faction }: { faction: Faction }) {
         </>
       ) : null}
 
-      {faction.faq?.length ? (
+      {faq.length ? (
         <>
           <h4 className={styles.subhead}>FAQ</h4>
           <div className={styles.stack}>
-            {faction.faq.map((entry, i) => (
+            {faq.map((ruling, i) => (
               <p key={i} className={styles.faq}>
-                {entry}
+                {ruling.text}
               </p>
             ))}
           </div>

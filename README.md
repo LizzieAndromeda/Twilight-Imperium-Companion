@@ -96,6 +96,7 @@ data/                   rules, factions, action cards, strategy cards, objective
   *.generated.ts        scraped — never hand-edit, regenerate instead
   factionNotes.ts       hand-written editorial, safe from regeneration
 scripts/                data generators
+  lib/                  shared derivation used by more than one generator
 lib/                    types, expansion registry, storage, search index, feature flags
 state/                  SettingsProvider (expansions), GameProvider (the game)
 styles/tokens.css       every colour, space, radius and font in the app
@@ -134,6 +135,23 @@ inheriting the faction's. Anything nested that came from a different product
 needs the same treatment — including search fields, which should only match
 content that is actually on screen.
 
+**Some content needs a product it did not come from.** An FAQ ruling is filed
+under whoever it is about, and the wiki says no more than that — but most of the
+rulings on a base game faction's page are about that faction's Prophecy of Kings
+leaders, because leaders were added to every faction, base ones included. The
+page a ruling came from is therefore not what decides whether it can be shown.
+Those records carry `requires`, a list of expansions that must *all* be enabled
+on top of their own, and `scope()` applies it wherever it is set.
+
+Nothing on the wiki marks this, so `scripts/lib/expansion-requirements.mjs`
+derives it: a ruling needs whatever expansion introduced the things it names.
+The names come from the other generated datasets rather than a list kept in the
+script, so it stays correct as those are regenerated, with a short pattern list
+for concepts no single card is named for ("the Arborec's hero ability" names no
+leader). Rulings that mention expansion content only as an example, while
+answering a base game question, are exempted by hand in `NOT_GATED` — and the
+generator fails if an exemption stops matching any ruling, so a reworded ruling
+cannot quietly lose it.
 ### Regenerating the scraped data
 
 Eleven datasets are generated rather than hand-written:

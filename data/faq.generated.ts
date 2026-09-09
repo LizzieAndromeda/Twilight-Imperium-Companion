@@ -148,6 +148,7 @@ export const FAQ: FaqEntry[] = [
     authority: "designer",
     expansion: "base",
     subtopic: "Path of Movement",
+    requires: ["pok"],
   },
   {
     id: "please-confirm-rules-regarding-transport-and-movement-abilit",
@@ -157,6 +158,7 @@ export const FAQ: FaqEntry[] = [
     authority: "designer",
     expansion: "base",
     subtopic: "Movement Abilities",
+    requires: ["pok"],
   },
   {
     id: "please-elaborate-on-the-keyword-replace-and-how-it-relates-t",
@@ -175,6 +177,7 @@ export const FAQ: FaqEntry[] = [
     authority: "designer",
     expansion: "base",
     subtopic: "Replace v. Remove and Place",
+    requires: ["pok"],
   },
   {
     id: "if-a-unit-is-damaged-and-is-removed-and-placed-from-the-boar",
@@ -322,6 +325,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Objectives",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "please-clarify-the-requirements-of-the-stage-2-objective-rul",
@@ -330,6 +334,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Objectives",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "when-exactly-are-secret-objectives-scored-specifically-becom",
@@ -338,6 +343,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Objectives",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "when-an-ability-other-than-production-allows-you-to-produce-",
@@ -442,6 +448,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Agendas",
     authority: "living-rules",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "when-the-holy-planet-of-ixth-shard-of-the-throne-or-the-crow",
@@ -450,6 +457,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Agendas",
     authority: "living-rules",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "is-the-trigger-for-the-minister-of-war-agenda-card-s-ability",
@@ -474,6 +482,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Agendas",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "does-the-speaker-vote-when-covert-legislation-is-drawn",
@@ -482,6 +491,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Agendas",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "does-new-constitution-exhaust-home-planets-if-they-re-not-co",
@@ -498,6 +508,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Agendas",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "what-is-the-interaction-between-deadly-plot-and-prediction-a",
@@ -530,6 +541,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Technology",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "can-you-cast-bonus-votes-using-predictive-intelligence-if-th",
@@ -538,6 +550,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Technology",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "what-is-the-interaction-between-infantry-2-and-capture",
@@ -554,6 +567,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Technology",
     authority: "designer",
     expansion: "base",
+    requires: ["pok"],
   },
   {
     id: "when-you-gain-control-of-planets-you-gain-them-simultaneousl",
@@ -586,6 +600,7 @@ export const FAQ: FaqEntry[] = [
     topic: "Exploration",
     authority: "designer",
     expansion: "pok",
+    requires: ["codex2"],
   },
   {
     id: "can-a-transaction-be-performed-in-the-middle-of-an-explorati",
@@ -790,6 +805,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Arborec",
     faction: "arborec",
+    requires: ["pok"],
   },
   {
     id: "can-ships-damaged-by-raid-formation-trigger-a-window-for-the",
@@ -840,6 +856,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Barony of Letnev",
     faction: "letnev",
+    requires: ["codex1"],
   },
   {
     id: "does-the-barony-of-letnev-agent-viscount-unlenn-allow-an-ext",
@@ -850,6 +867,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Barony of Letnev",
     faction: "letnev",
+    requires: ["pok"],
   },
   {
     id: "can-the-clan-of-saar-s-chaos-mapping-faction-specific-techno",
@@ -890,6 +908,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Clan of Saar",
     faction: "saar",
+    requires: ["pok"],
   },
   {
     id: "when-leaving-a-nebula-is-clan-of-saar-s-agent-mendosa-applie",
@@ -900,6 +919,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Clan of Saar",
     faction: "saar",
+    requires: ["pok"],
   },
   {
     id: "what-is-the-duration-of-the-council-keleres-agent-xander-ale",
@@ -910,6 +930,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "codex3",
     subtopic: "The Council Keleres",
     faction: "keleres",
+    requires: ["pok"],
   },
   {
     id: "what-is-the-order-of-gaining-starting-technology-when-winnu-",
@@ -920,6 +941,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "codex3",
     subtopic: "The Council Keleres",
     faction: "keleres",
+    requires: ["pok"],
   },
   {
     id: "does-custodia-vigilia-s-production-count-as-a-unit-for-sarwe",
@@ -940,6 +962,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "codex3",
     subtopic: "The Council Keleres",
     faction: "keleres",
+    requires: ["codex2", "pok"],
   },
   {
     id: "does-custodia-vigilia-give-command-tokens-when-a-player-scor",
@@ -960,6 +983,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "codex3",
     subtopic: "The Council Keleres",
     faction: "keleres",
+    requires: ["pok"],
   },
   {
     id: "with-agency-supply-network-can-you-use-it-on-the-same-unit-d",
@@ -1000,6 +1024,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Embers of Muaat",
     faction: "muaat",
+    requires: ["pok"],
   },
   {
     id: "does-the-hacan-player-have-to-initiate-negotiations-in-order",
@@ -1030,6 +1055,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Emirates of Hacan",
     faction: "hacan",
+    requires: ["pok"],
   },
   {
     id: "when-a-player-gives-you-their-commodities-and-triggers-dark-",
@@ -1090,6 +1116,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Ghosts of Creuss",
     faction: "creuss",
+    requires: ["pok"],
   },
   {
     id: "how-does-the-ghosts-of-creuss-hero-singularity-reactor-inter",
@@ -1100,6 +1127,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Ghosts of Creuss",
     faction: "creuss",
+    requires: ["pok"],
   },
   {
     id: "can-the-l1z1x-use-harrow-when-they-re-defending-during-groun",
@@ -1330,6 +1358,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Mentak Coalition",
     faction: "mentak",
+    requires: ["pok"],
   },
   {
     id: "if-mentak-s-hero-sleeper-cell-is-used-and-their-last-ship-is",
@@ -1340,6 +1369,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Mentak Coalition",
     faction: "mentak",
+    requires: ["pok"],
   },
   {
     id: "if-you-use-the-mentak-coalition-s-hero-ipswitch-loose-cannon",
@@ -1350,6 +1380,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Mentak Coalition",
     faction: "mentak",
+    requires: ["pok"],
   },
   {
     id: "does-the-naalu-flagship-the-matriarch-allow-the-naalu-to-tak",
@@ -1390,6 +1421,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Naalu Collective",
     faction: "naalu",
+    requires: ["pok"],
   },
   {
     id: "the-naalu-collective-agent-z-eu-omega-says-resolve-a-tactica",
@@ -1400,6 +1432,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Naalu Collective",
     faction: "naalu",
+    requires: ["pok"],
   },
   {
     id: "when-covert-legislation-is-revealed-is-there-a-window-in-whi",
@@ -1410,6 +1443,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Naalu Collective",
     faction: "naalu",
+    requires: ["pok"],
   },
   {
     id: "can-the-naaz-rohka-hero-hesh-and-prit-be-used-when-the-playe",
@@ -1550,6 +1584,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Nekro Virus",
     faction: "nekro",
+    requires: ["pok"],
   },
   {
     id: "if-the-universities-of-jol-nar-player-replaces-a-faction-tec",
@@ -1560,6 +1595,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Nekro Virus",
     faction: "nekro",
+    requires: ["pok"],
   },
   {
     id: "can-i-use-the-nekro-virus-agent-nekro-malleon-or-psychoarcha",
@@ -1570,6 +1606,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Nekro Virus",
     faction: "nekro",
+    requires: ["pok"],
   },
   {
     id: "are-ground-forces-participating-in-combat-via-the-nekro-viru",
@@ -1580,6 +1617,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Nekro Virus",
     faction: "nekro",
+    requires: ["pok"],
   },
   {
     id: "does-the-duranium-armor-technology-allow-you-to-repair-nomad",
@@ -1620,6 +1658,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "Sardakk N'orr",
     faction: "norr",
+    requires: ["pok"],
   },
   {
     id: "can-the-sardakk-n-orr-player-commit-ground-forces-via-their-",
@@ -1630,6 +1669,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "Sardakk N'orr",
     faction: "norr",
+    requires: ["pok"],
   },
   {
     id: "does-using-dominus-orb-allow-the-sardakk-n-orr-player-to-com",
@@ -1640,6 +1680,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "Sardakk N'orr",
     faction: "norr",
+    requires: ["pok"],
   },
   {
     id: "can-sardakk-n-orr-s-commander-g-hom-sek-kus-be-used-without-",
@@ -1650,6 +1691,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "Sardakk N'orr",
     faction: "norr",
+    requires: ["pok"],
   },
   {
     id: "does-valkyrie-particle-weave-trigger-after-hits-were-produce",
@@ -1750,6 +1792,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Universities of Jol-Nar",
     faction: "jolnar",
+    requires: ["pok"],
   },
   {
     id: "if-the-universities-of-jol-nar-player-replaces-a-faction-tec-2",
@@ -1760,6 +1803,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Universities of Jol-Nar",
     faction: "jolnar",
+    requires: ["pok"],
   },
   {
     id: "can-vortex-be-used-on-a-ship-if-a-player-doesn-t-have-any-of",
@@ -1830,6 +1874,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Winnu",
     faction: "winnu",
+    requires: ["pok"],
   },
   {
     id: "when-you-utilise-the-reclamation-ability-in-where-you-receiv",
@@ -1890,6 +1935,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "if-the-xxcha-hero-xxekir-grom-gives-two-players-in-the-lead-",
@@ -1900,6 +1946,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "can-the-xxcha-kingdom-player-play-riders-while-using-their-h",
@@ -1910,6 +1957,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "if-xxcha-draws-covert-legislation-as-one-of-their-5-agendas-",
@@ -1920,6 +1968,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "when-using-the-xxcha-kingdom-hero-xxekir-grom-can-other-play",
@@ -1930,6 +1979,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "checks-and-balances-against-reads-each-player-readies-only-3",
@@ -1940,6 +1990,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "when-the-xxcha-kingdom-hero-political-data-nexus-omega-is-us",
@@ -1950,6 +2001,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "for-the-xxcha-kingdom-hero-political-data-nexus-omega-unlock",
@@ -1960,6 +2012,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Xxcha Kingdom",
     faction: "xxcha",
+    requires: ["pok"],
   },
   {
     id: "if-the-xxcha-kingdom-plays-uprising-with-political-data-nexu",
@@ -1980,6 +2033,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Yin Brotherhood",
     faction: "yin",
+    requires: ["pok"],
   },
   {
     id: "can-the-yin-brotherhood-commander-brother-omar-or-the-naalu-",
@@ -1990,6 +2044,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Yin Brotherhood",
     faction: "yin",
+    requires: ["pok"],
   },
   {
     id: "the-yin-brotherhood-hero-quantum-dissemination-omega-says-to",
@@ -2000,6 +2055,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Yin Brotherhood",
     faction: "yin",
+    requires: ["pok"],
   },
   {
     id: "can-the-yin-brotherhood-agent-brother-milor-omega-be-used-du",
@@ -2010,6 +2066,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Yin Brotherhood",
     faction: "yin",
+    requires: ["codex3", "pok"],
   },
   {
     id: "what-is-the-interaction-between-the-yin-brotherhood-agent-br",
@@ -2020,6 +2077,7 @@ export const FAQ: FaqEntry[] = [
     expansion: "base",
     subtopic: "The Yin Brotherhood",
     faction: "yin",
+    requires: ["codex3", "pok"],
   },
   {
     id: "the-skilled-retreat-action-card-specifies-at-the-start-of-a-",

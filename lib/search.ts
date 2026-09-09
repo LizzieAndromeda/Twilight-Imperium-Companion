@@ -33,8 +33,17 @@ export interface SearchEntry {
   /** Which tab of that page, when the page has tabs. */
   tab?: string;
   expansion: ExpansionId;
+  /** Expansions the entry talks about but does not come from — all must be on. */
+  requires?: ExpansionId[];
   /** Lowercased haystack. */
   text: string;
+  /**
+   * Haystack for parts of the entry that are not always on screen — a base
+   * game faction's Prophecy of Kings leaders. Searched only while that
+   * expansion is enabled, so a search cannot match wording the reader has
+   * switched off.
+   */
+  gated?: { expansion: ExpansionId; text: string }[];
 }
 
 export type SearchKind =
@@ -113,12 +122,13 @@ export const SEARCH_INDEX: SearchEntry[] = [
       r.gotcha ?? "",
     ]),
   ),
-  ...FAQ.map((f) =>
-    entry("FAQ", f.id, f.question, f.answer, f.expansion, [
+  ...FAQ.map((f) => ({
+    ...entry("FAQ", f.id, f.question, f.answer, f.expansion, [
       f.topic,
       f.subtopic ?? "",
     ]),
-  ),
+    requires: f.requires,
+  })),
   ...ACTION_CARDS.map((c) =>
     entry("Action card", c.id, c.name, c.text, c.expansion, [
       c.window,
@@ -145,8 +155,8 @@ export const SEARCH_INDEX: SearchEntry[] = [
       [u.category, ...(u.abilities ?? [])],
     ),
   ),
-  ...FACTIONS.map((f) =>
-    entry(
+  ...FACTIONS.map((f) => ({
+    ...entry(
       "Faction",
       f.id,
       f.name,
@@ -154,13 +164,23 @@ export const SEARCH_INDEX: SearchEntry[] = [
       f.expansion,
       [
         ...f.abilities.flatMap((a) => [a.name, a.text]),
-        ...(f.leaders ?? []).flatMap((l) => [l.name, l.ability]),
         f.flagship?.name ?? "",
-        f.mech?.name ?? "",
         f.playstyle ?? "",
       ],
     ),
-  ),
+    // Leaders, mechs and breakthroughs are on base game faction sheets too,
+    // but only once the expansion that added them is on.
+    gated: [
+      ...(f.leaders ?? []).map((l) => ({
+        expansion: l.expansion,
+        text: `${l.name} ${l.ability}`.toLowerCase(),
+      })),
+      ...(f.mech ? [{ expansion: f.mech.expansion, text: f.mech.name.toLowerCase() }] : []),
+      ...(f.breakthrough
+        ? [{ expansion: f.breakthrough.expansion, text: f.breakthrough.name.toLowerCase() }]
+        : []),
+    ],
+  })),
   ...AGENDAS.map((a) =>
     entry(
       "Agenda",
@@ -219,12 +239,18 @@ export const SEARCH_INDEX: SearchEntry[] = [
  * starts with the query, then a name that contains it, then a body match.
  * Within a tier, shorter names win — "Veto" should beat "Veto Ω".
  */
-function score(candidate: SearchEntry, query: string): number {
+function score(
+  candidate: SearchEntry,
+  query: string,
+  isEnabled: (expansion: ExpansionId) => boolean,
+): number {
   const name = candidate.name.toLowerCase();
   if (name === query) return 0;
   if (name.startsWith(query)) return 1;
   if (name.includes(query)) return 2;
   if (candidate.text.includes(query)) return 3;
+  const gated = candidate.gated ?? [];
+  if (gated.some((g) => isEnabled(g.expansion) && g.text.includes(query))) return 3;
   return Number.POSITIVE_INFINITY;
 }
 
@@ -239,7 +265,8 @@ export function searchAll(
   const hits: { entry: SearchEntry; rank: number }[] = [];
   for (const candidate of SEARCH_INDEX) {
     if (!isEnabled(candidate.expansion)) continue;
-    const rank = score(candidate, q);
+    if (!(candidate.requires ?? []).every(isEnabled)) continue;
+    const rank = score(candidate, q, isEnabled);
     if (rank !== Number.POSITIVE_INFINITY) hits.push({ entry: candidate, rank });
   }
 

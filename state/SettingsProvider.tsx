@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo } from "react";
-import type { ExpansionId, ExpansionScoped } from "@/lib/types";
+import type { ExpansionGated, ExpansionId, ExpansionScoped } from "@/lib/types";
 import { DEFAULT_ENABLED } from "@/lib/expansions";
 import { usePersistentState } from "@/lib/storage";
 
@@ -11,6 +11,14 @@ interface SettingsValue {
   toggle: (id: ExpansionId, on: boolean) => void;
   /** Narrow any expansion-tagged list down to the enabled products. */
   scope: <T extends ExpansionScoped>(items: T[]) => T[];
+  /**
+   * Whether every expansion in `needed` is on.
+   *
+   * For nested content with no expansion of its own — a ruling on a faction
+   * sheet, whose own product is already implied by the sheet, but which is
+   * about a leader that product did not contain.
+   */
+  allEnabled: (needed?: ExpansionId[]) => boolean;
   /** False until localStorage has been read — used to avoid content flicker. */
   hydrated: boolean;
 }
@@ -44,7 +52,15 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
       enabled,
       isEnabled,
       toggle,
-      scope: (items) => items.filter((i) => isEnabled(i.expansion)),
+      // `requires` names content the item talks about but does not come from,
+      // so it is an additional condition rather than a replacement.
+      scope: (items) =>
+        items.filter(
+          (i) =>
+            isEnabled(i.expansion) &&
+            ((i as ExpansionGated).requires ?? []).every(isEnabled),
+        ),
+      allEnabled: (needed) => (needed ?? []).every(isEnabled),
       hydrated,
     };
   }, [enabled, toggle, hydrated]);

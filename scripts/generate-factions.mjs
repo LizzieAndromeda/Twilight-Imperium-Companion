@@ -15,6 +15,11 @@
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import {
+  assertExemptionsUsed,
+  buildLexicon,
+  requirementsFor,
+} from "./lib/expansion-requirements.mjs";
 
 const API = "https://twilight-imperium.fandom.com/api.php";
 const UA = "TI4Companion/1.0 (data generation)";
@@ -613,6 +618,25 @@ for (const [title, id, shortName, expansion] of FACTIONS) {
   await new Promise((r) => setTimeout(r, 250));
 }
 
+/**
+ * Work out which expansions each FAQ ruling actually needs.
+ *
+ * A ruling is on a faction's page because it is about that faction, which says
+ * nothing about which products it concerns — most of the rulings on a base game
+ * faction's page are about its Prophecy of Kings leaders. See
+ * `lib/expansion-requirements.mjs`.
+ */
+const lexicon = await buildLexicon({ factions: parsed });
+let gated = 0;
+for (const f of parsed) {
+  f.faq = f.faq.map((text) => {
+    const requires = requirementsFor(text, lexicon, ["base", f.expansion]);
+    if (requires.length) gated++;
+    return { text, requires };
+  });
+}
+await assertExemptionsUsed(parsed.flatMap((f) => f.faq.map((q) => q.text)));
+
 // Sanity-check our hardcoded expansion against the infobox.
 const EXPECTED = {
   base: /Base Game/i,
@@ -739,7 +763,18 @@ const body = parsed
           .join("\n")}\n    ],`,
       );
     }
-    if (f.faq.length) lines.push(`    faq: ${arr(f.faq, "    ")},`);
+    if (f.faq.length) {
+      lines.push(
+        `    faq: [\n${f.faq
+          .map((q) => {
+            const parts = [`        text: ${j(q.text)}`];
+            if (q.requires.length)
+              parts.push(`        requires: [${q.requires.map(j).join(", ")}]`);
+            return `      {\n${parts.join("," + "\n")},\n      },`;
+          })
+          .join("\n")}\n    ],`,
+      );
+    }
 
     return `  {\n${lines.join("\n")}\n  },`;
   })
@@ -778,6 +813,10 @@ const byExpansion = parsed.reduce(
   {},
 );
 console.log(`Wrote ${parsed.length} factions ${JSON.stringify(byExpansion)}`);
+console.log(
+  `${gated} of ${parsed.reduce((n, f) => n + f.faq.length, 0)} FAQ rulings need ` +
+    `an expansion beyond the faction's own.`,
+);
 console.log(
   `  ${parsed.reduce((n, f) => n + f.abilities.length, 0)} abilities, ` +
     `${parsed.filter((f) => f.symbol).length} symbols, ` +

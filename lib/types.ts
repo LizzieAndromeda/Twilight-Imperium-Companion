@@ -30,6 +30,19 @@ export interface ExpansionScoped {
   expansion: ExpansionId;
 }
 
+/**
+ * Something that takes more than its own expansion to make sense.
+ *
+ * An FAQ ruling is filed under the faction it is about, but most of the rulings
+ * on a base game faction's page are about that faction's Prophecy of Kings
+ * leaders — the page it came from is not what decides whether it can be shown.
+ * `requires` lists every expansion whose content the ruling names, and all of
+ * them have to be enabled. `scope()` applies this wherever it is set.
+ */
+export interface ExpansionGated extends ExpansionScoped {
+  requires?: ExpansionId[];
+}
+
 /* ------------------------------------------------------------------ rules */
 
 export type RuleCategory =
@@ -169,7 +182,7 @@ export type FaqAuthority =
   /** The community's reading of something FFG has never answered. */
   | "community";
 
-export interface FaqEntry extends ExpansionScoped {
+export interface FaqEntry extends ExpansionGated {
   id: string;
   question: string;
   answer: string;
@@ -231,6 +244,18 @@ export interface FactionUnitVariant {
  * The mechanical half of a faction, scraped from the wiki into
  * `data/factions.generated.ts`. Never hand-edited.
  */
+/**
+ * One ruling off a faction's wiki page.
+ *
+ * The faction's own expansion is implied by the sheet it is printed on, so only
+ * the extra requirement is recorded — usually Prophecy of Kings, for a ruling
+ * about a leader or a mech.
+ */
+export interface FactionFaqRuling {
+  text: string;
+  requires?: ExpansionId[];
+}
+
 export interface GeneratedFaction extends ExpansionScoped {
   id: string;
   name: string;
@@ -258,7 +283,7 @@ export interface GeneratedFaction extends ExpansionScoped {
   /** The faction's own versions of standard units. */
   uniqueUnits?: FactionUnitVariant[];
   /** Official FAQ rulings from the faction's wiki page. */
-  faq?: string[];
+  faq?: FactionFaqRuling[];
 }
 
 /** Hand-written editorial colour, kept out of the generated file. */
