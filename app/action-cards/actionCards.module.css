@@ -171,3 +171,13 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+/* Official FAQ rulings sit apart from the community clarification note. */
+.faq {
+  border-color: rgba(157, 123, 234, 0.28);
+  background: var(--plasma-wash);
+}
+
+.faqLabel {
+  color: var(--plasma);
+}

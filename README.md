@@ -9,10 +9,11 @@ this app is not affiliated with or endorsed by them.
 
 ## What it does
 
-- **Action cards** — the complete deck (93 unique cards, 122 physical copies across
-  the base game, Prophecy of Kings and Codex I), searchable by name, timing window
-  and text, filterable by phase, with deck copy counts and community rules
-  clarifications.
+- **Action cards** — 159 unique cards across the base game, Prophecy of Kings,
+  Codex I, Thunder's Edge and the Twilight's Fall mode deck. Searchable by name,
+  timing window and text, filterable by phase, with deck copy counts, community
+  clarifications and the official FAQ rulings that name each card. Thunder's Edge
+  Omega cards automatically hide the Codex I cards they replace.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong.
@@ -88,12 +89,27 @@ checkbox automatically.
 npm run gen:action-cards
 ```
 
-It pulls from the [AsyncTI4 map generator bot](https://github.com/AsyncTI4/TI4_map_generator_bot),
-whose game data is released into the public domain (that licence explicitly
-excludes art assets, which this project does not use). The upstream dump lists
-one entry per physical card, so the script collapses duplicates into a `copies`
-count. It also drops the `asteroid` variant deck, whose entries all repeat cards
-that already exist under the base game, Prophecy of Kings or Codex I.
+It merges two public sources:
+
+- The [AsyncTI4 map generator bot](https://github.com/AsyncTI4/TI4_map_generator_bot),
+  whose game data is public domain (that licence explicitly excludes art assets,
+  which this project does not use). It is the authority for the base game,
+  Prophecy of Kings and Codex I, and supplies stable card ids and community
+  clarification notes.
+- The [Twilight Imperium wiki](https://twilight-imperium.fandom.com/wiki/Action_Cards),
+  which is the only source for Thunder's Edge, its Omega replacements, the
+  Twilight's Fall mode deck, and the official FAQ rulings.
+
+The script cross-checks the two on the decks they share and prints any
+disagreement rather than silently preferring one. Two known handling decisions:
+
+- The upstream AsyncTI4 dump lists one entry per physical card, so duplicates are
+  collapsed into a `copies` count. Its `asteroid` deck is dropped — every entry
+  repeats a card that already exists under another source.
+- The sources disagree on one card. AsyncTI4 lists three copies of **Veto**, the
+  wiki one. The wiki is right: at one copy the base deck totals exactly the
+  printed 80 cards, at three it totals 82. Copy counts therefore come from the
+  wiki.
 
 ## About the game content
 
@@ -103,10 +119,14 @@ complete. The objective lists in particular are a working subset (the tracker al
 lets you type in a card it does not carry).
 
 The **action cards are the exception**: that text is generated from the upstream
-dataset above rather than written by hand, so it is verbatim and complete for the
-products it covers. Their `note` field carries that project's rules clarifications
-for interactions the community has had to settle — 17 of the 93 cards have one, and
-nothing has been invented to fill the gap for the rest.
+sources above rather than written by hand, so it is verbatim and complete for the
+products it covers. 17 cards carry a community clarification note and 21 carry an
+official FAQ ruling; the rest have neither, and nothing has been invented to fill
+the gap.
+
+**Thunder's Edge coverage is action cards only.** The 2025 expansion also adds
+factions, worlds, Galactic Events and leaders, none of which are catalogued in
+`data/` yet — enabling it changes the action card list and nothing else.
 
 The official Living Rules Reference is authoritative. Where this app disagrees with
 it, this app is wrong — corrections to `data/` are the most useful contribution.

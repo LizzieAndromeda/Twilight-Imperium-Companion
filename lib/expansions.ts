@@ -53,6 +53,22 @@ export const EXPANSIONS: Expansion[] = [
     year: "2022",
     description: "A large co-operative scenario with its own cards and rules.",
   },
+  {
+    id: "thundersedge",
+    name: "Thunder's Edge",
+    shortName: "Thunder's Edge",
+    year: "2025",
+    description:
+      "The second big-box expansion. Adds 14 action cards plus Omega replacements for eight Codex I cards. Only the action cards are catalogued here so far.",
+  },
+  {
+    id: "twilightsfall",
+    name: "Twilight's Fall mode",
+    shortName: "Twilight's Fall",
+    year: "2025",
+    description:
+      "The alternate game mode inside Thunder's Edge, which uses its own 44-card action deck. Enable it only when playing that mode.",
+  },
 ];
 
 export const EXPANSION_BY_ID: Record<ExpansionId, Expansion> = Object.fromEntries(

@@ -27,7 +27,15 @@ export default function ActionCardsPage() {
   const [phase, setPhase] = useState<ActionCardPhase | typeof ALL>(ALL);
   const [notesOnly, setNotesOnly] = useState(false);
 
-  const available = useMemo(() => scope(ACTION_CARDS), [scope]);
+  const available = useMemo(() => {
+    const inScope = scope(ACTION_CARDS);
+    // A Thunder's Edge Omega card replaces its Codex I original, so hide the
+    // original whenever both products are switched on.
+    const replaced = new Set(
+      inScope.map((c) => c.supersedes).filter((id): id is string => Boolean(id)),
+    );
+    return inScope.filter((c) => !replaced.has(c.id));
+  }, [scope]);
 
   // Only offer timings that survive the expansion filter.
   const phases = useMemo(
@@ -39,16 +47,16 @@ export default function ActionCardsPage() {
     const q = query.trim().toLowerCase();
     return available.filter((card) => {
       if (phase !== ALL && card.phase !== phase) return false;
-      if (notesOnly && !card.note) return false;
+      if (notesOnly && !card.note && !card.faq?.length) return false;
       if (!q) return true;
-      return [card.name, card.window, card.text, card.note ?? ""]
+      return [card.name, card.window, card.text, card.note ?? "", ...(card.faq ?? [])]
         .join(" ")
         .toLowerCase()
         .includes(q);
     });
   }, [available, query, phase, notesOnly]);
 
-  const noteCount = available.filter((c) => c.note).length;
+  const noteCount = available.filter((c) => c.note || c.faq?.length).length;
   const copies = available.reduce((n, c) => n + c.copies, 0);
 
   return (
@@ -60,18 +68,26 @@ export default function ActionCardsPage() {
       />
 
       <p className={styles.provenance}>
-        Card text is taken from the{" "}
+        Card text comes from the{" "}
         <a
           href="https://github.com/AsyncTI4/TI4_map_generator_bot"
           target="_blank"
           rel="noreferrer noopener"
         >
           AsyncTI4 map generator bot
+        </a>{" "}
+        (public domain) and the{" "}
+        <a
+          href="https://twilight-imperium.fandom.com/wiki/Action_Cards"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Twilight Imperium wiki
         </a>
-        , whose game data is released into the public domain. The clarification
-        notes are that project&apos;s — {noteCount} of the {available.length} cards
-        here carry one; the rest simply have no recorded interaction to settle,
-        and nothing has been invented to fill the gap.
+        , which also supplies the official FAQ rulings. {noteCount} of the{" "}
+        {available.length} cards shown carry a clarification; the rest have no
+        recorded interaction to settle, and nothing has been invented to fill the
+        gap.
       </p>
 
       <div className={styles.controls}>
@@ -117,9 +133,9 @@ export default function ActionCardsPage() {
           <Toggle
             checked={notesOnly}
             onCheckedChange={setNotesOnly}
-            label="Show only cards with a clarification note"
+            label="Show only cards with a clarification or FAQ ruling"
           />
-          <span className={styles.count}>Notes only ({noteCount})</span>
+          <span className={styles.count}>Clarifications only ({noteCount})</span>
         </div>
       </div>
 
@@ -163,6 +179,13 @@ function ActionCardTile({ card }: { card: ActionCard }) {
         </div>
       ) : null}
 
+      {card.faq?.map((ruling, i) => (
+        <div key={i} className={[styles.note, styles.faq].join(" ")}>
+          <span className={[styles.noteLabel, styles.faqLabel].join(" ")}>FAQ</span>
+          <span>{ruling}</span>
+        </div>
+      ))}
+
       {card.flavor ? <p className={styles.flavor}>{card.flavor}</p> : null}
 
       <div className={styles.cardFoot}>
@@ -170,6 +193,7 @@ function ActionCardTile({ card }: { card: ActionCard }) {
           {EXPANSION_BY_ID[card.expansion].shortName}
         </Badge>
         <Badge>{card.phase} phase</Badge>
+        {card.supersedes ? <Badge tone="accent">Replaces Codex I</Badge> : null}
       </div>
     </Card>
   );

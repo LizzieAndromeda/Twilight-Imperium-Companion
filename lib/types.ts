@@ -11,7 +11,9 @@ export type ExpansionId =
   | "codex1"
   | "codex2"
   | "codex3"
-  | "codex4";
+  | "codex4"
+  | "thundersedge"
+  | "twilightsfall";
 
 export interface Expansion {
   id: ExpansionId;
@@ -97,6 +99,13 @@ export interface ActionCard extends ExpansionScoped {
    * settling at the table. Most cards do not have one.
    */
   note?: string;
+  /** Official FAQ rulings that name this card. */
+  faq?: string[];
+  /**
+   * Set on Thunder's Edge Omega cards: the id of the card this one replaces.
+   * While both products are enabled, the replaced card is hidden.
+   */
+  supersedes?: string;
   /** How many copies of this card are in the deck. */
   copies: number;
 }
