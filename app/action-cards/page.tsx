@@ -6,7 +6,7 @@ import { ACTION_CARDS, ACTION_CARD_PHASES } from "@/data/actionCards";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Badge, Card, EmptyState, SearchInput, Toggle } from "@/components/ui";
+import { Badge, Card, EmptyState, ErratumNote, SearchInput, Toggle } from "@/components/ui";
 import { BookIcon } from "@/components/ui/icons";
 import styles from "./actionCards.module.css";
 
@@ -171,6 +171,8 @@ function ActionCardTile({ card }: { card: ActionCard }) {
       <p className={styles.window}>{card.window || card.phase}</p>
 
       <p className={styles.text}>{card.text}</p>
+
+      <ErratumNote name={card.name} kind="action-card" />
 
       {card.note ? (
         <div className={styles.note}>

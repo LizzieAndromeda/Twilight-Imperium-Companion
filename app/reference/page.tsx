@@ -13,7 +13,15 @@ import { AGENDAS } from "@/data/agendas.generated";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Badge, Card, EmptyState, SearchInput, Segmented, Tabs } from "@/components/ui";
+import {
+  Badge,
+  Card,
+  EmptyState,
+  ErratumNote,
+  SearchInput,
+  Segmented,
+  Tabs,
+} from "@/components/ui";
 import { TargetIcon } from "@/components/ui/icons";
 import styles from "./reference.module.css";
 
@@ -74,6 +82,7 @@ function StrategyCards() {
                 <span className={styles.cost}>{card.secondaryCost}</span>
               </p>
               <p className={styles.abilityText}>{card.secondary}</p>
+              <ErratumNote name={card.name} kind="strategy-card" />
             </div>
           </div>
         </Card>

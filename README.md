@@ -117,7 +117,7 @@ content that is actually on screen.
 
 ### Regenerating the scraped data
 
-Seven datasets are generated rather than hand-written:
+Eight datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
@@ -127,9 +127,10 @@ npm run gen:objectives     # data/objectives.generated.ts
 npm run gen:technologies   # data/technologies.generated.ts
 npm run gen:agendas        # data/agendas.generated.ts
 npm run gen:faq            # data/faq.generated.ts
+npm run gen:errata         # data/errata.generated.ts
 ```
 
-All seven are deterministic — running them twice gives byte-identical output — and
+All eight are deterministic — running them twice gives byte-identical output — and
 each prints a warning list rather than failing silently when a source changes
 shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
@@ -154,6 +155,14 @@ not the other. That check found three places where the wiki contradicts itself:
 
 Those live in `NAME_CORRECTIONS` in the script, each with its reasoning, so the
 cross-check stays clean and any *new* disagreement surfaces as a warning.
+
+**Errata** are not given a page of their own. All 11 official corrections are
+attached to the component they correct — the action card, faction ability,
+flagship, promissory note, technology or strategy card — so you meet the
+correction while reading the thing it corrects, with the words that actually
+changed underlined. The generator resolves every erratum against the other
+generated datasets by name and warns about any it cannot place, which is what
+catches a rename on either side.
 
 **FAQ data** keeps the page's own three-way distinction, which is the most
 useful thing on it: `authority` is `living-rules`, `designer` or `community`.
@@ -208,7 +217,7 @@ disagreement rather than silently preferring one. Two known handling decisions:
 Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
 **Scraped, verbatim** — action cards, faction sheets, technologies, agendas, the
-FAQ, both objective decks and galactic events. Generated from the sources above, complete for the products
+FAQ, the errata, both objective decks and galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 
 The rules reference and the phase cheat sheet are hand-written but **cross-checked

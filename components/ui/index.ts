@@ -19,3 +19,4 @@ export { Accordion } from "./Accordion";
 export type { AccordionItem } from "./Accordion";
 export { EmptyState } from "./EmptyState";
 export { FactionSymbol } from "./FactionSymbol";
+export { ErratumNote } from "./ErratumNote";

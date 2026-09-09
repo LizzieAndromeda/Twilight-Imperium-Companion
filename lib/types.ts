@@ -61,6 +61,37 @@ export interface Rule extends ExpansionScoped {
   gotcha?: string;
 }
 
+/* ----------------------------------------------------------------- errata */
+
+/** What sort of component an erratum corrects. */
+export type ErratumKind =
+  | "action-card"
+  | "strategy-card"
+  | "faction-ability"
+  | "faction-technology"
+  | "technology"
+  | "flagship"
+  | "promissory-note"
+  | "other";
+
+/** A run of the corrected wording; `changed` marks the words that differ. */
+export interface ErratumPart {
+  text: string;
+  changed: boolean;
+}
+
+export interface Erratum {
+  id: string;
+  /** The component this corrects, as printed. */
+  name: string;
+  kind: ErratumKind;
+  /** The full corrected wording. */
+  text: string;
+  parts: ErratumPart[];
+  /** Faction id, where the erratum corrects a faction's own component. */
+  faction?: string;
+}
+
 /* -------------------------------------------------------------------- FAQ */
 
 /**

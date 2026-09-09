@@ -10,6 +10,7 @@ import {
   Badge,
   Card,
   EmptyState,
+  ErratumNote,
   FactionSymbol,
   Modal,
   SearchInput,
@@ -209,6 +210,7 @@ function FactionDetail({ faction }: { faction: Faction }) {
           <div key={ability.name} className={styles.ability}>
             <p className={styles.abilityName}>{ability.name}</p>
             <p className={styles.abilityText}>{ability.text}</p>
+            <ErratumNote name={ability.name} kind="faction-ability" />
           </div>
         ))}
       </div>
@@ -276,6 +278,7 @@ function FactionDetail({ faction }: { faction: Faction }) {
                   </span>
                 </p>
                 <p className={styles.abilityText}>{faction.flagship.text}</p>
+                <ErratumNote name={faction.flagship.name} kind="flagship" />
               </div>
             ) : null}
             {mech ? (
@@ -363,6 +366,7 @@ function FactionDetail({ faction }: { faction: Faction }) {
               <div key={note.name} className={styles.ability}>
                 <p className={styles.abilityName}>{note.name}</p>
                 <p className={styles.abilityText}>{note.text}</p>
+                <ErratumNote name={note.name} kind="promissory-note" />
               </div>
             ))}
           </div>

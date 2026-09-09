@@ -11,6 +11,7 @@ import {
   Badge,
   Card,
   EmptyState,
+  ErratumNote,
   FactionSymbol,
   SearchInput,
   Segmented,
@@ -246,6 +247,8 @@ function TechnologyCard({ tech }: { tech: Technology }) {
       ) : null}
 
       <p className={styles.text}>{tech.text}</p>
+
+      <ErratumNote name={tech.name} kind={["technology", "faction-technology"]} />
 
       {tech.revisions?.filter((rev) => !rev.expansion || isEnabled(rev.expansion)).map((revision) => (
         <div key={revision.label} className={styles.revision}>

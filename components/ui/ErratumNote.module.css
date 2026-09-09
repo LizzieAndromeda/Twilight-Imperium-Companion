@@ -1,0 +1,30 @@
+.note {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid rgba(240, 96, 92, 0.28);
+  border-radius: var(--r-md);
+  background: var(--danger-wash);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.tag {
+  flex: none;
+  padding-top: 1px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--danger);
+}
+
+/* The words the errata actually changed. */
+.changed {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--danger);
+  text-underline-offset: 2px;
+}
