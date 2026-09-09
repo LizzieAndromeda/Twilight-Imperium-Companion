@@ -198,7 +198,7 @@ export const RULES: Rule[] = [
     summary: "Starting with the speaker and going clockwise, each player takes a strategy card.",
     clauses: [
       "The speaker chooses first, then play proceeds clockwise until every player has a card.",
-      "In a three- or four-player game, each player chooses two strategy cards — go around twice, reversing on the second pass is not used; simply continue clockwise.",
+      "In a three- or four-player game each player takes two: once everyone has one card, go round again starting from the speaker.",
       "When you take a card, also take any trade goods sitting on it.",
       "After every player has chosen, place 1 trade good from the supply on each strategy card that was not chosen.",
       "The numbers on the chosen cards set initiative order for the whole round.",
@@ -355,7 +355,8 @@ export const RULES: Rule[] = [
       "Pay each unit's resource cost. Fighters and infantry cost 1 resource for two units.",
       "If your total PRODUCTION value in the active system is 1 or 0, you may still produce one unit, but you must pay its full cost.",
       "Produced units must respect capacity and fleet pool limits at the moment they are placed.",
-      "Ground forces are placed on planets you control; ships are placed in the space area.",
+      "Ships go into the space area of the active system. Ground forces go onto a planet that contains a unit which used its PRODUCTION ability.",
+      "If the producing unit is in the space area, the ground forces it makes may go onto a planet you control in that system or stay in the space area.",
     ],
     gotcha:
       "Producing a single fighter still costs the full 1 resource — the two-for-one rate does not round in your favour.",
@@ -469,14 +470,16 @@ export const RULES: Rule[] = [
     summary:
       "Asteroid fields, nebulae, gravity rifts and supernovas each bend movement or combat.",
     clauses: [
-      "Asteroid field — ships cannot move into or through it without the Antimass Deflector technology.",
+      "Asteroid field — ships cannot move into or through it, unless they have the Antimass Deflector technology.",
       "Supernova — ships cannot move into or through it at all.",
-      "Nebula — ships can only move into a nebula if it is the active system; a ship that starts in a nebula has move value 1; defending ships in a nebula get +1 to combat rolls.",
-      "Gravity rift — a ship that moves out of or through a gravity rift gets +1 move value, but you must roll a die for it: on a 1, 2 or 3 the ship is destroyed.",
+      "Nebula — ships can never move through a nebula, and can only move into one when it is the active system. That rules a nebula out as a retreat destination.",
+      "Nebula — a ship that begins the movement step in a nebula treats its move value as 1, and the defender applies +1 to each of their combat rolls there.",
+      "Gravity rift — a ship that moves out of or through a gravity rift applies +1 to its move value.",
+      "Gravity rift — roll 1 die for each such ship immediately before it exits the rift system; on a 1, 2 or 3 that ship is removed from the board.",
       "A system can carry more than one anomaly, and all of their effects apply.",
     ],
     gotcha:
-      "The gravity rift roll happens for every ship that exits or passes through, and it happens after the move is complete.",
+      "The gravity rift die is rolled as the ship leaves the rift, not once movement is finished — so a ship can be lost part-way to the active system. Removed is not the same as destroyed, so effects that trigger on destroyed units do not fire.",
     related: ["movement", "space-combat"],
   },
 
@@ -620,14 +623,16 @@ export const RULES: Rule[] = [
     summary: "Announce before you roll, then leave at the end of the round.",
     clauses: [
       "A retreat must be announced during the 'Announce Retreats' step, before dice are rolled.",
-      "The defender announces before the attacker; if the defender announces a retreat, the attacker cannot.",
-      "At the end of the combat round, move all of your remaining ships in the combat to a single eligible system.",
-      "The destination must be adjacent to the active system, must contain one of your units or a planet you control, and must not contain another player's ships.",
-      "Ground forces and fighters retreat with the ships that carry them, within capacity; anything that cannot fit is destroyed.",
-      "A player who retreats loses the combat.",
+      "The defender announces before the attacker; if the defender announces a retreat, the attacker cannot announce one that round.",
+      "You cannot announce a retreat unless there is at least one eligible system to retreat to.",
+      "At the retreat step, move all of your ships that have a move value to a single adjacent system.",
+      "The destination must contain one of your units or a planet you control, and must not contain another player's ships.",
+      "Fighters and ground forces in the space area that cannot be transported within capacity are removed.",
+      "After retreating, place a command token from your reinforcements in the system you retreated to, unless one of yours is already there.",
+      "A player who retreats has no ships left in the active system, so they lose the combat.",
     ],
     gotcha:
-      "You commit to a retreat before you see the dice. If the round goes well you still have to leave.",
+      "Announcing a retreat is not a commitment to leave a fight you are winning: if your opponent has no ships left when the retreat step arrives, the combat simply ends and the retreat never happens.",
     related: ["space-combat", "movement", "adjacency"],
   },
 
@@ -869,9 +874,10 @@ export const RULES: Rule[] = [
       "The outcome with the most votes is resolved. If there is a tie, the speaker chooses among the tied outcomes.",
       "If nobody votes at all, the speaker chooses any outcome.",
       "Trade goods cannot be spent as votes.",
+      "You may still negotiate up to one transaction per agenda with each other player while the vote is happening.",
     ],
     gotcha:
-      "Trade goods normally stand in for influence, but not for votes. Only exhausted planets produce votes.",
+      "Trade goods normally stand in for influence, but not for votes — only exhausted planets produce votes. The Bribery action card and the Hacan commander are the notable exceptions.",
     related: ["agenda-phase", "speaker", "resources-influence", "rider"],
   },
   {
@@ -920,7 +926,11 @@ export const RULES: Rule[] = [
       "Any number of players may score the same public objective, but each player may only score it once, ever.",
       "You may score at most one public objective per status phase.",
       "You must meet the objective's requirement at the moment you score it.",
+      "You cannot score a public objective at all unless you control every planet in your home system.",
+      "A 'spend' objective means spending during the status phase as you score it — not spending you already did during the action phase.",
     ],
+    gotcha:
+      "Losing a single home planet locks you out of every public objective until you take it back. The Clan of Saar's NOMADIC ability is an exemption from exactly this.",
     related: ["scoring", "secret-objectives", "status-phase", "victory-points"],
   },
   {
@@ -930,11 +940,14 @@ export const RULES: Rule[] = [
     expansion: "base",
     summary: "Private one-point objectives that only you can score.",
     clauses: [
-      "You begin the game with one secret objective, drawn during setup.",
+      "During setup you are dealt two secret objectives face down and keep one; the other goes back into the deck, which is reshuffled.",
       "A secret objective is worth 1 victory point and can only ever be scored by its holder.",
-      "You may hold at most three secret objectives at a time; if you would exceed that, discard down.",
+      "You may have at most three secret objectives in your play area, counting scored and unscored ones together.",
+      "If you would exceed three, return one unscored objective face down to the deck, which is reshuffled.",
       "Reveal a secret objective when you score it and place it face-up in front of you.",
-      "You may score at most one secret objective per status phase.",
+      "Each card names its own timing window — a secret may be scored in the action, status or agenda phase.",
+      "You may score at most one secret objective per status phase, but any number of action phase secrets in one action phase, provided each is in a separate combat.",
+      "Unlike public objectives, you do not need to control every planet in your home system to score a secret.",
       "The Imperial strategy card is the usual way to draw more secret objectives.",
     ],
     related: ["scoring", "public-objectives", "strategy-cards"],
@@ -1258,13 +1271,17 @@ export const RULES: Rule[] = [
     summary:
       "Ground forces from different players sharing a planet instead of fighting over it.",
     clauses: [
-      "Several Thunder's Edge effects place ground forces into coexistence rather than starting a ground combat.",
-      "Coexisting units sit on a planet alongside another player's units without resolving combat.",
-      "The Deepwrought Scholarate is built on it: they may choose to coexist when committing ground forces, and turn coexisting planets into ocean cards.",
-      "The Crash Landing and Exchange Program action cards also place units into coexistence.",
+      "Some effects let your units coexist with another player's units on a planet. While coexisting, they do not trigger ground combat.",
+      "If either player activates the system again, they may declare ground combat against the units they were coexisting with.",
+      "Any further units you place, produce or move onto that planet also coexist.",
+      "Coexisting structures are blockaded and cannot produce ships.",
+      "The player who triggered the coexistence does not gain or keep the planet card — if they controlled it, the player they now coexist with takes control.",
+      "If your coexisting units end up as the only units on the planet, you gain control of it.",
+      "For scoring objectives a coexisting player counts as controlling the planet, but for no other ability or effect.",
+      "Bombardment can still hit coexisting units, and each bombarding unit must pick a single player's ground forces to fire at.",
     ],
     gotcha:
-      "This entry is a summary of how coexistence is referenced by other components. The full rule is in the Thunder's Edge rulebook, which this app does not reproduce.",
+      "Coexisting counts as control for objectives and nothing else, so it can score you a planet you do not really hold.",
     related: ["ground-combat", "invasion", "control"],
   },
   {

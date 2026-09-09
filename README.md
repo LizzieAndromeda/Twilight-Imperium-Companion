@@ -149,6 +149,14 @@ Content in `data/` falls into two tiers, and it is worth knowing which is which.
 sources above, complete for the products they cover, and regenerable. Trust
 these at the table.
 
+The rules reference is hand-written but has been **cross-checked against the
+wiki's rules pages** entry by entry. Phase step orders, combat and invasion
+sequences, command token counts, the custodians cost, the action card hand limit
+and the voting order all verified clean; seven entries were corrected. It is
+still a paraphrased digest rather than a reproduction of the rulebook, and it is
+not regenerable — a future edit can drift from the source in a way the generated
+datasets cannot.
+
 **Hand-written, paraphrased** — the rules reference, public objectives, strategy
 cards, and the faction taglines and playstyles. A curated digest for quick
 lookup, not a reproduction of the rulebook and not complete. The objective lists
