@@ -9,6 +9,7 @@ import {
   Button,
   Card,
   ColorDot,
+  FactionSymbol,
   Meter,
   PLAYER_COLOR_VAR,
   Stepper,
@@ -67,6 +68,9 @@ export function PlayerCard({
       style={{ ["--seat-color" as string]: color }}
     >
       <div className={styles.head}>
+        {faction ? (
+          <FactionSymbol src={faction.symbol} name={faction.name} size={34} />
+        ) : null}
         <div className={styles.identity}>
           <div className={styles.nameRow}>
             <ColorDot color={player.color} />

@@ -226,6 +226,80 @@ function bulletAbilities(text) {
   return out;
 }
 
+/**
+ * A named card written as `'''Name'''<blockquote>text</blockquote>`, where the
+ * name may or may not be wrapped in `<big>`, and may be preceded by
+ * `{{Tech|colour}}` markers. Promissory notes and faction technologies share
+ * this shape.
+ */
+function namedCards(text) {
+  const out = [];
+  // Pages nest these two ways round — '''<big>Name</big>''' and
+  // <big>'''Name'''</big> — so drop the <big> tags and both become the same
+  // '''Name''' followed by a blockquote.
+  const flat = text.replace(/<\/?big>/gi, "");
+
+  const chunks = flat
+    .split(/(?='''[^']+'''\s*<blockquote>)/i)
+    .filter((c) => /<blockquote>/i.test(c));
+
+  for (const chunk of chunks) {
+    const nameMatch = chunk.match(/'''\s*(.*?)\s*'''\s*(?=<blockquote>)/i);
+    if (!nameMatch) continue;
+    const name = clean(nameMatch[1]);
+    if (!name) continue;
+
+    const quotes = [...chunk.matchAll(/<blockquote>([\s\S]*?)<\/blockquote>/gi)]
+      .map((m) => clean(m[1]))
+      .filter(Boolean);
+
+    // The last blockquote is often "Prerequisites: ..." rather than rules text.
+    let prerequisites = null;
+    if (quotes.length && /^Prerequisites:/i.test(quotes[quotes.length - 1])) {
+      prerequisites = squash(quotes.pop().replace(/^Prerequisites:\s*/i, ""));
+    }
+
+    // Technology colour markers sit before the name.
+    const colours = [
+      ...chunk.slice(0, nameMatch.index).matchAll(/\{\{Tech\|([a-z]+)\}\}/gi),
+    ].map((m) => m[1].toLowerCase());
+
+    const card = { name, text: quotes.join(" ") };
+    if (colours.length) card.color = colours[0];
+    if (prerequisites) card.prerequisites = prerequisites;
+    if (card.text) out.push(card);
+  }
+  return out;
+}
+
+/**
+ * Faction-specific unit tables: Name | Cost | Combat | Abilities |
+ * Prerequisites, one table per unit type sub-section.
+ */
+function unitVariants(text) {
+  const out = [];
+  const tables = text.match(/\{\|[\s\S]*?\n\|\}/g) ?? [];
+  for (const table of tables) {
+    const header = table.slice(0, table.indexOf("|-"));
+    if (!/!\s*Name/i.test(header)) continue;
+    for (const row of tableRows(table)) {
+      const [name, cost, combat, abilities, prerequisites] = row;
+      if (!name || !cost) continue;
+      const variant = {
+        name: squash(name),
+        cost: squash(cost),
+        combat: squash(combat ?? ""),
+      };
+      const ability = squash(abilities ?? "").replace(/^-$/, "");
+      if (ability) variant.text = ability;
+      const pre = squash(prerequisites ?? "").replace(/^(None|-)$/i, "");
+      if (pre) variant.prerequisites = pre;
+      out.push(variant);
+    }
+  }
+  return out;
+}
+
 const listFrom = (raw) =>
   clean(raw, { keepBreaks: true })
     ?.split("\n")
@@ -236,6 +310,57 @@ const listFrom = (raw) =>
 
 const warnings = [];
 
+/* --------------------------------------------------------------- symbols */
+
+/**
+ * `Template:Symbol` is a big #switch mapping faction keys to symbol files.
+ * Several keys share a file (full name and abbreviation), and the keys pile up
+ * on their own lines before the line that names the file.
+ */
+async function symbolFileByKey() {
+  const wikitext = await fetchPage("Template:Symbol");
+  const map = {};
+  let pending = [];
+  for (const line of wikitext.split("\n")) {
+    const withFile = line.match(/^\|\s*([^=|]+?)\s*=\s*\[\[File:([^|\]]+)/);
+    if (withFile) {
+      pending.push(withFile[1].trim());
+      const file = withFile[2].trim();
+      for (const key of pending) map[key] = file;
+      pending = [];
+      continue;
+    }
+    const keyOnly = line.match(/^\|\s*([^=|]+?)\s*$/);
+    if (keyOnly) pending.push(keyOnly[1].trim());
+  }
+  return map;
+}
+
+/** Resolve `File:X.png` names to their CDN urls, in one batched query. */
+async function imageUrls(files) {
+  const urls = {};
+  const unique = [...new Set(files)];
+  for (let i = 0; i < unique.length; i += 40) {
+    const batch = unique.slice(i, i + 40);
+    const url =
+      `${API}?action=query&format=json&prop=imageinfo&iiprop=url&titles=` +
+      batch.map((f) => encodeURIComponent(`File:${f}`)).join("|");
+    const r = await fetch(url, { headers: { "User-Agent": UA } });
+    if (!r.ok) throw new Error(`imageinfo failed: ${r.status}`);
+    const j = await r.json();
+    for (const page of Object.values(j.query?.pages ?? {})) {
+      const src = page.imageinfo?.[0]?.url;
+      if (!src) {
+        warnings.push(`no url for ${page.title}`);
+        continue;
+      }
+      // Strip Fandom's cache-busting/scaling query so the original is served.
+      urls[page.title.replace(/^File:/, "")] = src.split("/revision/")[0];
+    }
+  }
+  return urls;
+}
+
 async function fetchPage(title) {
   const url = `${API}?action=parse&page=${encodeURIComponent(title)}&prop=wikitext&format=json`;
   const r = await fetch(url, { headers: { "User-Agent": UA } });
@@ -245,7 +370,7 @@ async function fetchPage(title) {
   return j.parse.wikitext["*"];
 }
 
-function parseFaction(title, id, shortName, expansion, w) {
+function parseFaction(title, id, shortName, expansion, w, symbolUrl) {
   const s = sections(w);
   const box = infobox(w);
 
@@ -320,8 +445,28 @@ function parseFaction(title, id, shortName, expansion, w) {
       .map(squash)
       .filter((x) => x && !/^(Synergy|Unit|Ability)$/i.test(x))
       .join(" ");
-    if (name) breakthrough = { name, text: squash(text) };
+    // Each breakthrough grants a synergy between two technology colours.
+    const synergy = [...btText.matchAll(/\{\{Tech\|([a-z]+)\}\}/gi)]
+      .map((m) => m[1].toLowerCase())
+      .filter((c, i, a) => a.indexOf(c) === i);
+    if (name) {
+      breakthrough = { name, text: squash(text) };
+      if (synergy.length === 2) breakthrough.synergy = synergy;
+    }
   }
+
+  // Heading is singular on most pages, plural on the few factions that have
+  // more than one note (the Empyrean has Dark Pact and Blood Pact).
+  const promissory = namedCards(
+    s["Faction Promissory Note"] ?? s["Faction Promissory Notes"] ?? "",
+  );
+  if (!promissory.length) warnings.push(`${title}: no promissory note parsed`);
+
+  const factionTech = namedCards(s["Faction Technologies"] ?? "");
+
+  const uniqueUnits = unitVariants(
+    `${s["Faction Specific Units"] ?? ""}\n${s["Faction Specific Components"] ?? ""}`,
+  );
 
   const faq = (clean(s["FAQ"] ?? "", { keepBreaks: true } ) ?? "")
     .split(/(?=Q:)/)
@@ -348,21 +493,34 @@ function parseFaction(title, id, shortName, expansion, w) {
     homePlanets: listFrom(box.starting_planets),
     startingUnits: listFrom(box.starting_units),
     startingTech: listFrom(box.starting_technologies),
+    symbol: symbolUrl ?? null,
     abilities,
     leaders,
     flagship,
     mech,
     breakthrough,
+    promissory,
+    factionTech,
+    uniqueUnits,
     faq,
   };
 }
 
 /* ------------------------------------------------------------------ run */
 
+const symbolFiles = await symbolFileByKey();
+const symbolUrlByFile = await imageUrls(Object.values(symbolFiles));
+
 const parsed = [];
 for (const [title, id, shortName, expansion] of FACTIONS) {
   const w = await fetchPage(title);
-  parsed.push(parseFaction(title, id, shortName, expansion, w));
+  // The infobox names which Symbol-template key this faction uses.
+  const key = w.match(/symbol\s*=\s*\{\{Symbol\|([^}|]+)/i)?.[1]?.trim();
+  const file = key ? symbolFiles[key] : null;
+  if (!file) warnings.push(`${title}: could not resolve symbol (key "${key}")`);
+  parsed.push(
+    parseFaction(title, id, shortName, expansion, w, file ? symbolUrlByFile[file] : null),
+  );
   await new Promise((r) => setTimeout(r, 250));
 }
 
@@ -400,6 +558,7 @@ const body = parsed
       `    difficulty: ${j(f.difficulty)},`,
     ];
     if (f.color) lines.push(`    color: ${j(f.color)},`);
+    if (f.symbol) lines.push(`    symbol: ${j(f.symbol)},`);
     if (f.commodities !== null) lines.push(`    commodities: ${f.commodities},`);
     if (f.homePlanets.length)
       lines.push(`    homePlanets: ${arr(f.homePlanets, "    ")},`);
@@ -436,10 +595,55 @@ const body = parsed
       lines.push(
         `    mech: { name: ${j(f.mech.name)}, text: ${j(f.mech.text)} },`,
       );
-    if (f.breakthrough)
+    if (f.breakthrough) {
+      const bt = [
+        `      name: ${j(f.breakthrough.name)},`,
+        `      text: ${j(f.breakthrough.text)},`,
+      ];
+      if (f.breakthrough.synergy)
+        bt.push(`      synergy: ${j(f.breakthrough.synergy)},`);
+      lines.push(`    breakthrough: {\n${bt.join("\n")}\n    },`);
+    }
+    if (f.promissory.length) {
       lines.push(
-        `    breakthrough: {\n      name: ${j(f.breakthrough.name)},\n      text: ${j(f.breakthrough.text)},\n    },`,
+        `    promissory: [\n${f.promissory
+          .map(
+            (n) =>
+              `      { name: ${j(n.name)}, text: ${j(n.text)} },`,
+          )
+          .join("\n")}\n    ],`,
       );
+    }
+    if (f.factionTech.length) {
+      lines.push(
+        `    factionTech: [\n${f.factionTech
+          .map((t) => {
+            const parts = [`        name: ${j(t.name)}`, `        text: ${j(t.text)}`];
+            if (t.color) parts.push(`        color: ${j(t.color)}`);
+            if (t.prerequisites)
+              parts.push(`        prerequisites: ${j(t.prerequisites)}`);
+            return `      {\n${parts.join(",\n")},\n      },`;
+          })
+          .join("\n")}\n    ],`,
+      );
+    }
+    if (f.uniqueUnits.length) {
+      lines.push(
+        `    uniqueUnits: [\n${f.uniqueUnits
+          .map((u) => {
+            const parts = [
+              `        name: ${j(u.name)}`,
+              `        cost: ${j(u.cost)}`,
+              `        combat: ${j(u.combat)}`,
+            ];
+            if (u.text) parts.push(`        text: ${j(u.text)}`);
+            if (u.prerequisites)
+              parts.push(`        prerequisites: ${j(u.prerequisites)}`);
+            return `      {\n${parts.join(",\n")},\n      },`;
+          })
+          .join("\n")}\n    ],`,
+      );
+    }
     if (f.faq.length) lines.push(`    faq: ${arr(f.faq, "    ")},`);
 
     return `  {\n${lines.join("\n")}\n  },`;
@@ -481,6 +685,10 @@ const byExpansion = parsed.reduce(
 console.log(`Wrote ${parsed.length} factions ${JSON.stringify(byExpansion)}`);
 console.log(
   `  ${parsed.reduce((n, f) => n + f.abilities.length, 0)} abilities, ` +
+    `${parsed.filter((f) => f.symbol).length} symbols, ` +
+    `${parsed.reduce((n, f) => n + f.promissory.length, 0)} promissory notes, ` +
+    `${parsed.reduce((n, f) => n + f.factionTech.length, 0)} faction techs, ` +
+    `${parsed.reduce((n, f) => n + f.uniqueUnits.length, 0)} unique unit variants, ` +
     `${parsed.reduce((n, f) => n + f.leaders.length, 0)} leaders, ` +
     `${parsed.filter((f) => f.flagship).length} flagships, ` +
     `${parsed.filter((f) => f.mech).length} mechs, ` +

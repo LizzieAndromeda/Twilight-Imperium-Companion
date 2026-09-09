@@ -10,6 +10,7 @@ import {
   Badge,
   Card,
   EmptyState,
+  FactionSymbol,
   Modal,
   SearchInput,
   Segmented,
@@ -18,6 +19,14 @@ import { UsersIcon } from "@/components/ui/icons";
 import styles from "./factions.module.css";
 
 type DifficultyFilter = "all" | "Low" | "Medium" | "High";
+
+/** The four technology colours, for the faction technology dots. */
+const TECH_COLOR: Record<string, string> = {
+  biotic: "var(--success)",
+  propulsion: "var(--p-blue)",
+  cybernetic: "var(--accent)",
+  warfare: "var(--danger)",
+};
 
 const DIFFICULTY_TONE = {
   Low: "success",
@@ -108,6 +117,11 @@ export default function FactionsPage() {
               }}
             >
               <div className={styles.cardTop}>
+                <FactionSymbol
+                  src={faction.symbol}
+                  name={faction.name}
+                  size={38}
+                />
                 <h3 className={styles.name}>{faction.name}</h3>
               </div>
               <p className={styles.tagline}>
@@ -153,9 +167,12 @@ const LEADER_CLASS = {
 function FactionDetail({ faction }: { faction: Faction }) {
   return (
     <div>
-      {faction.tagline ? (
-        <p className={styles.detailTagline}>{faction.tagline}</p>
-      ) : null}
+      <div className={styles.detailHead}>
+        <FactionSymbol src={faction.symbol} name={faction.name} size={64} />
+        {faction.tagline ? (
+          <p className={styles.detailTagline}>{faction.tagline}</p>
+        ) : null}
+      </div>
 
       <div className={styles.detailMeta}>
         <Badge tone={DIFFICULTY_TONE[faction.difficulty]}>
@@ -253,9 +270,82 @@ function FactionDetail({ faction }: { faction: Faction }) {
                 <p className={styles.abilityName}>
                   {faction.breakthrough.name} — Breakthrough
                 </p>
+                {faction.breakthrough.synergy ? (
+                  <p className={styles.unitStats}>
+                    <span>
+                      Synergy <b>{faction.breakthrough.synergy.join(" ↔ ")}</b>
+                    </span>
+                  </p>
+                ) : null}
                 <p className={styles.abilityText}>{faction.breakthrough.text}</p>
               </div>
             ) : null}
+            {faction.uniqueUnits?.map((unit) => (
+              <div key={unit.name} className={styles.ability}>
+                <p className={styles.abilityName}>{unit.name}</p>
+                <p className={styles.unitStats}>
+                  <span>
+                    Cost <b>{unit.cost}</b>
+                  </span>
+                  <span>
+                    Combat <b>{unit.combat}</b>
+                  </span>
+                  {unit.prerequisites ? (
+                    <span>
+                      Prerequisites <b>{unit.prerequisites}</b>
+                    </span>
+                  ) : null}
+                </p>
+                {unit.text ? (
+                  <p className={styles.abilityText}>{unit.text}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {faction.factionTech?.length ? (
+        <>
+          <h4 className={styles.subhead}>Faction technologies</h4>
+          <div className={styles.stack}>
+            {faction.factionTech.map((tech) => (
+              <div key={tech.name} className={styles.ability}>
+                <p className={styles.abilityName}>
+                  {tech.color ? (
+                    <span
+                      className={styles.techDot}
+                      style={{ background: TECH_COLOR[tech.color] ?? "var(--text-dim)" }}
+                    />
+                  ) : null}
+                  {tech.name}
+                </p>
+                <p className={styles.abilityText}>{tech.text}</p>
+                {tech.prerequisites ? (
+                  <p className={styles.unitStats}>
+                    <span>
+                      Prerequisites <b>{tech.prerequisites}</b>
+                    </span>
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {faction.promissory?.length ? (
+        <>
+          <h4 className={styles.subhead}>
+            Promissory note{faction.promissory.length > 1 ? "s" : ""}
+          </h4>
+          <div className={styles.stack}>
+            {faction.promissory.map((note) => (
+              <div key={note.name} className={styles.ability}>
+                <p className={styles.abilityName}>{note.name}</p>
+                <p className={styles.abilityText}>{note.text}</p>
+              </div>
+            ))}
           </div>
         </>
       ) : null}

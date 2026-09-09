@@ -21,6 +21,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "High",
     color: "Green",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/8/8f/ArborecSymbolSquare.png",
     commodities: 3,
     homePlanets: [
       "Nestphar: 3/2",
@@ -71,7 +72,32 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Psychospore",
       text: "ACTION: Exhaust this card to remove a command token from a system that contains 1 or more of your infantry and return it to your reinforcements. Then, place 1 infantry in that system.",
+      synergy: ["warfare","biotic"],
     },
+    promissory: [
+      { name: "Stymie", text: "ACTION: Place this card face up in your play area. While this card is in your play area, the Arborec player cannot produce units in or adjacent to non-home systems that contain 1 or more of your units. If you activate a system that contains 1 or more of the Arborec player's units, return this card to the Arborec player." },
+      { name: "Stymie Ω", text: "After another player moves ships into a system that contains 1 or more of your units: You may place 1 command token from that player's reinforcements in any non-home system. Then, return this card to the Arborec player." },
+    ],
+    factionTech: [
+      {
+        name: "Bioplasmosis",
+        text: "At the end of the status phase , you may remove any number of infantry from planets you control and place them on 1 or more planets you control in the same or adjacent systems.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Letani Warrior I",
+        cost: "1x2",
+        combat: "8",
+        text: "Production 1",
+      },
+      {
+        name: "Letani Warrior II",
+        cost: "1x2",
+        combat: "7",
+        text: "Production 2 After this unit is destroyed, roll 1 die. If the result is 6 or greater, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system.",
+      },
+    ],
     faq: [
       "Q: Can the Arborec's \"Mitosis\" ability be used to place 1 infantry on every planet they control? A: No. Only 1 infantry may be placed on a single planet using this ability.",
       "Q: Can the secondary ability of the “Warfare” strategy card (pre-Thunder’s Edge) be used to trigger the “Production” ability of the Arborec’s Letani Warriors? A: Prior to the Thunder’s Edge updated “Warfare” card: No, the “Warfare” secondary ability can only be used to trigger the production ability of space docks, and thus cannot be used by the Arborec to produce additional infantry. Addendum: The change to the “Warfare” strategy card made in the Expansion Thunder's Edge now allows this.",
@@ -88,6 +114,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Red, black",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/2/20/Barony.png",
     commodities: 2,
     homePlanets: [
       "Arc Prime: 4/0",
@@ -141,7 +168,22 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Gravleash Maneuvers",
       text: "Before you roll dice during space combat, apply +X to the results of 1 of your ship's rolls, where X is the number of ship types you have in the combat. During movement, your non-fighter ships' move values are equal to the highest move value amongst moving ships in the system they started in.",
+      synergy: ["propulsion","warfare"],
     },
+    promissory: [
+      { name: "War Funding", text: "At the start of a round of space combat: The Letnev player loses 2 trade goods. During this combat round, re-roll any number of your dice. Then, return this card to the Letnev player." },
+      { name: "War Funding Ω", text: "After you and your opponent roll dice during space combat: You may reroll all of your opponent's dice. You may reroll any number of your dice. Then, return this card to the Letnev player." },
+    ],
+    factionTech: [
+      {
+        name: "L4 Disruptors",
+        text: "During an invasion, units cannot use SPACE CANNON against your units.",
+      },
+      {
+        name: "Non-Euclidean Shielding",
+        text: "When 1 of your units uses SUSTAIN DAMAGE, cancel 2 hits instead of 1.",
+      },
+    ],
     faq: [
       "Q: Can War Funding Omega be used on Anti-Fighter Barrage rolls? How about Munitions Reserves? A: No, War Funding Omega, War Funding, Munitions Reserves and Crown of Thalnos, are specific to combat rolls.",
       "Q: Does the Barony of Letnev agent, Viscount Unlenn, allow an extra dice to be rolled during Anti-Fighter Barrage? A: No, the Barony agent only has an effect on combat rolls.",
@@ -154,6 +196,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Medium",
     color: "Orange, green, yellow",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/b/b0/Saar.png",
     commodities: 3,
     homePlanets: [
       "Lisis II: 1/0",
@@ -205,7 +248,31 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Deorbit Barrage",
       text: "ACTION: Exhaust this card and spend any amount of resources to choose a planet up to 2 systems away from an asteroid field that contains your ships; roll a number of dice equal to the amount spent, and assign 1 hit to a ground force on that planet for each roll of 4 or greater",
+      synergy: ["propulsion","warfare"],
     },
+    promissory: [
+      { name: "Ragh's Call", text: "After you commit 1 or more units to land on a planet: Remove all of the Saar player's ground forces from that planet and place them on a planet controlled by the Saar player. Then, return this card to the Saar player." },
+    ],
+    factionTech: [
+      {
+        name: "Chaos Mapping",
+        text: "Other players cannot activate asteroid fields that contain 1 or more of your ships. At the start of your turn during the action phase, you may produce 1 unit in a system that contains at least 1 of your units that has Production.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Floating Factory I",
+        cost: "1",
+        combat: "4",
+        text: "Production 5 This unit is placed in a space area instead of on a planet. This unit can move and retreat as if it were a ship. If this unit is blockaded, it is destroyed.",
+      },
+      {
+        name: "Floating Factory II",
+        cost: "2",
+        combat: "5",
+        text: "Production 7 This unit is placed in a space area instead of on a planet. This unit can move and retreat as if it were a ship. If this unit is blockaded, it is destroyed.",
+      },
+    ],
     faq: [
       "Q: Can the Clan of Saar’s “Chaos Mapping” faction-specific technology be used at the start of each of that player’s turns during the action phase? A: Yes, “Chaos Mapping” can be used as many times as you have turns during the action phase.",
       "Q: Can the Clan of Saar’s “Chaos Mapping” faction-specific technology be used on the turn that the Saar player passes? A: Yes, “Chaos Mapping” can be used on the turn that a player passes.",
@@ -222,6 +289,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "High",
     color: "Red, Orange",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/3/37/MuaatSymbolSquare.png",
     commodities: 4,
     homePlanets: [
       "Muaat: 4/1",
@@ -271,7 +339,33 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Stellar Genesis",
       text: "When you gain this card, place the Avernus planet token into a non-home system that is adjacent to a planet you control; gain control of and ready it. After you move 1 of your war suns out of or through Avernus's system and into a non-home system, you may move the Avernus token with it.",
+      synergy: ["warfare","cybernetic"],
     },
+    promissory: [
+      { name: "Fires of the Gashlai", text: "ACTION: Remove 1 token from the Muaat player's fleet pool and return it to their reinforcements. Then, gain your war sun unit upgrade technology card. Then, return this card to the Muaat player." },
+    ],
+    factionTech: [
+      {
+        name: "Magmus Reactor",
+        text: "Your ships can move into supernovas. After 1 or more of your units use Production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. Prerequisites: Your ships can move into supernovas. Each supernova that contains 1 or more of your units gains the PRODUCTION 5 ability as if it were 1 of your units.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Prototype War Sun I",
+        cost: "12",
+        combat: "3 (x3)",
+        text: "1",
+        prerequisites: "6",
+      },
+      {
+        name: "Prototype War Sun II",
+        cost: "10",
+        combat: "3 (x3)",
+        text: "3",
+        prerequisites: "6",
+      },
+    ],
     faq: [
       "Q: How does the Agenda \"Publicize Weapon Schematics\" affect the Embers of Muaat's War Suns? A: Prototype War Sun I is considered a war sun but is a printed unit not a war sun technology. Thus, a vote of \"For\" would mean that it would lose the Sustain Damage ability but other players would not be able to ignore war sun prerequisites. A vote of \"Against\" would not affect the Muaat player. The agenda plays as normal if the Muaat player has researched Prototype War Sun II.",
       "Q: How does The Embers of Muaat Hero, Nova Seed, interact with tokens (e.g. wormholes, Mirage)? A: Nova Seed also purges all tokens other than command tokens and frontier tokens. Any faction specific tokens are returned to that faction.",
@@ -285,6 +379,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Yellow, Orange",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/f/f8/Hacan.png",
     commodities: 6,
     homePlanets: [
       "Arretze: 2/0",
@@ -339,7 +434,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Auto-Factories",
       text: "When you produce 3 or more non-fighter ships, place 1 command token from your reinforcements into your fleet pool.",
+      synergy: ["warfare","cybernetic"],
     },
+    promissory: [
+      { name: "Trade Convoys", text: "ACTION: Place this card face-up in your play area. While this card is in your play area, you may negotiate transactions with players who are not your neighbor. If you activate a system that contains 1 or more of the Hacan player's units, return this card to the Hacan player." },
+    ],
+    factionTech: [
+      {
+        name: "Production Biomes",
+        text: "ACTION: Exhaust this card and spend 1 token from your strategy pool to gain 4 trade goods and choose 1 other player; that player gains 2 trade goods",
+      },
+      {
+        name: "Quantum Datahub Node",
+        text: "At the end of the strategy phase, you may spend 1 token from your strategy pool and give another player 3 of your trade goods. If you do, give 1 of your strategy cards to that player and take 1 of their strategy cards.",
+      },
+    ],
     faq: [
       "Q: Does the Hacan player have to initiate negotiations in order to transact with a player who is not their neighbor? A: So long as the active player is involved in the transaction, either player may suggest the opening of negotiations, on either player’s turn.",
       "Q: Can Hacan trade action cards after having Political Secret played against them? A: Arbiters is a passive ability and the Emirates of Hacan can trade Action cards regardless of having their Political Secret played against them.",
@@ -354,6 +463,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Blue, yellow",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/0/01/Sol.png",
     commodities: 4,
     homePlanets: [
       "Jord: 4/2",
@@ -405,7 +515,38 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Bellum Gloriosum",
       text: "When you produce a ship that has capacity, you may also produce any combination of ground forces or fighters up to that ship's capacity; they do not count against your PRODUCTION limit.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Military Support", text: "At the start of the Sol player's turn: Remove 1 token from the Sol player's strategy pool, if able, and return it to their reinforcements. Then, you may place 2 infantry from your reinforcements on any planet you control. Then, return this card to the Sol player." },
+    ],
+    uniqueUnits: [
+      {
+        name: "Spec Ops I",
+        cost: "1x2",
+        combat: "7",
+      },
+      {
+        name: "Spec Ops II",
+        cost: "1x2",
+        combat: "6",
+        text: "After this unit is destroyed, roll 1 die. If the result is 5 or greater, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system.",
+      },
+      {
+        name: "Advanced Carrier I",
+        cost: "3",
+        combat: "9",
+        text: "1",
+        prerequisites: "6",
+      },
+      {
+        name: "Advanced Carrier II",
+        cost: "3",
+        combat: "9",
+        text: "2",
+        prerequisites: "8",
+      },
+    ],
   },
   {
     id: "creuss",
@@ -414,6 +555,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Medium",
     color: "Blue",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/7/7f/Ghosts.png",
     commodities: 4,
     homePlanets: [
       "Creuss: 4/2",
@@ -466,7 +608,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Particle Synthesis",
       text: "Each wormhole in a system that contains your ships gains PRODUCTION 1 as if it were a unit you control. Reduce the combined cost of units you produce in systems that contain wormholes by 1 for each wormhole in that system.",
+      synergy: ["propulsion","cybernetic"],
     },
+    promissory: [
+      { name: "Creuss Iff", text: "At the start of your turn during the action phase: Place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships. Then, return this card to the Creuss player." },
+    ],
+    factionTech: [
+      {
+        name: "Wormhole Generator",
+        text: "At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships Prerequisites: ACTION: Exhaust this card to place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships.",
+      },
+      {
+        name: "Dimensional Splicer",
+        text: "At the start of space combat in a system that contains a wormhole and 1 or more of your ships, you may produce 1 hit and assign it to 1 of your opponent's ships.",
+      },
+    ],
   },
   {
     id: "l1z1x",
@@ -475,6 +631,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Black, blue, red",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/e/ec/L1Z1X.png",
     commodities: 2,
     homePlanets: [
       "[0.0.0]: 5/0",
@@ -527,7 +684,34 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Fealty Uplink",
       text: "When you gain control of a planet, place infantry from your reinforcements equal to that planet's influence value on that planet.",
+      synergy: ["warfare","biotic"],
     },
+    promissory: [
+      { name: "Cybernetic Enhancements", text: "At the start of your turn: Remove 1 token from the L1Z1X player's strategy pool and return it to his reinforcements. Then, place 1 command token from your reinforcements in your strategy pool. Then, return this card to the L1Z1X player." },
+      { name: "Cybernetic Enhancements Ω", text: "When you gain command tokens during the status phase: Gain 1 additional command token. Then, return this card to the L1Z1X player." },
+    ],
+    factionTech: [
+      {
+        name: "Inheritance Systems",
+        text: "You may exhaust this card and spend 2 resources when you research a technology; ignore all of that technology's prerequisites.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Super-Dreadnought I",
+        cost: "4",
+        combat: "5",
+        text: "1",
+        prerequisites: "2",
+      },
+      {
+        name: "Super-Dreadnought II",
+        cost: "4",
+        combat: "4",
+        text: "2",
+        prerequisites: "2",
+      },
+    ],
     faq: [
       "Q: Can the L1Z1X use Harrow when they're defending during ground combat? A: No, only the active player can use BOMBARDMENT.",
       "Q: When using the hero ability, can fighters and infantry be transported? A: Yes. During movement abilities (L1Z1X Hero, Argent Hero, Mahact Hero), you may transport units out of systems that contain your tokens. ru:Психосеть Л1З1КС Category:Factions",
@@ -540,6 +724,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "High",
     color: "Orange, black, yellow",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/3/3c/Mentak.png",
     commodities: 2,
     homePlanets: [
       "Moll Primus: 4/1",
@@ -592,7 +777,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "The Table's Grace",
       text: "If you have the Cruiser II unit upgrade technology, flip this card and place it on top of Cruiser II.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Promise of Protection", text: "ACTION: Place this card face-up in your play area. While this card is in your play area, the Mentak player cannot use their Pillage faction ability against you. If you activate a system that contains 1 or more of the Mentak player's units, return this card to the Mentak player." },
+    ],
+    factionTech: [
+      {
+        name: "Salvage Operations",
+        text: "After you win or lose a space combat, gain 1 trade good; if you won the combat, you may also produce 1 ship in that system of any ship type that was destroyed during the combat",
+      },
+      {
+        name: "Mirror Computing",
+        text: "When you spend trade goods, each trade good is worth 2 resources or influence instead of 1",
+      },
+    ],
     faq: [
       "Q: Can the Mentak Coalition use the “Salvage Operations” faction-specific technology to produce infantry after a combat against the Nekro Virus flagship “The Alastor” in which Nekro Virus infantry were treated like ships and were subsequently destroyed? A: No, the infantry do not count as ships once the combat is over.",
       "Q: Can the Mentak Coalition use the “Pillage” faction ability to steal trade goods when they are neighbors with another faction as a result of the “Lazax Gate Folding” faction technology or “Quantum Entanglement” faction ability? A: Yes, even in the case of “Quantum Entanglement” only being active from the Creuss’ point of view, because the ‘neighbor’ status is active as a result of the ability, the Mentak may use their “Pillage” in these situations.",
@@ -611,6 +810,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Medium",
     color: "Green, yellow, orange",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/a/a7/Naalu.png",
     commodities: 3,
     homePlanets: [
       "Maaluuk: 0/2",
@@ -683,7 +883,30 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Mindsieve",
       text: "When you would resolve the secondary ability of another player's strategy card, you may give them a promissory note to resolve it without spending a command token.",
+      synergy: ["warfare","biotic"],
     },
+    promissory: [
+      { name: "Gift of Prescience", text: "At the end of the strategy phase: Place this card face-up in your play area and place the Naalu \"0\" token on your strategy card; you are first in the initiative order. The Naalu player cannot use their TELEPATHIC faction ability during this game round. Return this card to the Naalu player at the end of the status phase." },
+    ],
+    factionTech: [
+      {
+        name: "Neuroglaive",
+        text: "After another player activates a system that contains 1 or more of your ships, that player removes 1 token from their fleet pool and returns it to their reinforcements.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Hybrid Crystal Fighter I",
+        cost: "1x2",
+        combat: "8",
+      },
+      {
+        name: "Hybrid Crystal Fighter II",
+        cost: "1x2",
+        combat: "7",
+        text: "2",
+      },
+    ],
     faq: [
       "Q: Does the Naalu flagship (“The Matriarch”) allow the Naalu to take gain control of a planet using only fighters? A: No. The Naalu fighters return to the space area when ground combat ends. If no Naalu ground forces are present, the combat is considered to be a draw, and the Naalu do not gain control of the planet during the “Establish Control” step.",
       "Q: Using the Naalu flagship (“The Matriarch”) in combination with the “Dacxive Animators” technology, can the Naalu gain control of a planet using only fighters? A: No, as you cannot win (only draw) ground combat with only Naalu fighters (see above question). However, if you could somehow win, the exact sequence of events if you win the ground combat would be to place an infantry with Daxcive Animators, return the fighters to the space area, then take control of the planet during the \"Establish Control\" step.",
@@ -701,6 +924,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "High",
     color: "Red",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/2/22/Nekro.png",
     commodities: 3,
     homePlanets: [
       "Mordai II: 4/0",
@@ -756,6 +980,9 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       name: "Valefar Assimilator Z",
       text: "When you would gain another player's technology using one of your faction abilities, you may instead place one of your \"Z\" assimilator tokens on that player's faction sheet. Your flagship gains the text abilities of that faction's flagship in addition to its own. N/A N/A",
     },
+    promissory: [
+      { name: "Antivirus", text: "At the start of a combat: Place this card face-up in your play area. While this card is in your play area, the Nekro player cannot use their TECHNOLOGICAL SINGULARITY faction ability against you. If you activate a system that contains 1 or more of the Nekro player's units, return this card to the Nekro player." },
+    ],
     faq: [
       "Q: Can the Nekro Virus use the “Valefar Assimilator” technologies on printed faction units such as the Embers of Muaat’s Prototype War Sun I? A: No, printed faction units are not technologies, and thus are ineligible targets for “Valefar Assimilator.”",
       "Q: Do infantry involved in a space combat via the effects of “The Alastor” flagship count as ships for the purpose of card effects and fleet supply? A: Infantry that are participating in space combat via “The Alastor” do count as ships (in addition to their own unit type) for the purpose of card effects, but, as a unit that can be transported, they do not count against fleet supply in that system.",
@@ -783,6 +1010,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Medium",
     color: "Black, Red",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/0/08/SardakkSymbolSquare.png",
     commodities: 3,
     homePlanets: [
       "Tren'lak: 1/0",
@@ -833,7 +1061,33 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "N'orr Supremacy",
       text: "After you win a combat, either gain 1 command token or research a unit upgrade technology.",
+      synergy: ["propulsion","warfare"],
     },
+    promissory: [
+      { name: "Tekklar Legion", text: "At the start of an invasion combat: Apply +1 to the result of each of your unit's combat rolls during this combat. If your opponent is the N'orr player, apply -1 to the result of each of his unit's combat rolls during this combat. Then, return this card to the N'orr player." },
+    ],
+    factionTech: [
+      {
+        name: "Valkyrie Particle Weave",
+        text: "After making combat rolls during a round of ground combat, if your opponent produced 1 or more hits, you produce 1 additional hit",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Exotrireme I",
+        cost: "4",
+        combat: "5",
+        text: "1",
+        prerequisites: "1",
+      },
+      {
+        name: "Exotrireme II",
+        cost: "4",
+        combat: "5",
+        text: "2",
+        prerequisites: "1",
+      },
+    ],
     faq: [
       "Q: Does a Ceasefire promissory note have any impact on committing ground forces from adjacent planets via Sardakk N’orr’s commander, G’hom Sek’kus? A: Will change “commit ground forces” in LRR to say “move” to ensure Ceasefire works. Will also prevent units from being committed to planets in anomalies without the appropriate technology, or through wormholes if Enforced Travel Ban is a Law.",
       "Q: Can the Sardakk N’orr player commit ground forces via their commander, G’hom Sek’kus, on defense? A: No, only the active player can commit ground forces",
@@ -851,6 +1105,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Blue, purple",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/0/06/Jol-Nar.png",
     commodities: 4,
     homePlanets: [
       "Jol: 1/2",
@@ -913,7 +1168,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Specialized Compounds",
       text: "When you research technology using the \"Technology\" strategy card, you may exhaust a planet that has a technology speciality instead of spending resources; if you do you must research a technology of that colour.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Research Agreement", text: "After the Jol-Nar player researches a technology that is not a faction technology: Gain that technology. Then, return this card to the Jol-Nar player." },
+    ],
+    factionTech: [
+      {
+        name: "E-Res Siphons",
+        text: "After another player activates a system that contains 1 or more of your ships, gain 4 trade goods.",
+      },
+      {
+        name: "Spatial Conduit Cylinder",
+        text: "You may exhaust this card after you activate a system that contains 1 or more of your units; that system is adjacent to all other systems that contain 1 or more of your units during this activation.",
+      },
+    ],
     faq: [
       "Q: When the Universities of Jol-Nar player uses their hero, Rin, do they swap all techs simultaneously or consecutively? A: Simultaneously, that is to say the Universities of Jol-Nar player cannot swap out a tech and re-take it during this component action",
       "Q: If the Universities of Jol-Nar player replaces a faction technology with their hero, what happens if the Nekro Virus player had a Valefar Assimilator token on it? A: The token stays on the tech in the tech-deck and Valefar Assimilator still has that technology’s text",
@@ -926,6 +1195,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Medium",
     color: "Orange, Yellow, Purple",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/c/cd/Winnu.png",
     commodities: 3,
     homePlanets: [
       "Winnu: 3/4",
@@ -977,7 +1247,22 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Imperator",
       text: "Apply +1 to the results of each of your unit's combat rolls for each \"Support for the Throne\" in your opponent's play area. After you activate a system that contains a legendary planet, apply +1 to the move value of 1 of your ships during this tactical action.",
+      synergy: ["propulsion","warfare"],
     },
+    promissory: [
+      { name: "Acquiescence", text: "At the end of the strategy phase: Exchange 1 of your strategy cards with a strategy card that was chosen by the Winnu player. Then, return this card to the Winnu player." },
+      { name: "Acquiescence Ω", text: "When the Winnu player resolves a strategic action: You do not have to spend or place a command token to resolve the secondary ability of that strategy card. Then, return this card to the Winnu player" },
+    ],
+    factionTech: [
+      {
+        name: "Lazax Gate Folding",
+        text: "During your tactical actions, if you do not control Mecatol Rex, treat its system as if it contains both an alpha and beta wormhole. ACTION: If you control Mecatol Rex, exhaust this card to place 1 infantry from your reinforcements on Mecatol Rex.",
+      },
+      {
+        name: "Hegemonic Trade Policy",
+        text: "Exhaust this card when 1 or more of your units use PRODUCTION; swap the resource and influence values of 1 planet you control during that use of Production",
+      },
+    ],
     faq: [
       "Q: Does the Winnu “Salai Sai Corian” flagship get additional dice for infantry participating in a fight due to the Nekro “Alastor” flagship? A: Yes. The “Salai Sai Corian” would get one additional die per infantry.",
       "Q: Can the Mentak Coalition use the “Pillage” faction ability to steal trade goods when they are neighbors with another faction as a result of the “Lazax Gate Folding” faction technology? A: Yes.",
@@ -991,6 +1276,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Green, Blue",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/1/1a/Xxcha.png",
     commodities: 4,
     homePlanets: [
       "Archon Ren: 2/3",
@@ -1055,7 +1341,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Archon's Gift",
       text: "You can spend influence as if it were resources. You can spend resources as if it were influence.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Political Favor", text: "When an agenda is revealed: Remove 1 token from the Xxcha player's strategy pool and return it to their reinforcements. Then, discard the revealed agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead. Then, return this card to the Xxcha player." },
+    ],
+    factionTech: [
+      {
+        name: "Nullification Field",
+        text: "After another player activates a system that contains 1 or more of your ships, you may exhaust this card and spend 1 token from your strategy pool; immediately end that player's turn.",
+      },
+      {
+        name: "Instinct Training",
+        text: "You may exhaust this card and spend 1 token from your strategy pool when another player plays an action card; cancel that action card.",
+      },
+    ],
     faq: [
       "Q: Can the Xxcha use the “Peace Accords” faction ability from one planet to another planet in the same system? A: Yes, a planet is considered to be adjacent to its own system.",
       "Q: Can the Xxcha use the “Peace Accords” faction ability on a planet that has another players ships in the space area of the system? A: Yes, as long as the planet being targeted is free of opposing players units (Ground Forces & Structures).",
@@ -1078,6 +1378,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Purple, black, yellow",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/f/f6/Yin.png",
     commodities: 2,
     homePlanets: [
       "Darien: 4/4",
@@ -1164,7 +1465,22 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Yin Ascendant",
       text: "When you gain this card or score a public objective, gain the alliance ability of a random, unused faction.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Greyfire Mutagen", text: "After a system is activated: The Yin player cannot use faction abilities or faction technology during this tactical action. Then, return this card to the Yin player." },
+      { name: "Greyfire Mutagen Ω", text: "At the start of a ground combat against 2 or more ground forces that are not controlled by the Yin player: Replace 1 of your opponent's infantry with 1 infantry from your reinforcements. Then, return this card to the Yin player." },
+    ],
+    factionTech: [
+      {
+        name: "Impulse Core",
+        text: "At the start of a space combat, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit against your opponent's ships; that hit must be assigned by your opponent to 1 of their non-fighter ships, if able.",
+      },
+      {
+        name: "Yin Spinner",
+        text: "After 1 or more of your units use PRODUCTION, place 1 infantry from your reinforcements on a planet you control in that system. Prerequisites: After you produce units, place up to 2 infantry from your reinforcements on any planet you control or in any space area that contains 1 or more of your ships.",
+      },
+    ],
     faq: [
       "Q: Does the Yin Brotherhood agent, Brother Milor, keep combat going after the last ship is destroyed? A: Yes.",
       "Q: Can the Yin Brotherhood commander, Brother Omar, or the Naalu Collective commander, M’aban, allow the player to choose to produce only 1 infantry/fighter and then another with their commander? A: Yes, both of these commanders allow the player to choose to only build a single fighter/infantry for 1 resource and gain an additional unit of that type each time they do.",
@@ -1181,6 +1497,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "base",
     difficulty: "Low",
     color: "Green, Yellow",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/a/ac/Yssaril.png",
     commodities: 3,
     homePlanets: [
       "Retillion: 2/3",
@@ -1234,7 +1551,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Deepgloom Executable",
       text: "You can allow other players to use your STALL TACTICS or SCHEMING faction abilities; when you do, you may resolve a transaction with that player. During the action phase, that transaction does not count against the once-per-player transactions limit for that turn.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Spy Net", text: "At the start of your turn: Look at the Yssaril player's hand of action cards. Choose 1 of those cards and add it to your hand. Then, return this card to the Yssaril player." },
+    ],
+    factionTech: [
+      {
+        name: "Transparasteel Plating",
+        text: "During your turn of the action phase, players that have passed cannot play action cards.",
+      },
+      {
+        name: "Mageon Implants",
+        text: "ACTION: Exhaust this card to look at another player's hand of action cards. Choose 1 of those cards and add it to your hand.",
+      },
+    ],
     faq: [
       "Q: Does the “Neural Motivator” technology give an additional action card with the Yssaril’s “Scheming” faction ability? A: Yes, \"when you draw action cards\" so you would draw 3 cards.",
     ],
@@ -1246,6 +1577,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "Low",
     color: "Orange",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/1/13/ArgentFactionSymbol.png",
     commodities: 3,
     homePlanets: [
       "Valk: 2/0",
@@ -1302,7 +1634,33 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Wing Transfer",
       text: "When you activate a system that contains only your units, you may place command tokens from your reinforcements into any system adjacent to that system that contain only your units; at the end of this action, you may move ships among the active system and systems adjacent to it that contain your command tokens.",
+      synergy: ["propulsion","cybernetic"],
     },
+    promissory: [
+      { name: "Strike Wing Ambuscade", text: "When 1 or more of your units make a roll for a unit ability: Choose 1 of those units to roll 1 additional die Then, return this card to the Argent player" },
+    ],
+    factionTech: [
+      {
+        name: "Aerie Hololattice",
+        text: "Other players cannot move ships through systems that contain your structures. Each planet that contains 1 or more of your structures gains the PRODUCTION 1 ability as if it were a unit",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Strike Wing Alpha I",
+        cost: "1",
+        combat: "8",
+        text: "2",
+        prerequisites: "1",
+      },
+      {
+        name: "Strike Wing Alpha II",
+        cost: "1",
+        combat: "7",
+        text: "2",
+        prerequisites: "1",
+      },
+    ],
     faq: [
       "Q: Can ships damaged by Raid Formation trigger a window for the Direct Hit Action card? A: No, Raid Formation does not cause the ship to use its Sustain Damage ability, it only causes it to become damaged, so there is no window for Direct Hit to be used.",
       "Q: Can the Argent Flight Hero \"Mirik Aun Sissiri\" be used to move ships into a Supernova or Nebula tile? A: No. Any units moving into, through or out of anomalies must follow the same rules for ships moving into, through or out of anomalies.",
@@ -1317,6 +1675,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "Low",
     color: "Purple, Pink, Red",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/c/ca/EmpyreanFactionSymbol.png",
     commodities: 4,
     homePlanets: [
       "The Dark: 3/4",
@@ -1369,7 +1728,22 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Void Tether",
       text: "When you activate a system that contains or is adjacent to a unit or planet you control, you may place or move 1 of your void tether tokens onto a border that system shares with another system; other players do not treat those systems as adjacent to each other unless you allow it.",
+      synergy: ["biotic","propulsion"],
     },
+    promissory: [
+      { name: "Dark Pact", text: "ACTION: Place this card face up in your play area. When you give a number of commodities to the Empyrean player equal to your maximum commodity value, you each gain 1 trade good. If you activate a system that contains 1 or more of the Empyrean player's units, return this card to the Empyrean player." },
+      { name: "Blood Pact", text: "ACTION: Place this card face up in your play area. When you and the Empyrean player cast votes for the same outcome, cast 4 additional votes for that outcome. If you activate a system that contains 1 or more of the Empyrean player's units, return this card to the Empyrean player." },
+    ],
+    factionTech: [
+      {
+        name: "Aetherstream",
+        text: "After you or one of your neighbors activates a system that is adjacent to an anomaly, you may apply +1 to the move value of all of that player's ships during this tactical action.",
+      },
+      {
+        name: "Voidwatch",
+        text: "After a player moves ships into a system that contains 1 or more of your units, they must give you 1 promissory note from their hand, if able.",
+      },
+    ],
     faq: [
       "Q: When a player gives you their commodities and triggers Dark Pact, do you gain all the trade goods simultaneously or the Dark Pact TG separately? (For the purposes of Pillage) A: It is a single gain of commodities and 1 TG simultaneously.",
       "Q:: Can the Empyrean flagship be used to repair the same ship, multiple times in the same combat round? Can it spend a 4 influence planet to use the ability twice? A: The Dynamo’s ability can be used multiple times in the same combat round by spending 2 influence, individually, each time. However, the same unit could not use its Sustain Damage ability multiple times during the same timing window. ru:Возвышенные Category:Factions",
@@ -1382,6 +1756,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "High",
     color: "Yellow, Purple",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/2/2f/MahactSymbolSquare.png",
     commodities: 3,
     homePlanets: [
       "Ixth: 3/5",
@@ -1435,7 +1810,31 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Vaults of the Heir",
       text: "ACTION: Exhaust this card and purge 1 of your technologies to gain 1 relic.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Scepter of Dominion", text: "At the start of the strategy phase: Choose 1 non-home system that contains your units; each other player who has a token on the Mahact player's command sheet places a token from their reinforcements in that system. Then, return this card to the Mahact player." },
+    ],
+    factionTech: [
+      {
+        name: "Genetic Recombination",
+        text: "You may exhaust this card before a player casts votes; that player must cast at least 1 vote for an outcome of your choice or remove 1 token from their fleet pool and return it to their reinforcements.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Crimson Legionnaire I",
+        cost: "1x2",
+        combat: "8",
+        text: "After this unit is destroyed, gain 1 commodity or convert 1 of your commodities to a trade good.",
+      },
+      {
+        name: "Crimson Legionnaire II",
+        cost: "1x2",
+        combat: "7",
+        text: "After this unit is destroyed, gain 1 commodity or convert 1 of your commodities to a trade good. Then, place the unit on this card. At the start of your next turn, place each unit that is on this card on a planet you control in your home system.",
+      },
+    ],
     faq: [
       "Q: Can you use the Mahact Agent, Jae Mir Kan, to place a token using the secondary of the Construction Strategy Card without placing a structure A: The system that you place a token in must have an eligible planet for you to put a structure on.",
       "Q: If the Mahact player has a token where they want to place a structure using another player's token, does the other player's token go in the system or to their reinforcements? A: The other players token is still placed in the system.",
@@ -1463,6 +1862,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "Low",
     color: "Green",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/3/3b/NaazRokhaSymbolSquare.png",
     commodities: 3,
     homePlanets: [
       "Naazir: 2/1",
@@ -1516,7 +1916,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Absolute Synergy",
       text: "When you have 4 mechs in the same system, you may return 3 of those mechs to your reinforcements to flip this card and place it on top of your mech card.",
+      synergy: ["biotic","propulsion"],
     },
+    promissory: [
+      { name: "Black Market Forgery", text: "ACTION: Purge 2 of your relic fragments of the same type to gain 1 relic. Then, return this card to the Naaz-Rokha player." },
+    ],
+    factionTech: [
+      {
+        name: "Supercharge",
+        text: "At the start of a combat round, you may exhaust this card to apply +1 to the result of each of your unit's combat rolls during this combat round.",
+      },
+      {
+        name: "Pre-Fab Arcologies",
+        text: "After you explore a planet, ready that planet.",
+      },
+    ],
     faq: [
       "Q: Can the Naaz-Rohka hero, Hesh and Prit, be used when the player has no tokens in reinforcements? A: The LRR will be updated to be more general towards taking off sheet if none are in reinforcements. This change should cover other requirements in this regard as well.",
       "Q: Can you purge a relic fragment to gain a command token if you have no command tokens in your reinforcements? A: Yes, you can purge the fragment and not gain a command token if there are none in reinforcements.",
@@ -1531,6 +1945,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "Low",
     color: "Blue, Purple",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/5/5e/NomadFactionSheet.png",
     commodities: 4,
     homePlanets: [
       "Arcturus: 4/4",
@@ -1594,7 +2009,17 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Thunder's Paradox",
       text: "At the start of any player's turn, you may exhaust 1 of your agents to ready any other agent.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "The Cavalry", text: "At the start of a space combat against a player other than the Nomad: During this combat, treat 1 of your non-fighter ships as if it has the SUSTAIN DAMAGE ability, combat value, and ANTI-FIGHTER BARRAGE value of the Nomad's flagship. Return this card to the Nomad player at the end of this combat." },
+    ],
+    factionTech: [
+      {
+        name: "Temporal Command Suite",
+        text: "After any player's agent becomes exhausted, you may exhaust this card to ready that agent; if you ready another player's agent, you may perform a transaction with that player.",
+      },
+    ],
     faq: [
       "Q: Does the Duranium Armor technology allow you to repair Nomad Mechs that have used their ability to cancel a hit during space combat? A: No, Duranium Armor only affects units participating (rolling dice) in a combat.",
       "Q: Does Nomad’s Temporal Command Suite faction technology bypass transaction limits? A: Yes, Temporal Command Suite’s transaction does not affect performing a second transaction with the same player that turn.",
@@ -1608,6 +2033,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "Medium",
     color: "Pink",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/6/6d/UlFactionSymbol.png",
     commodities: 2,
     homePlanets: [
       "Elysium: 4/1",
@@ -1660,7 +2086,38 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Slumberstate Computing",
       text: "When COALESCENCE results in a ground combat, if you commit no other units, you may choose for your units to coexist instead. During the status phase, for each player you are coexisting with, you and that player each draw 1 additional action card. Other players may allow you to place a sleeper token on a planet they control.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Terraform", text: "ACTION: Attach this card to a non-home planet you control other than Mecatol Rex. Its resource and influence values are each increased by 1 and it is treated as having all 3 planet traits (Cultural, Hazardous, and Industrial)." },
+    ],
+    uniqueUnits: [
+      {
+        name: "Saturn Engine I",
+        cost: "2",
+        combat: "7",
+        text: "2",
+        prerequisites: "1",
+      },
+      {
+        name: "Saturn Engine II",
+        cost: "2",
+        combat: "6",
+        text: "3",
+        prerequisites: "2",
+      },
+      {
+        name: "Hel‑Titan&nbsp;I",
+        cost: "7",
+        combat: "Planetary Shield Space Cannon 6 Sustain Damage Production 1 This unit is treated as both a structure and a ground force. It cannot be transported.",
+        text: "None",
+      },
+      {
+        name: "Hel‑Titan&nbsp;II",
+        cost: "6",
+        combat: "Planetary Shield Space Cannon 5 Sustain Damage Production 1 This unit is treated as both a structure and a ground force. It cannot be transported. You may use this unit's SPACE CANNON against ships that are adjacent to this unit's system.",
+      },
+    ],
     faq: [
       "Q: Hel Titans cannot be transported but can they be moved by use of the technology Transit Diodes? A: Since Transit Diodes uses the terms \"remove\" and \"place\" it may be used to move Hel Titans.",
       "Q: Can Hel Titans be destroyed by Bombardment? A: Since Hel Titans are treated as ground forces, they may be bombarded; provided the player bombarding has a unit or ability that is capable of bypassing their Planetary Shield ability.",
@@ -1681,6 +2138,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "pok",
     difficulty: "High",
     color: "Red",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/0/04/CabalFactionSymbol.png",
     commodities: 2,
     homePlanets: [
       "Acheron: 4/0",
@@ -1733,7 +2191,30 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Al'Raith Ix Ianovar",
       text: "This breakthrough causes The Fracture to enter play without a roll, if it is not already in play. After this card enters play, move up to 2 ingress tokens into systems that contain gravity rifts. Apply +1 to the Move value of each of your ships that start their movement in The Fracture.",
+      synergy: ["warfare","biotic"],
     },
+    promissory: [
+      { name: "Crucible", text: "After you activate a system: Your ships do not roll for gravity rifts during this movement; apply an additional +1 to the move values of your ships that would move out of or through a gravity rift instead. Then, return this card to the Vuil'raith player." },
+    ],
+    factionTech: [
+      {
+        name: "Vortex",
+        text: "ACTION: Exhaust this card to choose another player's non-structure unit in a system that is adjacent to 1 or more of your space docks. Capture 1 unit of that type from that player's reinforcements",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Dimensional Tear I",
+        cost: "5",
+        combat: "This system is a gravity rift; your ships do not roll for this gravity rift. Place a dimensional tear token beneath this unit as a reminder. Up to 6 fighters in this system do not count against your ships' capacity.",
+        text: "None",
+      },
+      {
+        name: "Dimensional Tear II",
+        cost: "7",
+        combat: "This system is a gravity rift; your ships do not roll for this gravity rift. Place a dimensional tear token beneath this unit as a reminder. Up to 12 fighters in this system do not count against your ships' capacity.",
+      },
+    ],
     faq: [
       "Q: Can Vortex be used on a ship if a player doesn't have any of those ships in their reinforcements? A: No, since they cannot fully resolve Vortex",
       "Q: Are systems that contain Vuil’raith Cabal’s Dimensional Tears anomalies? A: Yes, any game effect that references an anomaly includes systems containing Dimensional Tears",
@@ -1752,6 +2233,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "codex3",
     difficulty: "Medium",
     color: "Purple, blue, yellow",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/8/86/KeleresFactionSymbol.png",
     commodities: 2,
     homePlanets: [
       "Dependent on Tribunii faction choice, may be one of three options below:",
@@ -1837,7 +2319,11 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "I.I.H.Q. Modernization",
       text: "When you gain this card, gain the Custodia Vigilia planet card and its legendary planet ability card. You are neighbors with all players that have units or control planets in or adjacent to the Mecatol Rex system.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Keleres Rider", text: "After an agenda is revealed: You cannot vote on this agenda. Predict aloud an outcome of this agenda. If your prediction is correct, draw 1 action card and gain 2 trade goods. Then, return this card to the Keleres player." },
+    ],
     faq: [
       "Q: Can the Keleres Hero ability \"Overwing Zeta\" be used during a combat in which you are not participating in? A: No, any non-agent “at the start of a combat” abilities must be played during a combat you are participating in.",
       "Q: What is the duration of the Council Keleres agent, Xander Alexin Victori III? A: The agent is exhausted at the time the commodities would be spent as trade goods, and only lasts for the duration of that spend.",
@@ -1857,6 +2343,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "thundersedge",
     difficulty: "High",
     color: "Red",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/0/00/CrimsonFactionSymbol.png",
     commodities: 2,
     homePlanets: [
       "Ahk Creuxx: 4/2",
@@ -1910,7 +2397,31 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Resonance Generator",
       text: "During your tactical actions, apply +1 to the move value of each of your ships that start in your home system or in a system that contains an active breach. ACTION: Exhaust this card to flip any breach or place an active breach in a non-home system that contains your units.",
+      synergy: ["propulsion","warfare"],
     },
+    promissory: [
+      { name: "Sever", text: "ACTION: Place this card faceup in your play area, and place the sever token in a system that contains your units; wormholes in that system have no effect during movement. Remove the sever token and return this card to the Rebellion player at end of the status phase." },
+    ],
+    factionTech: [
+      {
+        name: "Subatomic Splicer",
+        text: "When one of your ships is destroyed, you may produce a ship of the same type at a space dock in your home system.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Exile I",
+        cost: "1",
+        combat: "8",
+        text: "2",
+      },
+      {
+        name: "Exile II",
+        cost: "1",
+        combat: "7",
+        text: "2",
+      },
+    ],
     faq: [
       "Q: Can the Rebellion agent Ahk Ravin be used to swap a non-fighter ship with a fighter? A: Ahk Ravin does not specify non-fighter ship, so yes.",
       "Q: Is there a Fracture roll at the start of any game with the Crimson Rebellion participating? A: Yes, in the Gather Starting Components step of setup, the Crimson Rebellion player GAINS their Breakthrough and as such there is a Fracture roll.",
@@ -1923,6 +2434,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     shortName: "Deepwrought",
     expansion: "thundersedge",
     difficulty: "Medium",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/8/83/DWSFactionSymbol.png",
     commodities: 3,
     homePlanets: [
       "Ikatena: 4/4",
@@ -1973,7 +2485,21 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Visionaria Select",
       text: "ACTION: Exhaust this card to allow each other player to spend 3 trade goods and give you 1 promissory note. Each player that does may research a non-faction, non-unit upgrade technology. You also gain each technology researched this way.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Share Knowledge", text: "ACTION: Place this card faceup in your play area and gain 1 non-faction, non-unit upgrade technology that the Deepwrought player owns; place that technology on this card. Return that technology to the deck and this card to the Deepwrought player at the end of the status phase." },
+    ],
+    factionTech: [
+      {
+        name: "Radical Advancement",
+        text: "At the start of the status phase, you may replace one of your non-unit upgrade technologies with a technology of the same color that has exactly 1 more prerequisite.",
+      },
+      {
+        name: "Hydrothermal Mining",
+        text: "At the start of the status phase, gain 1 trade good for each ocean card in play.",
+      },
+    ],
     faq: [
       "Q: Is the Deepwrought Commander, Aello, optional? A: No! Once it is unlocked, any player may use it, whether or not the Deepwrought player wants them to.",
       "Q: If Deepwrought Scholarate is the controller of a planet and an opponent commits ground units to it, can Deepwrought trigger Research Team to avoid combat even though opponent wants to still initiate combat? A: Dane has ruled the answer to be yes, they can use research teams to avoid combat as long as they were not already coexisting. See SCPT episode 443 for this and other coexistence clarifications.",
@@ -1987,6 +2513,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     shortName: "Firmament",
     expansion: "thundersedge",
     difficulty: "High",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/e/eb/FirmamentFactionSymbol.png",
     commodities: 3,
     homePlanets: [
       "Cronos: 2/1",
@@ -2042,7 +2569,30 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "The Sowing",
       text: "When you gain this card and at the start of the status phase, you may place up to three of your trade goods on this card. Flip this card if you become The Obsidian faction.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Black Ops", text: "When you receive this card: If you are not The Firmament, the Firmament player may place 1 facedown plot card in their play area with your control token on it. Then, gain 2 command tokens, gain 2 trade goods, and purge this card." },
+      { name: "Malevolency", text: "At the end of one of your tactical actions: Spend 1 Influence to give this card to 1 of your neighbors; you can use this ability even if you are The Obsidian player. At the end of the status phase, if you are not the Obsidian player, remove 1 command token from your fleet pool and return it to your reinforcements." },
+    ],
+    factionTech: [
+      {
+        name: "Plane Splitter",
+        text: "When you gain this card, put The Fracture into play. Flip this card if the Obsidian faction is in play.",
+      },
+      {
+        name: "Neural Parasite",
+        text: "At the start of the status phase, you may place 1 infantry from your reinforcements on a planet you control in your home system. Flip this card if the Obsidian faction is in play.",
+      },
+      {
+        name: "Plane Splitter",
+        text: "At the start of your strategic actions, you may move an ingress token into a system that contains or is adjacent to your units. This technology cannot be researched.",
+      },
+      {
+        name: "Neural Parasite",
+        text: "At the start of your turn, destroy 1 of another player's infantry in or adjacent to a system that contains your infantry. This technology cannot be researched.",
+      },
+    ],
     faq: [
       "Q: Can you place your own Control Tokens on Plot cards? A: You cannot.",
       "Q: Can you get more than one persons control tokens on one plot card? A: Yes that is possible.",
@@ -2056,6 +2606,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "thundersedge",
     difficulty: "Low",
     color: "Orange, Blue",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/6/62/LastBastionFactionSymbol.png",
     commodities: 1,
     homePlanets: [
       "Ordinian: 0/0",
@@ -2110,7 +2661,29 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "The Icon",
       text: "When you produce ships, you may exhaust this card to place those ships in a system that contains one of your command tokens, at least one of your ground forces, and no other player's ships.",
+      synergy: ["warfare","cybernetic"],
     },
+    promissory: [
+      { name: "Raise the Standard", text: "At the end of a combat: Galvanize 1 of your units that participated. Then, return this card to the Last Bastion player." },
+    ],
+    factionTech: [
+      {
+        name: "Proxima Targeting VI",
+        text: "Cancel 1 hit produced by BOMBARDMENT rolls made against your ground forces for each of your galvanized units present. At the start of a round of ground combat, you may resolve BOMBARDMENT 8 (x3) against your opponents ground forces; if you do, make an identical roll against your own ground forces.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "4X41C \"HELIOS\" V1",
+        cost: "This unit's PRODUCTION value is equal to 2 more than the resource value of this planet. The resource value of this planet is increased by 1. Up to 3 fighters in this system do not count against your ships' capacity. Production X",
+        combat: "None",
+      },
+      {
+        name: "4X41C \"HELIOS\" V2",
+        cost: "This unit's PRODUCTION value is equal to 4 more than the resource value of this planet. The resource value of this planet is increased by 2. Up to 3 fighters in this system do not count against your ships' capacity. Production X",
+        combat: "",
+      },
+    ],
     faq: [
       "Q: When Galvanizing, can I move galvanize tokens between units when the token supply is empty? A: No.",
     ],
@@ -2122,6 +2695,7 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     expansion: "thundersedge",
     difficulty: "Low",
     color: "Green, Yellow, Blue",
+    symbol: "https://static.wikia.nocookie.net/twilight-imperium-4/images/5/5c/RalNelFactionSymbol.png",
     commodities: 4,
     homePlanets: [
       "Mez Lo Orz Pei Zsha: 2/1",
@@ -2175,7 +2749,33 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     breakthrough: {
       name: "Data Skimmer",
       text: "During the action phase, if you have not passed, when other players would discard action cards, they are placed on this card instead. When you pass, take 1 action card from this card and discard the rest.",
+      synergy: ["cybernetic","biotic"],
     },
+    promissory: [
+      { name: "Nano-Link Permit", text: "After you activate a system: You may move your structures from adjacent systems that do not contain your command tokens onto planets you control in the active system. Then, return this card to the Ral Nel player." },
+    ],
+    factionTech: [
+      {
+        name: "Nanomachines",
+        text: "ACTION: Exhaust this card to place 1 PDS on a planet you control. ACTION: Exhaust this card to repair all of your damaged units. ACTION: Exhaust this card and discard 1 action card to draw 1 action card.",
+      },
+    ],
+    uniqueUnits: [
+      {
+        name: "Linkship I",
+        cost: "1",
+        combat: "9",
+        text: "3",
+        prerequisites: "This unit can use the SPACE CANNON ability of one of your structures in its space area; each structure can only be triggered once. Anti-Fighter Barrage 9 (x2)",
+      },
+      {
+        name: "Linkship II",
+        cost: "1",
+        combat: "8",
+        text: "4",
+        prerequisites: "This unit can use the SPACE CANNON ability of one of your structures in its space area; each linkship can trigger the same structure. Anti-Fighter Barrage 6 (x3)",
+      },
+    ],
     faq: [
       "Q: So... their government is run by lizard people? A: We can neither confirm nor deny that.",
       "Q: Can the Ral Nel Consortium build one PDS in space area with nine Destroyers II or so that at the start of each combat each destroyer triggers one PDS shot? A: You can only have up to 8 destroyers on the board at once, but yes! With 1 PDS and 8 Linkship II, each one can trigger the same PDS resulting in 8 Space Cannon shots.",

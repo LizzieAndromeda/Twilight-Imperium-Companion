@@ -17,11 +17,12 @@ this app is not affiliated with or endorsed by them.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong.
-- **Factions** — all 30, including the five from Thunder's Edge. Faction
-  abilities, leaders (agent, commander, hero, with their Omega revisions), the
-  flagship and mech, the Thunder's Edge breakthrough, home planets, starting
-  units and tech, and the FAQ rulings for that faction — all taken from the
-  faction sheets, plus a hand-written read on how each one wants to be played.
+- **Factions** — all 30, including the five from Thunder's Edge, each with its
+  faction symbol. Abilities, leaders (agent, commander, hero, with their Omega
+  revisions), flagship, mech, unique unit variants, faction technologies,
+  promissory notes, the Thunder's Edge breakthrough and its colour synergy,
+  home planets, starting units and tech, and the FAQ rulings for that faction —
+  all from the faction sheets, plus a hand-written read on how each one plays.
 - **Reference tables** — the strategy cards with both abilities (including the two
   Thunder's Edge Omega revisions, which hide the cards they replace), the public
   objective decks split by stage, and all 20 galactic events with their complexity
@@ -104,9 +105,17 @@ shape. Neither touches `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
 
 **Faction data** is scraped from the individual faction pages on the wiki:
-abilities, leaders and their Omega revisions, flagship, mech, Thunder's Edge
+abilities, leaders and their Omega revisions, flagship, mech, unique unit
+variants, faction technologies, promissory notes, the Thunder's Edge
 breakthrough, setup details and FAQ. Faction ids are pinned in the script
 because saved games store `factionId` — an id must never change once shipped.
+
+**Faction symbols** are hot-linked from the wiki's CDN
+(`static.wikia.nocookie.net`, allow-listed in `next.config.ts`) rather than
+copied into `public/`. They are Fantasy Flight artwork, so the app points at
+them where they already live instead of redistributing them in this repository.
+`<FactionSymbol>` falls back to a monogram whenever an image is missing,
+blocked or slow, so nothing depends on that request succeeding.
 
 **Action card data**:
 
@@ -145,6 +154,12 @@ cards, and the faction taglines and playstyles. A curated digest for quick
 lookup, not a reproduction of the rulebook and not complete. The objective lists
 in particular are a working subset (the tracker always lets you type in a card it
 does not carry).
+
+The playstyle notes are opinion, not scraped: **the wiki carries no strategy
+content** for factions — no tier lists, no guides, and the Trivia sections are
+lore and easter eggs. If you want sourced strategy the material exists off-wiki
+(BoardGameGeek, r/twilightimperium), but it is prose written by individuals
+rather than anything structured enough to generate from.
 
 The move from the second tier to the first is the point of the generators. When
 faction data was hand-written, MITOSIS was recorded as "place 1 infantry each

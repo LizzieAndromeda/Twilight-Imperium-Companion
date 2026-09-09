@@ -83,6 +83,29 @@ export interface FactionFlagship {
 export interface FactionUnitCard {
   name: string;
   text: string;
+  /**
+   * The two technology colours a Thunder's Edge breakthrough lets you treat
+   * as interchangeable. Only set on breakthroughs.
+   */
+  synergy?: string[];
+}
+
+/** A faction technology or promissory note — both are a named card. */
+export interface FactionCard {
+  name: string;
+  text: string;
+  /** Technology colour, for faction technologies. */
+  color?: string;
+  prerequisites?: string;
+}
+
+/** A faction's own version of a standard unit, e.g. Spec Ops I / II. */
+export interface FactionUnitVariant {
+  name: string;
+  cost: string;
+  combat: string;
+  text?: string;
+  prerequisites?: string;
 }
 
 /**
@@ -97,6 +120,8 @@ export interface GeneratedFaction extends ExpansionScoped {
   difficulty: "Low" | "Medium" | "High";
   /** Plastic colour(s) the faction ships with. */
   color?: string;
+  /** Url of the faction symbol, served from the wiki's CDN. */
+  symbol?: string;
   commodities?: number;
   homePlanets?: string[];
   startingUnits?: string[];
@@ -107,6 +132,12 @@ export interface GeneratedFaction extends ExpansionScoped {
   mech?: FactionUnitCard;
   /** Thunder's Edge breakthrough technology. */
   breakthrough?: FactionUnitCard;
+  /** Promissory notes only this faction can give away. */
+  promissory?: FactionCard[];
+  /** Technologies only this faction can research. */
+  factionTech?: FactionCard[];
+  /** The faction's own versions of standard units. */
+  uniqueUnits?: FactionUnitVariant[];
   /** Official FAQ rulings from the faction's wiki page. */
   faq?: string[];
 }

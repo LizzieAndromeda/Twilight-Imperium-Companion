@@ -248,3 +248,23 @@
   flex-direction: column;
   gap: var(--s-3);
 }
+
+.detailHead {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+}
+
+.detailHead .detailTagline {
+  margin-bottom: 0;
+}
+
+.techDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
