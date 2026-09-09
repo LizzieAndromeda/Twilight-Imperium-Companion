@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
+import { TRACKER_ENABLED } from "@/lib/features";
 import { useSettings } from "@/state/SettingsProvider";
 import { Badge, Button } from "@/components/ui";
 import {
@@ -10,6 +11,7 @@ import {
   BookIcon,
   LayersIcon,
   OrbitIcon,
+  SearchIcon,
   SlidersIcon,
   SwordsIcon,
   TargetIcon,
@@ -17,6 +19,8 @@ import {
 } from "@/components/ui/icons";
 import { ExpansionSettings } from "./ExpansionSettings";
 import { PhaseCheatSheet, useCheatSheetShortcut } from "./PhaseCheatSheet";
+import { GlobalSearch, useGlobalSearchShortcut } from "./GlobalSearch";
+import searchStyles from "./GlobalSearch.module.css";
 import styles from "./TopNav.module.css";
 
 const LINKS = [
@@ -26,7 +30,9 @@ const LINKS = [
   { href: "/technologies", label: "Tech", icon: BeakerIcon },
   { href: "/factions", label: "Factions", icon: UsersIcon },
   { href: "/reference", label: "Reference", icon: TargetIcon },
-  { href: "/tracker", label: "Tracker", icon: SwordsIcon },
+  ...(TRACKER_ENABLED
+    ? [{ href: "/tracker", label: "Tracker", icon: SwordsIcon }]
+    : []),
 ];
 
 export function TopNav() {
@@ -34,8 +40,10 @@ export function TopNav() {
   const { enabled, hydrated } = useSettings();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [cheatSheetOpen, setCheatSheetOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useCheatSheetShortcut(useCallback(() => setCheatSheetOpen(true), []));
+  useGlobalSearchShortcut(useCallback(() => setSearchOpen(true), []));
 
   // Everything past the always-on base game.
   const extraCount = enabled.length - 1;
@@ -74,6 +82,19 @@ export function TopNav() {
         </nav>
 
         <div className={styles.actions}>
+          <Button
+            size="sm"
+            variant="secondary"
+            className={searchStyles.searchButton}
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search everything (press / )"
+            title="Search everything — press /"
+          >
+            <SearchIcon size={15} />
+            <span className={styles.linkLabel}>Search</span>
+            <span className={searchStyles.kbd}>/</span>
+          </Button>
+
           {/* Rendered only after hydration so the server and client markup
               agree on a count that comes from localStorage. */}
           {hydrated && extraCount > 0 ? (
@@ -105,6 +126,7 @@ export function TopNav() {
 
       <ExpansionSettings open={settingsOpen} onOpenChange={setSettingsOpen} />
       <PhaseCheatSheet open={cheatSheetOpen} onOpenChange={setCheatSheetOpen} />
+      <GlobalSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 }

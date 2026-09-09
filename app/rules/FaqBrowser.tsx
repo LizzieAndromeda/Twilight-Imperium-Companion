@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { FaqAuthority, FaqEntry } from "@/lib/types";
 import { FAQ } from "@/data/faq.generated";
 import { FACTION_BY_ID } from "@/data/factions";
+import { useQuerySeed } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import {
   Badge,
@@ -47,7 +48,7 @@ const AUTHORITY: Record<
 
 export function FaqBrowser() {
   const { scope, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("faq"));
   const [topic, setTopic] = useState<string>(ALL);
   const [authority, setAuthority] = useState<FaqAuthority | typeof ALL>(ALL);
 

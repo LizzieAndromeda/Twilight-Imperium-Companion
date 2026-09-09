@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import type { TechColor, Technology, TechnologyKind } from "@/lib/types";
 import { TECHNOLOGIES, TECH_COLORS } from "@/data/technologies.generated";
 import { FACTION_BY_ID } from "@/data/factions";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
+import { useQuerySeed, useTabParam } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import {
@@ -45,20 +46,34 @@ export default function TechnologiesPage() {
         title="Every card on the tree"
         lede="Basic, faction and unit upgrade technologies with their prerequisites, effects and Codex revisions — and the standard unit line they upgrade from."
       />
-      <Tabs
-        label="Technology sections"
-        items={[
-          { value: "tech", label: "Technologies", content: <TechnologyList /> },
-          { value: "units", label: "Units", content: <UnitReference /> },
-        ]}
-      />
+      {/* Suspense so a global search result arriving with ?q=/?tab= can open
+          the right tab with the query already in the box. */}
+      <Suspense fallback={null}>
+        <TechnologyTabs />
+      </Suspense>
     </>
+  );
+}
+
+const TECH_TABS = ["tech", "units"] as const;
+
+function TechnologyTabs() {
+  const tab = useTabParam(TECH_TABS);
+  return (
+    <Tabs
+      label="Technology sections"
+      defaultValue={tab}
+      items={[
+        { value: "tech", label: "Technologies", content: <TechnologyList /> },
+        { value: "units", label: "Units", content: <UnitReference /> },
+      ]}
+    />
   );
 }
 
 function TechnologyList() {
   const { scope, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("tech"));
   const [color, setColor] = useState<TechColor | typeof ALL>(ALL);
   const [kind, setKind] = useState<TechnologyKind | typeof ALL>(ALL);
 

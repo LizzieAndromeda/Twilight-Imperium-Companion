@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import type {
   AgendaKind,
   ExplorationDeck,
@@ -22,6 +22,7 @@ import {
   RELICS,
 } from "@/data/exploration.generated";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
+import { useQuerySeed, useTabParam } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import {
@@ -44,19 +45,41 @@ export default function ReferencePage() {
         title="The cards you keep re-reading"
         lede="Both abilities on every strategy card, the objective decks, the full agenda deck, and the galactic events that rewrite the rules before a game even starts."
       />
-      <Tabs
-        label="Reference sections"
-        items={[
-          { value: "strategy", label: "Strategy cards", content: <StrategyCards /> },
-          { value: "objectives", label: "Public objectives", content: <Objectives /> },
-          { value: "secrets", label: "Secret objectives", content: <Secrets /> },
-          { value: "agendas", label: "Agendas", content: <Agendas /> },
-          { value: "exploration", label: "Exploration", content: <Exploration /> },
-          { value: "promissory", label: "Promissory notes", content: <Promissory /> },
-          { value: "events", label: "Galactic events", content: <Events /> },
-        ]}
-      />
+      {/* Suspense so a global search result arriving with ?q=/?tab= can open
+          the right tab with the query already in the box. */}
+      <Suspense fallback={null}>
+        <ReferenceTabs />
+      </Suspense>
     </>
+  );
+}
+
+const REFERENCE_TABS = [
+  "strategy",
+  "objectives",
+  "secrets",
+  "agendas",
+  "exploration",
+  "promissory",
+  "events",
+] as const;
+
+function ReferenceTabs() {
+  const tab = useTabParam(REFERENCE_TABS);
+  return (
+    <Tabs
+      label="Reference sections"
+      defaultValue={tab}
+      items={[
+        { value: "strategy", label: "Strategy cards", content: <StrategyCards /> },
+        { value: "objectives", label: "Public objectives", content: <Objectives /> },
+        { value: "secrets", label: "Secret objectives", content: <Secrets /> },
+        { value: "agendas", label: "Agendas", content: <Agendas /> },
+        { value: "exploration", label: "Exploration", content: <Exploration /> },
+        { value: "promissory", label: "Promissory notes", content: <Promissory /> },
+        { value: "events", label: "Galactic events", content: <Events /> },
+      ]}
+    />
   );
 }
 
@@ -110,7 +133,7 @@ const COMPLEXITY_LABEL = ["Light touch", "Moderate", "Rewrites the game"];
 
 function Events() {
   const { scope, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("events"));
 
   const available = useMemo(() => scope(GALACTIC_EVENTS), [scope]);
 
@@ -251,7 +274,7 @@ const DECK_COLOR: Record<ExplorationDeck, string> = {
 
 function Exploration() {
   const { scope, isEnabled, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("exploration"));
 
   const cards = useMemo(() => scope(EXPLORATION_CARDS), [scope]);
   const relics = useMemo(() => scope(RELICS), [scope]);
@@ -382,7 +405,7 @@ const AGENDA_COLOR: Record<AgendaKind, string> = {
 
 function Agendas() {
   const { scope, isEnabled, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("agendas"));
   const [kind, setKind] = useState<AgendaFilter>("all");
 
   const available = useMemo(() => {
@@ -500,7 +523,7 @@ const SECRET_PHASES: SecretObjectivePhase[] = ["Action", "Status", "Agenda"];
 
 function Secrets() {
   const { scope, isEnabled, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("secrets"));
   const [phase, setPhase] = useState<SecretPhaseFilter>("all");
 
   const available = useMemo(() => scope(SECRET_OBJECTIVES), [scope]);
@@ -592,7 +615,7 @@ type StageFilter = "all" | ObjectiveStage;
 
 function Objectives() {
   const { scope, isEnabled, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("objectives"));
   const [stage, setStage] = useState<StageFilter>("all");
 
   const available = useMemo(() => scope(PUBLIC_OBJECTIVES), [scope]);

@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useMemo, useState } from "react";
 import type { Rule, RuleCategory } from "@/lib/types";
 import { RULES, RULE_BY_ID } from "@/data/rules";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
+import { useQuerySeed, useTabParam } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Accordion, Badge, EmptyState, SearchInput, Tabs } from "@/components/ui";
@@ -29,20 +30,34 @@ export default function RulesPage() {
         title="Look it up, keep playing"
         lede="The rules that actually stop a game, written as ordered steps rather than prose — and the official rulings on the arguments they cause."
       />
-      <Tabs
-        label="Rules sections"
-        items={[
-          { value: "rules", label: "Rules", content: <RulesReference /> },
-          { value: "faq", label: "FAQ", content: <FaqBrowser /> },
-        ]}
-      />
+      {/* Suspense so a global search result arriving with ?q=/?tab= can open
+          the right tab with the query already in the box. */}
+      <Suspense fallback={null}>
+        <RulesTabs />
+      </Suspense>
     </>
+  );
+}
+
+const RULES_TABS = ["rules", "faq"] as const;
+
+function RulesTabs() {
+  const tab = useTabParam(RULES_TABS);
+  return (
+    <Tabs
+      label="Rules sections"
+      defaultValue={tab}
+      items={[
+        { value: "rules", label: "Rules", content: <RulesReference /> },
+        { value: "faq", label: "FAQ", content: <FaqBrowser /> },
+      ]}
+    />
   );
 }
 
 function RulesReference() {
   const { scope, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(useQuerySeed("rules"));
   const [category, setCategory] = useState<RuleCategory | typeof ALL>(ALL);
   const [open, setOpen] = useState<string[]>([]);
 

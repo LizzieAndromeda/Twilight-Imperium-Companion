@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import type { ActionCard, ActionCardPhase } from "@/lib/types";
 import { ACTION_CARDS, ACTION_CARD_PHASES } from "@/data/actionCards";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
+import { useUrlQuery } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Badge, Card, EmptyState, ErratumNote, SearchInput, Toggle } from "@/components/ui";
@@ -22,8 +23,18 @@ const PHASE_COLOR: Record<ActionCardPhase, string> = {
 };
 
 export default function ActionCardsPage() {
+  // Suspense so a search result arriving with ?q= can seed the box below.
+  return (
+    <Suspense fallback={null}>
+      <ActionCardsView />
+    </Suspense>
+  );
+}
+
+function ActionCardsView() {
   const { scope, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const { q } = useUrlQuery();
+  const [query, setQuery] = useState(q);
   const [phase, setPhase] = useState<ActionCardPhase | typeof ALL>(ALL);
   const [notesOnly, setNotesOnly] = useState(false);
 

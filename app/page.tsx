@@ -8,6 +8,7 @@ import { PUBLIC_OBJECTIVES } from "@/data/objectives";
 import { ACTION_CARDS } from "@/data/actionCards";
 import { TECHNOLOGIES } from "@/data/technologies.generated";
 import { EXPANSIONS } from "@/lib/expansions";
+import { TRACKER_ENABLED } from "@/lib/features";
 import { useSettings } from "@/state/SettingsProvider";
 import { useGame, PHASE_LABEL } from "@/state/GameProvider";
 import { Badge, Button, Card, SectionHeading } from "@/components/ui";
@@ -68,23 +69,25 @@ export default function OverviewPage() {
         <p className={styles.heroEyebrow}>Twilight Imperium · Fourth Edition</p>
         <h1 className={styles.heroTitle}>Settle the rules argument. Then settle the galaxy.</h1>
         <p className={styles.heroLede}>
-          A searchable rules reference and a full game tracker in one place. Tick
-          the expansions on your table and everything else — rules, factions,
-          objectives — narrows to match.
+          Every card, rule and ruling in one searchable place. Tick the
+          expansions on your table and everything else — rules, factions,
+          technologies, objectives — narrows to match.
         </p>
         <div className={styles.heroActions}>
           <Button size="lg" variant="primary" asChild>
-            <Link href="/tracker">{game ? "Resume game" : "Start a game"}</Link>
-          </Button>
-          <Button size="lg" variant="secondary" asChild>
             <Link href="/rules">Browse the rules</Link>
           </Button>
+          {TRACKER_ENABLED ? (
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/tracker">{game ? "Resume game" : "Start a game"}</Link>
+            </Button>
+          ) : null}
         </div>
       </section>
 
       {/* Only rendered once localStorage has been read, so the server-rendered
           markup never claims a game exists that the browser does not have. */}
-      {gameHydrated && game ? (
+      {TRACKER_ENABLED && gameHydrated && game ? (
         <>
           <SectionHeading>Game in progress</SectionHeading>
           <Card>
@@ -155,13 +158,15 @@ export default function OverviewPage() {
           name="Reference tables"
           body="The eight strategy cards with both abilities, plus the public objective decks split by stage."
         />
-        <NavTile
-          href="/tracker"
-          icon={<SwordsIcon size={18} />}
-          count={null}
-          name="Game tracker"
-          body="Rounds, phases, initiative, victory points, objectives, trade goods and command tokens for up to eight players."
-        />
+        {TRACKER_ENABLED ? (
+          <NavTile
+            href="/tracker"
+            icon={<SwordsIcon size={18} />}
+            count={null}
+            name="Game tracker"
+            body="Rounds, phases, initiative, victory points, objectives, trade goods and command tokens for up to eight players."
+          />
+        ) : null}
       </div>
 
       <SectionHeading>The game round</SectionHeading>

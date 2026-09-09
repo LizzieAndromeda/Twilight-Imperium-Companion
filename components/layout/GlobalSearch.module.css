@@ -1,0 +1,114 @@
+.field {
+  margin-bottom: var(--s-4);
+}
+
+.hintRow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-4);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.count {
+  font-family: var(--font-mono);
+  margin-left: auto;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  max-height: 52dvh;
+  overflow-y: auto;
+}
+
+.result {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  width: 100%;
+  padding: var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-inset);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.result:hover {
+  border-color: var(--line-strong);
+}
+
+/* Keyboard cursor, distinct from hover so the two never fight. */
+.active {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.detail {
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex: none;
+}
+
+.empty {
+  padding: var(--s-6) var(--s-4);
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface-raised);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.searchButton {
+  min-width: 168px;
+  justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .searchButton {
+    min-width: 0;
+  }
+}

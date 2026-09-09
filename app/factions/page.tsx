@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import type { Faction } from "@/lib/types";
 import { FACTIONS } from "@/data/factions";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
+import { useUrlQuery } from "@/lib/useUrlQuery";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
 import {
@@ -36,8 +37,18 @@ const DIFFICULTY_TONE = {
 } as const;
 
 export default function FactionsPage() {
+  // Suspense so a search result arriving with ?q= can seed the box below.
+  return (
+    <Suspense fallback={null}>
+      <FactionsView />
+    </Suspense>
+  );
+}
+
+function FactionsView() {
   const { scope, isEnabled, hydrated } = useSettings();
-  const [query, setQuery] = useState("");
+  const { q } = useUrlQuery();
+  const [query, setQuery] = useState(q);
   const [difficulty, setDifficulty] = useState<DifficultyFilter>("all");
   const [selected, setSelected] = useState<Faction | null>(null);
 

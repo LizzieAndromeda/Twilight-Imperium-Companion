@@ -1,8 +1,8 @@
 # Twilight Imperium Companion
 
-A rules companion and game tracker for **Twilight Imperium: Fourth Edition**, built as a
-dark-mode Next.js app. Tick the expansions on your table and the whole app — rules,
-factions and objectives — narrows to match.
+A rules companion for **Twilight Imperium: Fourth Edition**, built as a dark-mode
+Next.js app. Tick the expansions on your table and the whole app — rules, factions,
+cards and objectives — narrows to match, search included.
 
 An unofficial fan project. Twilight Imperium is a trademark of Fantasy Flight Games;
 this app is not affiliated with or endorsed by them.
@@ -45,10 +45,18 @@ this app is not affiliated with or endorsed by them.
   fragments, all 23 relics, the five general promissory notes, and all 20
   galactic events with their complexity ratings. Codex III revisions are shown
   on the cards they revise.
-- **Game tracker** — rounds and phases, initiative order, victory points, revealed
-  objectives, the speaker token, custodians token, trade goods, commodities and
-  command token pools for three to eight players. The whole game is saved to the
-  browser as you go, so a refresh loses nothing.
+- **Global search** — one box over all thirteen datasets at once, from the top bar
+  or by pressing <kbd>/</kbd> (or <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>K</kbd>).
+  Mid-game you know the name of the thing and not which page it is on, so "Sabotage"
+  finds the action card, the rule and the rulings together. Results are ranked
+  exact name first, and opening one lands on the right page and tab with the query
+  already in that page's own search box. Only enabled expansions are searched.
+- **Game tracker** — on hold. The tracker is built (rounds and phases, initiative
+  order, victory points, objectives, tokens and pools for three to eight players)
+  but switched off behind `TRACKER_ENABLED` in `lib/features.ts`, because it only
+  knows about factions, objectives and strategy cards — it cannot record the laws,
+  technologies, leaders and relics that decide a real game. Saved games are left
+  untouched in the browser; flipping the flag back to `true` restores it.
 - **Expansion toggles** — Prophecy of Kings and Codices I–IV switch on and off from
   one dialog in the top bar. The base game is always on.
 
@@ -80,14 +88,15 @@ app/                    routes: overview, rules, action cards, technology, facti
                         reference, tracker
 components/
   ui/                   design system primitives (Button, Card, Field, Modal, …)
-  layout/               app shell, top nav, expansion settings, phase cheat sheet
+  layout/               app shell, top nav, expansion settings, phase cheat sheet,
+                        global search
   tracker/              game setup, board, player cards, objectives panel
 data/                   rules, factions, action cards, strategy cards, objectives,
                         galactic events, phase cheat sheet
   *.generated.ts        scraped — never hand-edit, regenerate instead
   factionNotes.ts       hand-written editorial, safe from regeneration
 scripts/                data generators
-lib/                    types, expansion registry, storage
+lib/                    types, expansion registry, storage, search index, feature flags
 state/                  SettingsProvider (expansions), GameProvider (the game)
 styles/tokens.css       every colour, space, radius and font in the app
 ```
@@ -108,6 +117,12 @@ the app, correctly filtered, with no other changes.
 
 To add a new expansion, add it to `EXPANSIONS` in `lib/expansions.ts` and it gains a
 checkbox automatically.
+
+A new **dataset** needs one more step: add it to `SEARCH_INDEX` in `lib/search.ts`
+with the kind it should be badged as, and give that kind an entry in `DESTINATION`
+saying which page and tab a result opens. Nothing else is wired by hand — the index
+is flattened once at module load and `searchAll` filters it through the same
+`isEnabled` the rest of the app uses, so new content is expansion-aware for free.
 
 **Expansion tags are not only on top-level records.** A faction sheet is not all
 from one product: leaders and mechs arrived with Prophecy of Kings and
