@@ -20,6 +20,9 @@ this app is not affiliated with or endorsed by them.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong.
+- **Technology** — 89 cards: 24 basic, 41 faction and 24 unit upgrades, with their
+  prerequisite symbols, effects, Codex revisions, upgraded unit stats and which
+  factions start with them. Grouped by colour and ordered by depth in the tree.
 - **Factions** — all 30, including the five from Thunder's Edge, each with its
   faction symbol. Abilities, leaders (agent, commander, hero, with their Omega
   revisions), flagship, mech, unique unit variants, faction technologies,
@@ -62,7 +65,8 @@ Requires Node 20+.
 ### Layout
 
 ```
-app/                    routes: overview, rules, action cards, factions, reference, tracker
+app/                    routes: overview, rules, action cards, technology, factions,
+                        reference, tracker
 components/
   ui/                   design system primitives (Button, Card, Field, Modal, …)
   layout/               app shell, top nav, expansion settings, phase cheat sheet
@@ -96,16 +100,17 @@ checkbox automatically.
 
 ### Regenerating the scraped data
 
-Four datasets are generated rather than hand-written:
+Five datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
 npm run gen:factions       # data/factions.generated.ts
 npm run gen:events         # data/galacticEvents.generated.ts
 npm run gen:objectives     # data/objectives.generated.ts
+npm run gen:technologies   # data/technologies.generated.ts
 ```
 
-All four are deterministic — running them twice gives byte-identical output — and
+All five are deterministic — running them twice gives byte-identical output — and
 each prints a warning list rather than failing silently when a source changes
 shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
@@ -115,6 +120,21 @@ abilities, leaders and their Omega revisions, flagship, mech, unique unit
 variants, faction technologies, promissory notes, the Thunder's Edge
 breakthrough, setup details and FAQ. Faction ids are pinned in the script
 because saved games store `factionId` — an id must never change once shipped.
+
+**Technology data** comes from the four colour pages and the unit upgrade page.
+Faction technologies are described *twice* on the wiki — on the faction's page
+and on the page for their colour — so `gen:technologies` compares its own output
+against `factions.generated.ts` and warns about any name that appears in one but
+not the other. That check found three places where the wiki contradicts itself:
+
+| Colour page | Faction page | Resolution |
+| --- | --- | --- |
+| Spacial Conduit Cylinder | Spatial Conduit Cylinder | Faction page — "spatial" is the word |
+| I.I.H.Q Modernization | I.I.H.Q. Modernization | Faction page — missing full stop |
+| Planet Splitter | Plane Splitter | **Unresolved.** Faction page wins by convention; check the printed card |
+
+Those live in `NAME_CORRECTIONS` in the script, each with its reasoning, so the
+cross-check stays clean and any *new* disagreement surfaces as a warning.
 
 **Faction symbols** are hot-linked from the wiki's CDN
 (`static.wikia.nocookie.net`, allow-listed in `next.config.ts`) rather than
@@ -151,8 +171,8 @@ disagreement rather than silently preferring one. Two known handling decisions:
 
 Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
-**Scraped, verbatim** — action cards, faction sheets, both objective decks and
-galactic events. Generated from the sources above, complete for the products
+**Scraped, verbatim** — action cards, faction sheets, technologies, both
+objective decks and galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 
 The rules reference and the phase cheat sheet are hand-written but **cross-checked

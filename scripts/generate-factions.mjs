@@ -239,12 +239,21 @@ function namedCards(text) {
   // '''Name''' followed by a blockquote.
   const flat = text.replace(/<\/?big>/gi, "");
 
+  // An edition marker or an editorial aside can sit between the name and the
+  // first blockquote — the Council Keleres has
+  // '''I.I.H.Q. Modernization''' {{Edition|Codex III}} (Moved to Breakthrough…)
+  // — so allow a short run of text there rather than requiring them adjacent.
+  // Anything but a tag or the start of the next bold run. Plain apostrophes
+  // must be allowed through: one of these asides reads "Thunder's Edge".
+  const GAP = "(?:(?!''')[^<>]){0,160}";
   const chunks = flat
-    .split(/(?='''[^']+'''\s*<blockquote>)/i)
+    .split(new RegExp(`(?='''[^']+'''${GAP}<blockquote>)`, "i"))
     .filter((c) => /<blockquote>/i.test(c));
 
   for (const chunk of chunks) {
-    const nameMatch = chunk.match(/'''\s*(.*?)\s*'''\s*(?=<blockquote>)/i);
+    const nameMatch = chunk.match(
+      new RegExp(`'''\\s*(.*?)\\s*'''(?=${GAP}<blockquote>)`, "i"),
+    );
     if (!nameMatch) continue;
     const name = clean(nameMatch[1]);
     if (!name) continue;

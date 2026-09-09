@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import { useSettings } from "@/state/SettingsProvider";
 import { Badge, Button } from "@/components/ui";
 import {
+  BeakerIcon,
   BookIcon,
   LayersIcon,
   OrbitIcon,
@@ -22,6 +23,7 @@ const LINKS = [
   { href: "/", label: "Overview", icon: OrbitIcon },
   { href: "/rules", label: "Rules", icon: BookIcon },
   { href: "/action-cards", label: "Action cards", icon: LayersIcon },
+  { href: "/technologies", label: "Tech", icon: BeakerIcon },
   { href: "/factions", label: "Factions", icon: UsersIcon },
   { href: "/reference", label: "Reference", icon: TargetIcon },
   { href: "/tracker", label: "Tracker", icon: SwordsIcon },

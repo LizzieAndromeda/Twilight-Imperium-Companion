@@ -347,7 +347,11 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     factionTech: [
       {
         name: "Magmus Reactor",
-        text: "Your ships can move into supernovas. After 1 or more of your units use Production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good. Prerequisites: Your ships can move into supernovas. Each supernova that contains 1 or more of your units gains the PRODUCTION 5 ability as if it were 1 of your units.",
+        text: "Your ships can move into supernovas. After 1 or more of your units use Production in a system that either contains a war sun or is adjacent to a supernova, gain 1 trade good.",
+      },
+      {
+        name: "Magmus Reactor Ω",
+        text: "Your ships can move into supernovas. Each supernova that contains 1 or more of your units gains the PRODUCTION 5 ability as if it were 1 of your units.",
       },
     ],
     uniqueUnits: [
@@ -616,7 +620,11 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     factionTech: [
       {
         name: "Wormhole Generator",
-        text: "At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships Prerequisites: ACTION: Exhaust this card to place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships.",
+        text: "At the start of the status phase, place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships",
+      },
+      {
+        name: "Wormhole Generator Ω",
+        text: "ACTION: Exhaust this card to place or move a Creuss wormhole token into either a system that contains a planet you control or a non-home system that does not contain another player's ships.",
       },
       {
         name: "Dimensional Splicer",
@@ -1478,7 +1486,11 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
       },
       {
         name: "Yin Spinner",
-        text: "After 1 or more of your units use PRODUCTION, place 1 infantry from your reinforcements on a planet you control in that system. Prerequisites: After you produce units, place up to 2 infantry from your reinforcements on any planet you control or in any space area that contains 1 or more of your ships.",
+        text: "After 1 or more of your units use PRODUCTION, place 1 infantry from your reinforcements on a planet you control in that system.",
+      },
+      {
+        name: "Yin Spinner Ω",
+        text: "After you produce units, place up to 2 infantry from your reinforcements on any planet you control or in any space area that contains 1 or more of your ships.",
       },
     ],
     faq: [
@@ -2323,6 +2335,24 @@ export const GENERATED_FACTIONS: GeneratedFaction[] = [
     },
     promissory: [
       { name: "Keleres Rider", text: "After an agenda is revealed: You cannot vote on this agenda. Predict aloud an outcome of this agenda. If your prediction is correct, draw 1 action card and gain 2 trade goods. Then, return this card to the Keleres player." },
+    ],
+    factionTech: [
+      {
+        name: "I.I.H.Q. Modernization",
+        text: "You are neighbors with all players that have units or control planets in or adjacent to the Mecatol Rex system. Gain the Custodia Vigilia planet card and its legendary planet ability card. You cannot lose these cards, and this card cannot have an X or Y assimilator token placed on it.",
+      },
+      {
+        name: "Agency Supply Network",
+        text: "Whenever you resolve one of your PRODUCTION abilities, you may resolve an additional one of your PRODUCTION abilities in any system; the additional use does not trigger this ability.",
+      },
+      {
+        name: "Executive Order",
+        text: "ACTION: Exhaust this card and draw the top or bottom card of the agenda deck. Players immediately vote on this agenda as if you were the speaker; you can spend trade goods and resources on this agenda as if they were votes.",
+      },
+      {
+        name: "Agency Supply Network",
+        text: "Once per action, when you resolve a unit's PRODUCTION ability, you may resolve another of your unit's PRODUCTION abilities in any system.",
+      },
     ],
     faq: [
       "Q: Can the Keleres Hero ability \"Overwing Zeta\" be used during a combat in which you are not participating in? A: No, any non-agent “at the start of a combat” abilities must be played during a combat you are participating in.",

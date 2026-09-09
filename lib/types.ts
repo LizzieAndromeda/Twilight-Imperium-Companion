@@ -205,6 +205,44 @@ export interface StrategyCard extends ExpansionScoped {
   supersedes?: number;
 }
 
+/* ------------------------------------------------------------ technology */
+
+export type TechColor = "biotic" | "propulsion" | "cybernetic" | "warfare";
+
+export type TechnologyKind = "basic" | "faction" | "unit-upgrade";
+
+/** A Codex rewrite of a technology card, kept with the card it revises. */
+export interface TechRevision {
+  label: string;
+  text: string;
+}
+
+/** The unit a unit-upgrade technology replaces, with its new stats. */
+export interface TechnologyUnit {
+  of: string;
+  cost?: string;
+  combat?: string;
+  move?: string;
+  capacity?: string;
+}
+
+export interface Technology extends ExpansionScoped {
+  id: string;
+  name: string;
+  kind: TechnologyKind;
+  /** Unit upgrades have no colour of their own. */
+  color: TechColor | null;
+  /** The prerequisite symbols printed on the card; its length is the level. */
+  prerequisites: TechColor[];
+  text: string;
+  /** Faction id, for a faction technology. */
+  faction?: string;
+  /** Faction ids that begin the game owning this technology. */
+  startingFor?: string[];
+  unit?: TechnologyUnit;
+  revisions?: TechRevision[];
+}
+
 /* -------------------------------------------------------- galactic events */
 
 /**

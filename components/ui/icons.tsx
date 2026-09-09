@@ -151,3 +151,11 @@ export const LayersIcon = (p: IconProps) => (
     <path d="m3 17 9 5 9-5" />
   </Icon>
 );
+
+/** Technology tree. */
+export const BeakerIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M9 3h6M10 3v6L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3" />
+    <path d="M7 14h10" />
+  </Icon>
+);

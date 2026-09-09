@@ -6,6 +6,7 @@ import { RULES } from "@/data/rules";
 import { FACTIONS } from "@/data/factions";
 import { PUBLIC_OBJECTIVES } from "@/data/objectives";
 import { ACTION_CARDS } from "@/data/actionCards";
+import { TECHNOLOGIES } from "@/data/technologies.generated";
 import { EXPANSIONS } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { useGame, PHASE_LABEL } from "@/state/GameProvider";
@@ -13,6 +14,7 @@ import { Badge, Button, Card, SectionHeading } from "@/components/ui";
 import {
   BookIcon,
   ChevronRightIcon,
+  BeakerIcon,
   LayersIcon,
   SwordsIcon,
   TargetIcon,
@@ -50,6 +52,7 @@ export default function OverviewPage() {
       factions: scope(FACTIONS).length,
       objectives: scope(PUBLIC_OBJECTIVES).length,
       actionCards: scope(ACTION_CARDS).length,
+      technologies: scope(TECHNOLOGIES).length,
     }),
     [scope],
   );
@@ -130,6 +133,13 @@ export default function OverviewPage() {
           count={hydrated ? counts.actionCards : null}
           name="Action cards"
           body="The whole deck with timing windows, deck copy counts and the community clarifications for the interactions that come up."
+        />
+        <NavTile
+          href="/technologies"
+          icon={<BeakerIcon size={18} />}
+          count={hydrated ? counts.technologies : null}
+          name="Technology"
+          body="Basic, faction and unit upgrade technologies with their prerequisites, effects and Codex revisions, grouped by colour."
         />
         <NavTile
           href="/factions"
