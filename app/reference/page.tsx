@@ -1,7 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { AgendaKind, ObjectiveStage, SecretObjectivePhase } from "@/lib/types";
+import type {
+  AgendaKind,
+  ExplorationDeck,
+  ObjectiveStage,
+  SecretObjectivePhase,
+} from "@/lib/types";
 import { STRATEGY_CARDS } from "@/data/strategyCards";
 import {
   PUBLIC_OBJECTIVES,
@@ -10,6 +15,11 @@ import {
 } from "@/data/objectives";
 import { GALACTIC_EVENTS } from "@/data/galacticEvents.generated";
 import { AGENDAS } from "@/data/agendas.generated";
+import {
+  EXPLORATION_CARDS,
+  EXPLORATION_DECKS,
+  RELICS,
+} from "@/data/exploration.generated";
 import { EXPANSION_BY_ID } from "@/lib/expansions";
 import { useSettings } from "@/state/SettingsProvider";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -40,6 +50,7 @@ export default function ReferencePage() {
           { value: "objectives", label: "Public objectives", content: <Objectives /> },
           { value: "secrets", label: "Secret objectives", content: <Secrets /> },
           { value: "agendas", label: "Agendas", content: <Agendas /> },
+          { value: "exploration", label: "Exploration", content: <Exploration /> },
           { value: "events", label: "Galactic events", content: <Events /> },
         ]}
       />
@@ -175,6 +186,138 @@ function Events() {
           </div>
         </>
       )}
+    </>
+  );
+}
+
+/** Deck colours, matched to the planet traits they correspond to. */
+const DECK_COLOR: Record<ExplorationDeck, string> = {
+  Cultural: "var(--p-blue)",
+  Industrial: "var(--success)",
+  Hazardous: "var(--danger)",
+  Frontier: "var(--plasma)",
+};
+
+function Exploration() {
+  const { scope, isEnabled, hydrated } = useSettings();
+  const [query, setQuery] = useState("");
+
+  const cards = useMemo(() => scope(EXPLORATION_CARDS), [scope]);
+  const relics = useMemo(() => scope(RELICS), [scope]);
+
+  const q = query.trim().toLowerCase();
+  const match = (...fields: string[]) =>
+    !q || fields.join(" ").toLowerCase().includes(q);
+
+  const shownCards = cards.filter((c) => match(c.name, c.text, c.deck));
+  const shownRelics = relics.filter((r) => match(r.name, r.text));
+
+  if (!cards.length && !relics.length && hydrated) {
+    return (
+      <EmptyState icon={<TargetIcon size={26} />} title="No exploration content">
+        Exploration and relics arrived with Prophecy of Kings. Enable it from the
+        top bar.
+      </EmptyState>
+    );
+  }
+
+  return (
+    <>
+      <p className={styles.note}>
+        Taking a planet for the first time draws from the deck matching its
+        trait; a ship on a frontier token draws from the frontier deck. Purge
+        three matching relic fragments to take a relic.
+      </p>
+
+      <div className={styles.objControls}>
+        <SearchInput
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search exploration cards and relics…"
+          aria-label="Search exploration cards and relics"
+        />
+        <span className={styles.count}>
+          {shownCards.length + shownRelics.length} of {cards.length + relics.length}
+        </span>
+      </div>
+
+      {EXPLORATION_DECKS.map((deck) => {
+        const items = shownCards.filter((c) => c.deck === deck);
+        if (!items.length) return null;
+        const physical = items.reduce((n, c) => n + c.copies, 0);
+        return (
+          <section key={deck} className={styles.explSection}>
+            <h3 className={styles.abilityLabel}>
+              {deck} deck — {items.length} cards, {physical} in the deck
+            </h3>
+            <div className={styles.explList}>
+              {items.map((card) => (
+                <article
+                  key={card.id}
+                  className={styles.expl}
+                  style={{ ["--deck-color" as string]: DECK_COLOR[card.deck] }}
+                >
+                  <div className={styles.explTop}>
+                    <h4 className={styles.explName}>{card.name}</h4>
+                    {card.copies > 1 ? (
+                      <span className={styles.explCopies}>×{card.copies}</span>
+                    ) : null}
+                  </div>
+                  <p className={styles.explText}>{card.text}</p>
+                  {card.fragment || card.expansion !== "pok" ? (
+                    <div className={styles.explFoot}>
+                      {card.fragment ? (
+                        <Badge tone="accent">Relic fragment</Badge>
+                      ) : null}
+                      {card.expansion !== "pok" ? (
+                        <Badge tone="plasma">
+                          {EXPANSION_BY_ID[card.expansion].shortName}
+                        </Badge>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+
+      {shownRelics.length ? (
+        <section className={styles.explSection}>
+          <h3 className={styles.abilityLabel}>Relics — {shownRelics.length}</h3>
+          <div className={styles.explList}>
+            {shownRelics.map((relic) => (
+              <article
+                key={relic.id}
+                className={styles.expl}
+                style={{ ["--deck-color" as string]: "var(--accent)" }}
+              >
+                <div className={styles.explTop}>
+                  <h4 className={styles.explName}>{relic.name}</h4>
+                </div>
+                <p className={styles.explText}>{relic.text}</p>
+                {/* A later product can reprint a relic with new wording. */}
+                {relic.revisions
+                  ?.filter((rev) => isEnabled(rev.expansion))
+                  .map((rev, i) => (
+                    <p key={i} className={styles.relicRevision}>
+                      <span className={styles.relicRevisionTag}>
+                        {EXPANSION_BY_ID[rev.expansion].shortName}
+                      </span>
+                      <span>{rev.text}</span>
+                    </p>
+                  ))}
+                <div className={styles.explFoot}>
+                  <Badge tone="plasma">
+                    {EXPANSION_BY_ID[relic.expansion].shortName}
+                  </Badge>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

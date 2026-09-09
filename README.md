@@ -39,7 +39,8 @@ this app is not affiliated with or endorsed by them.
 - **Reference tables** — the strategy cards with both abilities (including the two
   Thunder's Edge Omega revisions, which hide the cards they replace), the complete
   public objective decks (20 Stage I, 20 Stage II), all 40 secret objectives grouped
-  by the phase they score in, and all 20 galactic events with their complexity
+  by the phase they score in, the four exploration decks with their relic
+  fragments, all 23 relics, and all 20 galactic events with their complexity
   ratings. Codex III revisions are shown on the cards they revise.
 - **Game tracker** — rounds and phases, initiative order, victory points, revealed
   objectives, the speaker token, custodians token, trade goods, commodities and
@@ -117,7 +118,7 @@ content that is actually on screen.
 
 ### Regenerating the scraped data
 
-Eight datasets are generated rather than hand-written:
+Nine datasets are generated rather than hand-written:
 
 ```bash
 npm run gen:action-cards   # data/actionCards.ts
@@ -128,9 +129,10 @@ npm run gen:technologies   # data/technologies.generated.ts
 npm run gen:agendas        # data/agendas.generated.ts
 npm run gen:faq            # data/faq.generated.ts
 npm run gen:errata         # data/errata.generated.ts
+npm run gen:exploration    # data/exploration.generated.ts
 ```
 
-All eight are deterministic — running them twice gives byte-identical output — and
+All nine are deterministic — running them twice gives byte-identical output — and
 each prints a warning list rather than failing silently when a source changes
 shape. None of them touch `data/factionNotes.ts`, which holds the hand-written
 tagline and playstyle for each faction.
@@ -155,6 +157,15 @@ not the other. That check found three places where the wiki contradicts itself:
 
 Those live in `NAME_CORRECTIONS` in the script, each with its reasoning, so the
 cross-check stays clean and any *new* disagreement surfaces as a warning.
+
+**Exploration data** is checked against the page's own prose. Each relic section
+opens with a sentence like "These 10 Relics were introduced in…", so the
+generator parses that number and compares it to what it scraped. That check
+immediately caught something: the Codex II table has five rows but says three
+relics, because Dynamis Core and Nano-Forge were both reprinted with new
+wording in Thunder's Edge. Those are collapsed into one relic each with a
+`revisions` entry carrying the reprint, which is hidden unless Thunder's Edge
+is enabled — the same shape used for Omega cards elsewhere.
 
 **Errata** are not given a page of their own. All 11 official corrections are
 attached to the component they correct — the action card, faction ability,
@@ -217,7 +228,7 @@ disagreement rather than silently preferring one. Two known handling decisions:
 Content in `data/` falls into two tiers, and it is worth knowing which is which.
 
 **Scraped, verbatim** — action cards, faction sheets, technologies, agendas, the
-FAQ, the errata, both objective decks and galactic events. Generated from the sources above, complete for the products
+FAQ, the errata, exploration and relics, both objective decks and galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 
 The rules reference and the phase cheat sheet are hand-written but **cross-checked

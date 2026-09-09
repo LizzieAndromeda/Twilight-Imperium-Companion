@@ -61,6 +61,39 @@ export interface Rule extends ExpansionScoped {
   gotcha?: string;
 }
 
+/* ------------------------------------------------------------ exploration */
+
+/** Which deck an exploration card is drawn from. */
+export type ExplorationDeck =
+  | "Cultural"
+  | "Industrial"
+  | "Hazardous"
+  | "Frontier";
+
+export interface ExplorationCard extends ExpansionScoped {
+  id: string;
+  name: string;
+  deck: ExplorationDeck;
+  /** How many of this card are in its deck. */
+  copies: number;
+  text: string;
+  /** True for the cards that are relic fragments rather than an effect. */
+  fragment?: boolean;
+}
+
+/** A later reprint of a relic with different wording. */
+export interface RelicRevision {
+  expansion: ExpansionId;
+  text: string;
+}
+
+export interface Relic extends ExpansionScoped {
+  id: string;
+  name: string;
+  text: string;
+  revisions?: RelicRevision[];
+}
+
 /* ----------------------------------------------------------------- errata */
 
 /** What sort of component an erratum corrects. */

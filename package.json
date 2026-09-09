@@ -14,7 +14,8 @@
     "gen:technologies": "node scripts/generate-technologies.mjs",
     "gen:agendas": "node scripts/generate-agendas.mjs",
     "gen:faq": "node scripts/generate-faq.mjs",
-    "gen:errata": "node scripts/generate-errata.mjs"
+    "gen:errata": "node scripts/generate-errata.mjs",
+    "gen:exploration": "node scripts/generate-exploration.mjs"
   },
   "dependencies": {
     "next": "16.3.4",
