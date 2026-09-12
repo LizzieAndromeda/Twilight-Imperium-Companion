@@ -14,9 +14,18 @@ this app is not affiliated with or endorsed by them.
   timing window and text, filterable by phase, with deck copy counts, community
   clarifications and the official FAQ rulings that name each card. Thunder's Edge
   Omega cards automatically hide the Codex I cards they replace.
-- **Phase cheat sheet** — press `?` anywhere, or the Phases button in the top bar.
+- **Cheat sheet** — press `?` anywhere, or the Cheat sheet button in the top bar.
   What you can do in each phase, the printed step order, and the things that get
-  missed. Opens on the phase your tracked game is in.
+  missed. Opens on the phase your tracked game is in, and the phase cards on the
+  overview open it on the one you clicked.
+- **Combat flow** — the fifth tab of the cheat sheet. The tactical action, space
+  combat, invasion and ground combat drawn as flows rather than described as
+  prose, because what people get wrong is the joins: which steps get skipped,
+  that a second round of space combat starts at Announce Retreats rather than at
+  Anti-Fighter Barrage, and the exact moment each unit ability fires. Skips and
+  early exits hang off the side of the spine, the repeating part of the flow is
+  marked down it, and a sixth view lists every ability against the one step it
+  can be used in.
 - **Rules reference** — searchable entries for the rules that actually stop play,
   written as ordered steps rather than prose, with cross-links and a "watch out" note
   on the ones people routinely get wrong. Beside it, an **FAQ** tab with 217 official
@@ -89,10 +98,10 @@ app/                    routes: overview, rules, action cards, technology, facti
 components/
   ui/                   design system primitives (Button, Card, Field, Modal, …)
   layout/               app shell, top nav, expansion settings, phase cheat sheet,
-                        global search
+                        combat flow, global search
   tracker/              game setup, board, player cards, objectives panel
 data/                   rules, factions, action cards, strategy cards, objectives,
-                        galactic events, phase cheat sheet
+                        galactic events, phase cheat sheet, combat guide
   *.generated.ts        scraped — never hand-edit, regenerate instead
   factionNotes.ts       hand-written editorial, safe from regeneration
 scripts/                data generators
@@ -276,7 +285,7 @@ Content in `data/` falls into two tiers, and it is worth knowing which is which.
 FAQ, the errata, exploration and relics, both objective decks and galactic events. Generated from the sources above, complete for the products
 they cover, and regenerable. Trust these at the table.
 
-The rules reference and the phase cheat sheet are hand-written but **cross-checked
+The rules reference, the phase cheat sheet and the combat flow are hand-written but **cross-checked
 against the wiki's rules pages** entry by entry. Phase step orders, combat and invasion
 sequences, command token counts, the custodians cost, the action card hand limit
 and the voting order all verified clean; eleven entries have been corrected across

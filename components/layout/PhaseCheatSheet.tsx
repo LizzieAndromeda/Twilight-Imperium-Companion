@@ -5,6 +5,7 @@ import type { Phase } from "@/lib/types";
 import { PHASE_GUIDE } from "@/data/phaseGuide";
 import { useGame } from "@/state/GameProvider";
 import { Modal } from "@/components/ui";
+import { CombatFlow } from "./CombatFlow";
 import styles from "./PhaseCheatSheet.module.css";
 
 /**
@@ -33,8 +34,8 @@ export function PhaseCheatSheet({
       open={open}
       onOpenChange={onOpenChange}
       wide
-      title="Phase cheat sheet"
-      description="What you can do in each phase, and the things that get missed."
+      title="Cheat sheet"
+      description="What you can do in each phase, how a combat resolves, and the things that get missed."
     >
       {/* Mounted only while open, so the body's state starts fresh on the live
           phase every time the sheet is pulled up — no effect needed to sync. */}
@@ -57,7 +58,12 @@ function CheatSheetBody({
   /** The phase to open on. */
   initialPhase: Phase | null;
 }) {
-  const [selected, setSelected] = useState<Phase>(initialPhase ?? "strategy");
+  // Combat is a sub-flow of the action phase rather than a phase of its own,
+  // but it is what people look up most, so it sits alongside the four phases
+  // rather than a level down inside one of them.
+  const [selected, setSelected] = useState<Phase | "combat">(
+    initialPhase ?? "strategy",
+  );
 
   const entry = PHASE_GUIDE.find((e) => e.phase === selected) ?? PHASE_GUIDE[0];
 
@@ -82,8 +88,36 @@ function CheatSheetBody({
             {e.name}
           </button>
         ))}
+        <button
+          type="button"
+          className={[styles.tab, selected === "combat" && styles.tabOn]
+            .filter(Boolean)
+            .join(" ")}
+          onClick={() => setSelected("combat")}
+          aria-pressed={selected === "combat"}
+        >
+          Combat
+        </button>
       </div>
 
+      {selected === "combat" ? (
+        <>
+          <CombatFlow />
+          <p className={styles.hint}>
+            Press <span className={styles.kbd}>?</span> anywhere to open this,
+            and <span className={styles.kbd}>Esc</span> to close it.
+          </p>
+        </>
+      ) : (
+        <PhaseBody entry={entry} />
+      )}
+    </>
+  );
+}
+
+function PhaseBody({ entry }: { entry: (typeof PHASE_GUIDE)[number] }) {
+  return (
+    <>
       <p className={styles.oneLine}>{entry.oneLine}</p>
 
       {entry.caveat ? <p className={styles.caveat}>{entry.caveat}</p> : null}

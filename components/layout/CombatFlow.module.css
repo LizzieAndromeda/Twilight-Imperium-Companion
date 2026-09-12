@@ -1,0 +1,303 @@
+/**
+ * Five stage names do not fit a phone, and the segmented control is a joined
+ * pill that cannot wrap without coming apart — so the row scrolls sideways
+ * inside itself rather than clipping the last option out of reach.
+ */
+.stagePicker {
+  margin-bottom: var(--s-5);
+  overflow-x: auto;
+  /* Room for the focus ring, which would otherwise be clipped by the scroll. */
+  padding: 2px;
+  margin-left: -2px;
+}
+
+.oneLine {
+  margin-bottom: var(--s-3);
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--line-accent);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.trigger {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  align-items: baseline;
+  margin-bottom: var(--s-5);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.triggerLabel {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* --- the flow spine --- */
+
+.flow {
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  padding-left: 42px;
+  padding-bottom: var(--s-5);
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+/* The numbered node the spine runs through. */
+.marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--line-accent);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  z-index: 1;
+}
+
+.spine {
+  position: absolute;
+  top: 26px;
+  bottom: 0;
+  left: 13px;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+/**
+ * Steps a new round returns to are marked down the spine, so the part of the
+ * flow that repeats is visible without reading the loop note first.
+ */
+.inLoop .spine,
+.inLoop .marker {
+  border-color: var(--accent);
+}
+
+.inLoop .spine {
+  background: var(--line-accent);
+}
+
+.stepBody {
+  padding-top: 3px;
+}
+
+.stepName {
+  margin-bottom: var(--s-2);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stepDetail {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.substeps {
+  margin-top: var(--s-3);
+  list-style: none;
+  border-left: 1px solid var(--line);
+  padding-left: var(--s-4);
+}
+
+.substep {
+  display: block;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.substep + .substep {
+  margin-top: var(--s-3);
+}
+
+.substepName {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.substepDetail {
+  color: var(--text-muted);
+}
+
+.interrupts {
+  margin-top: var(--s-3);
+  list-style: none;
+}
+
+.interrupt {
+  display: flex;
+  gap: var(--s-3);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.interrupt + .interrupt {
+  margin-top: var(--s-2);
+}
+
+.interruptDot {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* A way out of the printed order. */
+.branch {
+  display: flex;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-md);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.branchArrow {
+  flex: none;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.gotcha {
+  margin-top: var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  border-radius: var(--r-md);
+  background: rgba(251, 191, 36, 0.07);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.loop {
+  display: flex;
+  gap: var(--s-3);
+  align-items: flex-start;
+  margin-top: var(--s-5);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--line-accent);
+  border-radius: var(--r-md);
+  background: var(--accent-wash);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.loopArrow {
+  flex: none;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--accent);
+}
+
+.ends {
+  margin-top: var(--s-5);
+}
+
+.endsLabel {
+  margin-bottom: var(--s-3);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.endsList {
+  list-style: none;
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--line);
+}
+
+.endsList li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.endsList li + li {
+  margin-top: var(--s-2);
+}
+
+/* --- the ability table --- */
+
+.abilities {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.ability {
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-inset);
+}
+
+.abilityTop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  margin-bottom: var(--s-2);
+}
+
+.abilityName {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.abilityRolls {
+  margin-bottom: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.abilityNotes {
+  list-style: none;
+}
+
+.abilityNote {
+  display: flex;
+  gap: var(--s-3);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.abilityNote + .abilityNote {
+  margin-top: var(--s-2);
+}

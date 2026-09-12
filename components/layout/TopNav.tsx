@@ -106,11 +106,11 @@ export function TopNav() {
             size="sm"
             variant="secondary"
             onClick={() => setCheatSheetOpen(true)}
-            aria-label="Phase cheat sheet (press ?)"
-            title="Phase cheat sheet — press ?"
+            aria-label="Cheat sheet: phases and combat (press ?)"
+            title="Cheat sheet — phases and combat, press ?"
           >
             <BookIcon size={15} />
-            <span className={styles.linkLabel}>Phases</span>
+            <span className={styles.linkLabel}>Cheat sheet</span>
           </Button>
           <Button
             size="sm"
